@@ -12,11 +12,12 @@ import by.itacademy.familywallet.databinding.FragmentTypeTransactionBinding
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.TypeTransactionAdapter
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class TypeTransactionFragment : Fragment(), ItemClickListener {
     private lateinit var fragmentType: String
     private lateinit var binding: FragmentTypeTransactionBinding
-    private val typeTransactionAdapter: TypeTransactionAdapter by inject()
+    private val typeTransactionAdapter: TypeTransactionAdapter by inject{ parametersOf(this,fragmentType)}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,10 +33,6 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        typeTransactionAdapter.update(fragmentType)
-    }
     companion object {
         fun newInstance(type: String) = TypeTransactionFragment().apply { fragmentType = type }
     }
