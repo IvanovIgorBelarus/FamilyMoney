@@ -1,5 +1,5 @@
 package by.itacademy.familywallet.presentation
 
 interface ItemClickListener {
-    fun onClick()
+    fun onClick(transactionType: String)
 }

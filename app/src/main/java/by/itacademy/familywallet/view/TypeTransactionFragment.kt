@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentTypeTransactionBinding
 import by.itacademy.familywallet.presentation.ItemClickListener
+import by.itacademy.familywallet.presentation.TRANSACTION_TYPE
 import by.itacademy.familywallet.presentation.TypeTransactionAdapter
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -17,7 +18,12 @@ import org.koin.core.parameter.parametersOf
 class TypeTransactionFragment : Fragment(), ItemClickListener {
     private lateinit var fragmentType: String
     private lateinit var binding: FragmentTypeTransactionBinding
-    private val typeTransactionAdapter: TypeTransactionAdapter by inject{ parametersOf(this,fragmentType)}
+    private val typeTransactionAdapter: TypeTransactionAdapter by inject {
+        parametersOf(
+            this,
+            fragmentType
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +43,9 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
         fun newInstance(type: String) = TypeTransactionFragment().apply { fragmentType = type }
     }
 
-    override fun onClick() {
-        startActivity(Intent(this.context, TransactionActivity::class.java))
+    override fun onClick(transactionType: String) {
+        val intent = Intent(this.context, TransactionActivity::class.java)
+        intent.putExtra(TRANSACTION_TYPE, transactionType)
+        startActivity(intent)
     }
 }

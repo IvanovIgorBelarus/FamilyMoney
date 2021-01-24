@@ -32,7 +32,7 @@ class TypeTransactionAdapter(
 
     override fun onBindViewHolder(holder: TypeTransactionViewHolder, position: Int) {
         holder.bind(list[position])
-        holder.itemView.setOnClickListener { itemClickListener.onClick() }
+        holder.itemView.setOnClickListener { itemClickListener.onClick(type) }
     }
 
     //
@@ -46,7 +46,7 @@ class TypeTransactionAdapter(
                 when (type) {
                     EXPENSES -> {
                         setTextColor(ContextCompat.getColor(context,R.color.red))
-                        setBackgroundResource(R.drawable.blue_rectangle_button_background)
+                        setBackgroundResource(R.drawable.red_rectangle_button_background)
                     }
                     INCOMES -> {
                         setTextColor(ContextCompat.getColor(context,R.color.green))

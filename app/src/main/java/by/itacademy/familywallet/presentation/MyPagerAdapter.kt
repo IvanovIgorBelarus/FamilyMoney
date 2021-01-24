@@ -7,9 +7,9 @@ import by.itacademy.familywallet.view.StartFragment
 import by.itacademy.familywallet.view.StatisticsFragment
 import by.itacademy.familywallet.view.TypeTransactionFragment
 
-const val EXPENSES = "expenses"
-const val INCOMES = "income"
-
+const val EXPENSES = "расходы"
+const val INCOMES = "доходы"
+const val TRANSACTION_TYPE="type"
 class MyPagerAdapter(fa: FragmentsActivity) :
     FragmentStateAdapter(fa) {
     override fun getItemCount(): Int = createFragmentList().size
