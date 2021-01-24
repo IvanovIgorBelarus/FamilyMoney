@@ -37,7 +37,6 @@ class TypeTransactionAdapter(
         holder.itemView.setOnClickListener { itemClickListener.onClick(type) }
     }
 
-    //
     override fun getItemCount() = list.size
 
     inner class TypeTransactionViewHolder(private val binding: TypeRecyclerItemBinding) :

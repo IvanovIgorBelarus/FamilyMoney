@@ -1,6 +1,5 @@
 package by.itacademy.familywallet.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentTypeTransactionBinding
-import by.itacademy.familywallet.di.TRANSACTION_TYPE
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.TypeTransactionAdapter
 import org.koin.android.ext.android.inject
@@ -44,8 +42,6 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
     }
 
     override fun onClick(transactionType: String) {
-        val intent = Intent(this.context, TransactionActivity::class.java)
-        intent.putExtra(TRANSACTION_TYPE, transactionType)
-        startActivity(intent)
+        startActivity(TransactionActivity.startTransactionActivity(this.context, transactionType))
     }
 }

@@ -18,7 +18,7 @@ val adapterModule = module {
     }
 }
 val utilsModel = module {
-    single { (binding: ActivityTransactionBinding, transactionType: String?) ->
+    factory { (binding: ActivityTransactionBinding, transactionType: String?) ->
         PreparationTransaction(
             binding,
             transactionType
