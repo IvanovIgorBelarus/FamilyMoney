@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
+import by.itacademy.familywallet.di.EXPENSES
+import by.itacademy.familywallet.di.INCOMES
 
 
 class TypeTransactionAdapter(
@@ -45,11 +47,11 @@ class TypeTransactionAdapter(
                 text = "$item"
                 when (type) {
                     EXPENSES -> {
-                        setTextColor(ContextCompat.getColor(context,R.color.red))
+                        setTextColor(ContextCompat.getColor(context, R.color.red))
                         setBackgroundResource(R.drawable.red_rectangle_button_background)
                     }
                     INCOMES -> {
-                        setTextColor(ContextCompat.getColor(context,R.color.green))
+                        setTextColor(ContextCompat.getColor(context, R.color.green))
                         setBackgroundResource(R.drawable.green_rectangle_button_background)
                     }
                 }

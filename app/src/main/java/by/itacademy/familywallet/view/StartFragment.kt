@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStartBinding
-import by.itacademy.familywallet.presentation.EXPENSES
-import by.itacademy.familywallet.presentation.INCOMES
+import by.itacademy.familywallet.di.EXPENSES
+import by.itacademy.familywallet.di.INCOMES
 
 class StartFragment : Fragment() {
     private lateinit var binding: FragmentStartBinding

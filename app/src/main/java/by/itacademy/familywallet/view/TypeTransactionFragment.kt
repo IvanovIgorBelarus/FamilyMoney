@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentTypeTransactionBinding
+import by.itacademy.familywallet.di.TRANSACTION_TYPE
 import by.itacademy.familywallet.presentation.ItemClickListener
-import by.itacademy.familywallet.presentation.TRANSACTION_TYPE
 import by.itacademy.familywallet.presentation.TypeTransactionAdapter
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
