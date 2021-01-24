@@ -17,4 +17,5 @@
     <string name="message">Вы согласны внести следующие</string>
     <string name="ok">Да</string>
     <string name="no">Нет</string>
+    <string name="save">Сохранить</string>
 </resources>

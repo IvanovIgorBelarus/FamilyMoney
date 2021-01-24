@@ -13,11 +13,11 @@ class TransactionDialog(private val transactionType: String?) : DialogFragment()
             builder
                 .setTitle(getString(R.string.warning))
                 .setMessage("${getString(R.string.message)} $transactionType?")
-                .setPositiveButton(getString(R.string.ok)) { dialog, id ->
+                .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                     dialog.cancel()
                     activity?.finish()
                 }
-                .setNegativeButton(getString(R.string.no)) { dialog, id ->
+                .setNegativeButton(getString(R.string.no)) { dialog, _ ->
                     dialog.cancel()
                 }
             builder.create()

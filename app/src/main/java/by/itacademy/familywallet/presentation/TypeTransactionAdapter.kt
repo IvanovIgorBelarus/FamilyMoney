@@ -35,6 +35,10 @@ class TypeTransactionAdapter(
     override fun onBindViewHolder(holder: TypeTransactionViewHolder, position: Int) {
         holder.bind(list[position])
         holder.itemView.setOnClickListener { itemClickListener.onClick(type) }
+        holder.itemView.setOnLongClickListener {
+            itemClickListener.onLongClick(type, list[position])
+            true
+        }
     }
 
     override fun getItemCount() = list.size

@@ -23,7 +23,7 @@ class StartFragment : Fragment() {
         with(binding) {
             makeIncomeButton.setOnClickListener {
                 startActivity(
-                    TransactionActivity.startTransactionActivity(
+                    TransactionActivity.start(
                         this@StartFragment.context,
                         INCOMES
                     )
@@ -31,7 +31,7 @@ class StartFragment : Fragment() {
             }
             makeCostButton.setOnClickListener {
                 startActivity(
-                    TransactionActivity.startTransactionActivity(
+                    TransactionActivity.start(
                         this@StartFragment.context,
                         EXPENSES
                     )

@@ -11,7 +11,7 @@ import by.itacademy.familywallet.di.INCOMES
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 
-class PreparationTransaction(
+class PreparationTransactionActivity(
     private val binding: ActivityTransactionBinding,
     private val transactionType: String?
 ) {
@@ -23,18 +23,19 @@ class PreparationTransaction(
     }
 
     fun createSpinner() {
+        val currencyArray=arrayOf("BYN", "USD", "EUR")
         with(binding.currencySpinner) {
             when (transactionType) {
                 INCOMES -> {
                     adapter = ArrayAdapter(
                         context, R.layout.green_spinner_item,
-                        arrayOf("BYN", "USD", "EUR")
+                        currencyArray
                     )
                 }
                 EXPENSES -> {
                     adapter = ArrayAdapter(
                         context, R.layout.red_spinner_item,
-                        arrayOf("BYN", "USD", "EUR")
+                        currencyArray
                     )
                 }
             }

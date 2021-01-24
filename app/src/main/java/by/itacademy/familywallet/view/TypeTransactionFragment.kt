@@ -1,5 +1,6 @@
 package by.itacademy.familywallet.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,10 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
     }
 
     override fun onClick(transactionType: String) {
-        startActivity(TransactionActivity.startTransactionActivity(this.context, transactionType))
+        startActivity(TransactionActivity.start(this.context, transactionType))
+    }
+
+    override fun onLongClick(transactionType: String,item:Char) {
+       startActivity(TransactionSettingsActivity.start(this.context,transactionType,item))
     }
 }

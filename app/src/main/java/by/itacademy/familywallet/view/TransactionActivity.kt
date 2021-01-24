@@ -6,19 +6,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.di.TRANSACTION_TYPE
-import by.itacademy.familywallet.utils.PreparationTransaction
+import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
 class TransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionBinding
     private var transactionType: String? = null
-    private val preparationTransaction: PreparationTransaction by inject {
-        parametersOf(
-            binding,
-            transactionType
-        )
+    private val preparationTransactionActivity: PreparationTransactionActivity by inject {
+        parametersOf(binding, transactionType)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTransactionBinding.inflate(layoutInflater)
@@ -28,7 +26,7 @@ class TransactionActivity : AppCompatActivity() {
             transactionType = intent.getStringExtra(TRANSACTION_TYPE)
         }
         if (transactionType != null) {
-            with(preparationTransaction) {
+            with(preparationTransactionActivity) {
                 setItemsStyles()
                 createSpinner()
             }
@@ -45,7 +43,7 @@ class TransactionActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun startTransactionActivity(context: Context?, transactionType: String) =
+        fun start(context: Context?, transactionType: String) =
             Intent(context, TransactionActivity::class.java).apply {
                 putExtra(TRANSACTION_TYPE, transactionType)
             }
