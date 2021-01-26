@@ -22,20 +22,10 @@ class StartFragment : Fragment() {
         binding = FragmentStartBinding.bind(view)
         with(binding) {
             makeIncomeButton.setOnClickListener {
-                startActivity(
-                    TransactionActivity.start(
-                        this@StartFragment.context,
-                        INCOMES
-                    )
-                )
+                startActivity(TransactionActivity.start(this@StartFragment.context,INCOMES))
             }
             makeCostButton.setOnClickListener {
-                startActivity(
-                    TransactionActivity.start(
-                        this@StartFragment.context,
-                        EXPENSES
-                    )
-                )
+                startActivity(TransactionActivity.start(this@StartFragment.context,EXPENSES))
             }
         }
     }

@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.loginIn.setOnClickListener {
-           // startActivity(Intent(this, FragmentsActivity::class.java))
             signIn()
         }
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -39,34 +38,35 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode== RC_SIGN_IN){
-            val task=GoogleSignIn.getSignedInAccountFromIntent(data)
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                val account=task.getResult(ApiException::class.java)!!
+                val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
-            }
-            catch (e:ApiException){
-                Log.w(by.itacademy.familywallet.di.TAG, "Google signin failed",e)
+            } catch (e: ApiException) {
+                Log.w(by.itacademy.familywallet.di.TAG, "Google signin failed", e)
             }
         }
     }
-    private fun firebaseAuthWithGoogle(idToken:String){
-        val credential=GoogleAuthProvider.getCredential(idToken,null)
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
-            .addOnCompleteListener { task->
-                if (task.isSuccessful){
-                    val user=auth.currentUser
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
                     startActivity(Intent(this, FragmentsActivity::class.java))
                     finish()
                     //updateUI(user)
-                }else{
-                    Log.w(by.itacademy.familywallet.di.TAG, "signInWithCredential:failure", task.exception)
+                } else {
+                    Log.w(by.itacademy.familywallet.di.TAG,"signInWithCredential:failure",task.exception)
                     val view = binding.root
                     Snackbar.make(view, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
                     //updateUI(null)
                 }
             }
     }
+
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)

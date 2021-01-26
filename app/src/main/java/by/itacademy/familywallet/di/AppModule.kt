@@ -1,15 +1,17 @@
 package by.itacademy.familywallet.di
 
+import by.itacademy.familywallet.data.FirebaseRepository
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.TypeTransactionAdapter
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import by.itacademy.familywallet.utils.PreparationTransactionSettingsActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.dsl.module
 
-const val EXPENSES = "расходы"
-const val INCOMES = "доходы"
+const val EXPENSES = "Expenses"
+const val INCOMES = "Incomes"
 const val TRANSACTION_TYPE = "type"
 const val ITEM = "item"
 const val TAG = "myname"
@@ -25,4 +27,7 @@ val utilsModel = module {
     factory { (binding: ActivityTransactionSettingsBinding, transactionType: String?, item: Char?) ->
         PreparationTransactionSettingsActivity(binding, transactionType, item)
     }
+}
+val fireBaseModel= module {
+    single { FirebaseRepository() }
 }

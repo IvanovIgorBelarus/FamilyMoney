@@ -23,20 +23,14 @@ class PreparationTransactionActivity(
     }
 
     fun createSpinner() {
-        val currencyArray=arrayOf("BYN", "USD", "EUR")
+        val currencyArray = arrayOf("BYN", "USD", "EUR")
         with(binding.currencySpinner) {
             when (transactionType) {
                 INCOMES -> {
-                    adapter = ArrayAdapter(
-                        context, R.layout.green_spinner_item,
-                        currencyArray
-                    )
+                    adapter = ArrayAdapter(context, R.layout.green_spinner_item, currencyArray)
                 }
                 EXPENSES -> {
-                    adapter = ArrayAdapter(
-                        context, R.layout.red_spinner_item,
-                        currencyArray
-                    )
+                    adapter = ArrayAdapter(context, R.layout.red_spinner_item, currencyArray)
                 }
             }
         }
