@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">FamilyWallet</string>
+
+    <string name="registration">Зарегистрироваться</string>
+    <string name="login_in">Войти</string>
+
+    <string name="main">Главная</string>
+    <string name="spend">Потрачено за месяц:</string>
+    <string name="income_text">Доход за месяц:</string>
+    <string name="balance">Текущий баланс:</string>
+    <string name="expenses">Расходы</string>
+    <string name="income">Доходы</string>
+    <string name="statistics">Статистика</string>
+    <string name="cash">наличные</string>
+    <string name="card">карта</string>
+    <string name="warning">Подтвердите операцию</string>
+    <string name="message">Вы согласны внести следующие</string>
+    <string name="ok">Да</string>
+    <string name="no">Нет</string>
+    <string name="save">Сохранить</string>
+</resources>

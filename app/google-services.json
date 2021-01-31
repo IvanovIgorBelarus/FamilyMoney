@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "670481562259",
+    "project_id": "familywallet-302814",
+    "storage_bucket": "familywallet-302814.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670481562259:android:9c9d8be26d6a4b80b0eb66",
+        "android_client_info": {
+          "package_name": "by.itacademy.familywallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670481562259-5q5l9jg4ikqiq9ob0mvgr919avvrjj1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "by.itacademy.familywallet",
+            "certificate_hash": "bd5eeecc48ea4f717a6f42059e00ed391ea5c0ed"
+          }
+        },
+        {
+          "client_id": "670481562259-lc48mtoinocun1g8ot0kc4qmb10l8aoq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbQoWdXhQn1CuusJHZbpvF6neJTi0eUS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670481562259-lc48mtoinocun1g8ot0kc4qmb10l8aoq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
