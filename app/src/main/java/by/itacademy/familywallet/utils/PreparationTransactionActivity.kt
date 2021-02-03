@@ -13,8 +13,8 @@ import java.text.SimpleDateFormat
 
 class PreparationTransactionActivity(
     private val binding: ActivityTransactionBinding,
-    private val transactionType: String?
-
+    private val transactionType: String?,
+    private val dateMask: DateMask
 ) {
     private val currencyArray = arrayOf("BYN", "USD", "EUR")
     fun setItemsStyles() {
@@ -31,7 +31,7 @@ class PreparationTransactionActivity(
     private fun setColors(color: Int, drawableBackground: Int, spinnerItem: Int) {
         with(binding) {
             with(date) {
-                addTextChangedListener(DateMask())
+                addTextChangedListener(dateMask)
                 setText(getCurrentDate())
                 setTextColor(ContextCompat.getColor(context, color))
                 setBackgroundResource(drawableBackground)

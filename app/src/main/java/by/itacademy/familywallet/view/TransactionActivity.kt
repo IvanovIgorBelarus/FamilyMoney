@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.data.FirebaseRepository
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.di.TRANSACTION_TYPE
+import by.itacademy.familywallet.model.TransactionModel
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
+import by.itacademy.familywallet.utils.Transaction
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -16,6 +18,8 @@ import java.text.SimpleDateFormat
 class TransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionBinding
     private var transactionType: String? = null
+    private var uid: String? = null
+    private val transaction: Transaction by inject()
     private val preparationTransactionActivity: PreparationTransactionActivity by inject {
         parametersOf(binding, transactionType)
     }
@@ -26,7 +30,7 @@ class TransactionActivity : AppCompatActivity() {
         binding = ActivityTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val intent = intent
-        val uid=FirebaseAuth.getInstance().uid
+        uid = FirebaseAuth.getInstance().currentUser?.uid
         if (intent != null) {
             transactionType = intent.getStringExtra(TRANSACTION_TYPE)
         }
@@ -36,27 +40,21 @@ class TransactionActivity : AppCompatActivity() {
         with(binding) {
             cashButton.setOnClickListener {
                 createDialog()
-                doTransaction()
+                if (transactionType != null) {
+                    createDialog()
+                }
             }
             cardButton.setOnClickListener { createDialog() }
         }
     }
 
-    private fun doTransaction() {
-        if (transactionType != null) {
-            db.instance.collection(transactionType!!).add(
-                mapOf(
-                    "date" to SimpleDateFormat("DD/MM/yyyy").parse(binding.date.text.toString()),
-                    "value" to binding.transactionValue.text.toString().toDouble(),
-                    //  "transactiontype" to binding.
-
-                )
-            )
-        }
-    }
-
     private fun createDialog() {
-        val dialog = TransactionDialog(transactionType)
+        val transactionModel = TransactionModel(
+            uid = uid,
+            value = binding.transactionValue.text.toString().toDouble(),
+            date = SimpleDateFormat("DD/MM/yyyy").parse(binding.date.text.toString())
+        )
+        val dialog = TransactionDialog(transactionType, transaction, transactionModel)
         dialog.show(supportFragmentManager, "dialog")
     }
 
