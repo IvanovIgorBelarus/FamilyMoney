@@ -1,11 +1,10 @@
 package by.itacademy.familywallet.model
 
-import java.sql.Timestamp
+import java.util.Date
 
 class TransactionModel(
-    val id: Int,
-    val uid: String,
-    val transactionType: String,
-    val date: Timestamp,
+    val uid: String?,
+    val transactionType: String = "empty",
+    val date: Date,
     val value: Double
 )
