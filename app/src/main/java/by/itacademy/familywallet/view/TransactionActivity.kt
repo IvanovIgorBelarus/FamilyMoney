@@ -3,12 +3,12 @@ package by.itacademy.familywallet.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.data.FirebaseRepository
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.di.TRANSACTION_TYPE
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
+import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import java.text.SimpleDateFormat
@@ -26,14 +26,12 @@ class TransactionActivity : AppCompatActivity() {
         binding = ActivityTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val intent = intent
+        val uid=FirebaseAuth.getInstance().uid
         if (intent != null) {
             transactionType = intent.getStringExtra(TRANSACTION_TYPE)
         }
         if (transactionType != null) {
-            with(preparationTransactionActivity) {
-                setItemsStyles()
-                createSpinner()
-            }
+            preparationTransactionActivity.setItemsStyles()
         }
         with(binding) {
             cashButton.setOnClickListener {
@@ -46,11 +44,12 @@ class TransactionActivity : AppCompatActivity() {
 
     private fun doTransaction() {
         if (transactionType != null) {
-            Log.d(by.itacademy.familywallet.di.TAG,"$transactionType")
             db.instance.collection(transactionType!!).add(
                 mapOf(
                     "date" to SimpleDateFormat("DD/MM/yyyy").parse(binding.date.text.toString()),
-                    "value" to binding.transactionValue.text.toString().toDouble()
+                    "value" to binding.transactionValue.text.toString().toDouble(),
+                    //  "transactiontype" to binding.
+
                 )
             )
         }

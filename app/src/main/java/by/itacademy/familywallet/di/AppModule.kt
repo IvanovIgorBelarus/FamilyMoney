@@ -7,7 +7,6 @@ import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.TypeTransactionAdapter
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import by.itacademy.familywallet.utils.PreparationTransactionSettingsActivity
-import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.dsl.module
 
 const val EXPENSES = "Expenses"
@@ -28,6 +27,6 @@ val utilsModel = module {
         PreparationTransactionSettingsActivity(binding, transactionType, item)
     }
 }
-val fireBaseModel= module {
+val fireBaseModel = module {
     single { FirebaseRepository() }
 }
