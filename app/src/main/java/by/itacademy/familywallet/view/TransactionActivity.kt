@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import by.itacademy.familywallet.data.FirebaseRepository
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.di.TRANSACTION_TYPE
 import by.itacademy.familywallet.model.TransactionModel
@@ -13,7 +12,8 @@ import by.itacademy.familywallet.utils.Transaction
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
-import java.text.SimpleDateFormat
+import java.sql.Date
+import java.util.*
 
 class TransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionBinding
@@ -23,7 +23,6 @@ class TransactionActivity : AppCompatActivity() {
     private val preparationTransactionActivity: PreparationTransactionActivity by inject {
         parametersOf(binding, transactionType)
     }
-    private val db: FirebaseRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +37,9 @@ class TransactionActivity : AppCompatActivity() {
             preparationTransactionActivity.setItemsStyles()
         }
         with(binding) {
+            date.setOnDateChangeListener { view, year, month, dayOfMonth ->
+                view.date = GregorianCalendar(year, month, dayOfMonth).timeInMillis
+            }
             cashButton.setOnClickListener {
                 createDialog()
                 if (transactionType != null) {
@@ -52,7 +54,7 @@ class TransactionActivity : AppCompatActivity() {
         val transactionModel = TransactionModel(
             uid = uid,
             value = binding.transactionValue.text.toString().toDouble(),
-            date = SimpleDateFormat("DD/MM/yyyy").parse(binding.date.text.toString())
+            date = Date(binding.date.date)
         )
         val dialog = TransactionDialog(transactionType, transaction, transactionModel)
         dialog.show(supportFragmentManager, "dialog")

@@ -7,7 +7,6 @@ class DateMask : TextWatcher {
     private var updatedText: String? = null
     private var edit = false
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
     }
 
     override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
