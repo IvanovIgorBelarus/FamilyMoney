@@ -6,11 +6,11 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.model.TransactionModel
-import by.itacademy.familywallet.utils.Transaction
+import by.itacademy.familywallet.data.FirebaseRepositoryImpl
 
 class TransactionDialog(
     private val transactionType: String?,
-    private val transaction: Transaction,
+    private val firebaseRepositoryImpl: FirebaseRepositoryImpl,
     private val transactionModel: TransactionModel
     ) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -21,7 +21,7 @@ class TransactionDialog(
                 .setMessage("${getString(R.string.message)} $transactionType?")
                 .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                     if (transactionType != null) {
-                        transaction.doTransaction(transactionType,transactionModel)
+                        firebaseRepositoryImpl.doTransaction(transactionType,transactionModel)
                         dialog.cancel()
                         activity?.finish()
                     }

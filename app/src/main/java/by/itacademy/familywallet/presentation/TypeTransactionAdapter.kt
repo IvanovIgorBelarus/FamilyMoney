@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.EXPENSES
+import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
-import by.itacademy.familywallet.di.EXPENSES
-import by.itacademy.familywallet.di.INCOMES
+
 
 
 class TypeTransactionAdapter(

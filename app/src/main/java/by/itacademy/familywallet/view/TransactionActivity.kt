@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
-import by.itacademy.familywallet.di.TRANSACTION_TYPE
 import by.itacademy.familywallet.model.TransactionModel
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
-import by.itacademy.familywallet.utils.Transaction
+import by.itacademy.familywallet.data.FirebaseRepositoryImpl
+import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -19,7 +19,7 @@ class TransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionBinding
     private var transactionType: String? = null
     private var uid: String? = null
-    private val transaction: Transaction by inject()
+    private val transaction: FirebaseRepositoryImpl by inject()
     private val preparationTransactionActivity: PreparationTransactionActivity by inject {
         parametersOf(binding, transactionType)
     }

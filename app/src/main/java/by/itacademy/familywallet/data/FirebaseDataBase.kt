@@ -2,6 +2,6 @@ package by.itacademy.familywallet.data
 
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FirebaseRepository {
-        val instance=FirebaseFirestore.getInstance()
+object FirebaseDataBase {
+    val instance = FirebaseFirestore.getInstance()
 }

@@ -2,9 +2,10 @@ package by.itacademy.familywallet.utils
 
 import androidx.core.content.ContextCompat
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.EXPENSES
+import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
-import by.itacademy.familywallet.di.EXPENSES
-import by.itacademy.familywallet.di.INCOMES
+
 
 class PreparationTransactionSettingsActivity(
     private val binding: ActivityTransactionSettingsBinding,

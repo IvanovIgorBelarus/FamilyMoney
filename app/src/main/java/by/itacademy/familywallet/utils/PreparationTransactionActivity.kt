@@ -4,9 +4,10 @@ import android.content.res.ColorStateList
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.EXPENSES
+import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
-import by.itacademy.familywallet.di.EXPENSES
-import by.itacademy.familywallet.di.INCOMES
+
 
 class PreparationTransactionActivity(
     private val binding: ActivityTransactionBinding,
