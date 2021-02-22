@@ -8,7 +8,7 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
-
+import by.itacademy.familywallet.model.CategoryModel
 
 
 class TypeTransactionAdapter(
@@ -16,11 +16,7 @@ class TypeTransactionAdapter(
     private val type: String
 ) :
     RecyclerView.Adapter<TypeTransactionAdapter.TypeTransactionViewHolder>() {
-    private var list = mutableListOf<Char>().apply {
-        for (i in 'a'..'z') {
-            add(i)
-        }
-    }
+    private var list = mutableListOf<CategoryModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TypeTransactionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -44,11 +40,16 @@ class TypeTransactionAdapter(
 
     override fun getItemCount() = list.size
 
+    fun update (list:List<CategoryModel>){
+        this.list.addAll(list)
+        notifyDataSetChanged()
+    }
+
     inner class TypeTransactionViewHolder(private val binding: TypeRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Char) {
+        fun bind(item: CategoryModel) {
             with(binding.textView) {
-                text = "$item"
+                text = "${item.category}"
                 when (type) {
                     EXPENSES -> {
                         setTextColor(ContextCompat.getColor(context, R.color.red))

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.data.ITEM
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
+import by.itacademy.familywallet.model.CategoryModel
 import by.itacademy.familywallet.utils.PreparationTransactionSettingsActivity
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -32,10 +33,10 @@ class TransactionSettingsActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context?, transactionType: String, item: Char) =
+        fun start(context: Context?, transactionType: String, item: CategoryModel) =
             Intent(context, TransactionSettingsActivity::class.java).apply {
                 putExtra(TRANSACTION_TYPE, transactionType)
-                putExtra(ITEM, item)
+                putExtra(ITEM, item.category)
             }
     }
 }

@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentTypeTransactionBinding
+import by.itacademy.familywallet.model.CategoryModel
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.TypeTransactionAdapter
+import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class TypeTransactionFragment : Fragment(), ItemClickListener {
@@ -22,6 +25,7 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
             fragmentType
         )
     }
+    private val transactionViewModel by viewModel<TypeTransactionViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,21 +35,29 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTypeTransactionBinding.bind(view)
+        transactionViewModel.getTransactionTypeList(fragmentType)
         binding.typeAdapter.apply {
             layoutManager = LinearLayoutManager(this@TypeTransactionFragment.context)
             adapter = typeTransactionAdapter
         }
+        initViewModel()
     }
 
-    companion object {
-        fun newInstance(type: String) = TypeTransactionFragment().apply { fragmentType = type }
+    private fun initViewModel() {
+        transactionViewModel.liveData.observe(this,{list->
+            typeTransactionAdapter.update(list)
+        })
     }
 
     override fun onClick(transactionType: String) {
         startActivity(TransactionActivity.start(this.context, transactionType))
     }
 
-    override fun onLongClick(transactionType: String, item: Char) {
+    override fun onLongClick(transactionType: String, item: CategoryModel) {
         startActivity(TransactionSettingsActivity.start(this.context, transactionType, item))
+    }
+
+    companion object {
+        fun newInstance(type: String) = TypeTransactionFragment().apply { fragmentType = type }
     }
 }
