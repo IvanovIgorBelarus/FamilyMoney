@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
+                   // val user = auth.currentUser
                     startActivity(Intent(this, FragmentsActivity::class.java))
                     finish()
                     //updateUI(user)

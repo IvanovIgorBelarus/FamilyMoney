@@ -10,7 +10,6 @@ import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
 import by.itacademy.familywallet.model.CategoryModel
 
-
 class TypeTransactionAdapter(
     private val itemClickListener: ItemClickListener,
     private val type: String
@@ -31,7 +30,7 @@ class TypeTransactionAdapter(
 
     override fun onBindViewHolder(holder: TypeTransactionViewHolder, position: Int) {
         holder.bind(list[position])
-        holder.itemView.setOnClickListener { itemClickListener.onClick(type) }
+        holder.itemView.setOnClickListener { itemClickListener.onClick(list[position]) }
         holder.itemView.setOnLongClickListener {
             itemClickListener.onLongClick(type, list[position])
             true

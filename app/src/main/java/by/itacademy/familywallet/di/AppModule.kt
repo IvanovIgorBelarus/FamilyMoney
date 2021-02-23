@@ -9,6 +9,7 @@ import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.TypeTransactionAdapter
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import by.itacademy.familywallet.utils.PreparationTransactionSettingsActivity
+import by.itacademy.familywallet.viewmodel.StatisticViewModel
 import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -30,8 +31,9 @@ val utilsModel = module {
 val dataModule = module {
     single<DataRepository> { FirebaseRepositoryImpl(FirebaseDataBase.instance) }
 }
-val transactionTypeViewModel= module {
-    viewModel { TypeTransactionViewModel(get()) }
+val viewModelModel = module {
+    viewModel { TypeTransactionViewModel(repo = get()) }
+    viewModel { StatisticViewModel(repo = get()) }
 }
 
 

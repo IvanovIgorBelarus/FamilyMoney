@@ -35,7 +35,6 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTypeTransactionBinding.bind(view)
-        transactionViewModel.getTransactionTypeList(fragmentType)
         binding.typeAdapter.apply {
             layoutManager = LinearLayoutManager(this@TypeTransactionFragment.context)
             adapter = typeTransactionAdapter
@@ -43,14 +42,19 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
         initViewModel()
     }
 
+    override fun onResume() {
+        super.onResume()
+        transactionViewModel.getTransactionTypeList(fragmentType)
+    }
+
     private fun initViewModel() {
-        transactionViewModel.liveData.observe(this,{list->
+        transactionViewModel.liveData.observe(this, { list ->
             typeTransactionAdapter.update(list)
         })
     }
 
-    override fun onClick(transactionType: String) {
-        startActivity(TransactionActivity.start(this.context, transactionType))
+    override fun onClick(item: CategoryModel) {
+        startActivity(TransactionActivity.start(this.context, item.type, item.category))
     }
 
     override fun onLongClick(transactionType: String, item: CategoryModel) {

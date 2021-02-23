@@ -5,26 +5,28 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.model.TransactionModel
-import by.itacademy.familywallet.data.FirebaseRepositoryImpl
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TransactionDialog(
-    private val transactionType: String?,
-    private val firebaseRepositoryImpl: FirebaseRepositoryImpl,
+    private val repo: DataRepository,
     private val transactionModel: TransactionModel
-    ) : DialogFragment() {
+) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity.let {
             val builder = AlertDialog.Builder(it)
             builder
                 .setTitle(getString(R.string.warning))
-                .setMessage("${getString(R.string.message)} $transactionType?")
+                .setMessage("${getString(R.string.message)} ${transactionModel.transactionCategory}?")
                 .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
-                    if (transactionType != null) {
-                        firebaseRepositoryImpl.doTransaction(transactionType,transactionModel)
-                        dialog.cancel()
-                        activity?.finish()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        repo.doTransaction(transactionModel)
                     }
+                    dialog.cancel()
+                    activity?.finish()
                 }
                 .setNegativeButton(getString(R.string.no)) { dialog, _ ->
                     dialog.cancel()

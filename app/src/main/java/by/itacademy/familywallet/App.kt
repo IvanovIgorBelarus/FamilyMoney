@@ -3,7 +3,7 @@ package by.itacademy.familywallet
 import android.app.Application
 import by.itacademy.familywallet.di.adapterModule
 import by.itacademy.familywallet.di.dataModule
-import by.itacademy.familywallet.di.transactionTypeViewModel
+import by.itacademy.familywallet.di.viewModelModel
 import by.itacademy.familywallet.di.utilsModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -15,7 +15,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(adapterModule, utilsModel, dataModule, transactionTypeViewModel)
+            modules(adapterModule, utilsModel, dataModule, viewModelModel)
         }
     }
 }

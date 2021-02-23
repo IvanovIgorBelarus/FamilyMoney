@@ -3,22 +3,21 @@ package by.itacademy.familywallet.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.itacademy.familywallet.data.DataRepository
-import by.itacademy.familywallet.model.CategoryModel
+import by.itacademy.familywallet.model.TransactionModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TypeTransactionViewModel(
+class StatisticViewModel(
     private val repo: DataRepository
 ) : ViewModel() {
-    private val mutableLiveData = MutableLiveData<List<CategoryModel>>()
+    private val mutableLiveData = MutableLiveData<List<TransactionModel>>()
     val liveData = mutableLiveData
-    fun getTransactionTypeList(fragmentType: String) {
+    fun getAllTransActions() {
         CoroutineScope(Dispatchers.IO).launch {
-            val list = repo.getCategoriesList()
-            list.filter { item -> item.type == fragmentType }
-                .map { item -> withContext(Dispatchers.Main) { mutableLiveData.value = mutableListOf<CategoryModel>().apply { add(item) } } }
+            val list = repo.getTransactionsList()
+            withContext(Dispatchers.Main) { mutableLiveData.value = list }
         }
     }
 }

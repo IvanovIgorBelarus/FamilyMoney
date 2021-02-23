@@ -10,7 +10,6 @@ import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.FragmentStartBinding
 
-
 class StartFragment : Fragment() {
     private lateinit var binding: FragmentStartBinding
     override fun onCreateView(
@@ -23,10 +22,10 @@ class StartFragment : Fragment() {
         binding = FragmentStartBinding.bind(view)
         with(binding) {
             makeIncomeButton.setOnClickListener {
-                startActivity(TransactionActivity.start(this@StartFragment.context,INCOMES))
+                startActivity(TransactionActivity.start(this@StartFragment.context, INCOMES, null))
             }
             makeCostButton.setOnClickListener {
-                startActivity(TransactionActivity.start(this@StartFragment.context,EXPENSES))
+                startActivity(TransactionActivity.start(this@StartFragment.context, EXPENSES, null))
             }
         }
     }

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".view.StatisticsFragment">
     <TextView
+        android:id="@+id/te"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="24dp"
