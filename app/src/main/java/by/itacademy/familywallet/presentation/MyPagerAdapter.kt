@@ -2,8 +2,8 @@ package by.itacademy.familywallet.presentation
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import by.itacademy.familywallet.di.EXPENSES
-import by.itacademy.familywallet.di.INCOMES
+import by.itacademy.familywallet.data.EXPENSES
+import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.view.FragmentsActivity
 import by.itacademy.familywallet.view.StartFragment
 import by.itacademy.familywallet.view.StatisticsFragment

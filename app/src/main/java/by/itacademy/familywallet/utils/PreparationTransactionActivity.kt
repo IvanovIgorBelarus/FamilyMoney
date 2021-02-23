@@ -1,20 +1,17 @@
 package by.itacademy.familywallet.utils
 
-import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.EXPENSES
+import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
-import by.itacademy.familywallet.di.EXPENSES
-import by.itacademy.familywallet.di.INCOMES
-import java.sql.Timestamp
-import java.text.SimpleDateFormat
+
 
 class PreparationTransactionActivity(
     private val binding: ActivityTransactionBinding,
     private val transactionType: String?,
-    private val dateMask: DateMask
 ) {
     private val currencyArray = arrayOf("BYN", "USD", "EUR")
     fun setItemsStyles() {
@@ -24,18 +21,8 @@ class PreparationTransactionActivity(
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private fun getCurrentDate() =
-        SimpleDateFormat("DD/MM/yyyy").format(Timestamp(System.currentTimeMillis()))
-
     private fun setColors(color: Int, drawableBackground: Int, spinnerItem: Int) {
         with(binding) {
-            with(date) {
-                addTextChangedListener(dateMask)
-                setText(getCurrentDate())
-                setTextColor(ContextCompat.getColor(context, color))
-                setBackgroundResource(drawableBackground)
-            }
             with(transactionValue) {
                 setTextColor(ContextCompat.getColor(context, color))
                 setBackgroundResource(drawableBackground)

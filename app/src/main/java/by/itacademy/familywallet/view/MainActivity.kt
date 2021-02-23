@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                Log.w(by.itacademy.familywallet.di.TAG, "Google signin failed", e)
+                Log.w(by.itacademy.familywallet.data.TAG, "Google signin failed", e)
             }
         }
     }
@@ -54,12 +54,12 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
+                   // val user = auth.currentUser
                     startActivity(Intent(this, FragmentsActivity::class.java))
                     finish()
                     //updateUI(user)
                 } else {
-                    Log.w(by.itacademy.familywallet.di.TAG,"signInWithCredential:failure",task.exception)
+                    Log.w(by.itacademy.familywallet.data.TAG,"signInWithCredential:failure",task.exception)
                     val view = binding.root
                     Snackbar.make(view, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
                     //updateUI(null)

@@ -7,20 +7,20 @@
     android:padding="10dp"
     tools:context=".view.TransactionActivity">
 
-    <EditText
+    <CalendarView
         android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="50dp"
-        android:inputType="date"
-        android:padding="10dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/transactionValue" />
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@id/transactionValue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/transactionValue"
         android:layout_width="match_parent"
+        android:inputType="numberDecimal"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
         android:padding="10dp"
