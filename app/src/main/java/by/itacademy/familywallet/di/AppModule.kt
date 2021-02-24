@@ -24,8 +24,8 @@ val utilsModel = module {
     factory { (binding: ActivityTransactionBinding, transactionType: String?) ->
         PreparationTransactionActivity(binding, transactionType)
     }
-    factory { (binding: ActivityTransactionSettingsBinding, transactionType: String?, item: Char?) ->
-        PreparationTransactionSettingsActivity(binding, transactionType, item)
+    factory { (binding: ActivityTransactionSettingsBinding, transactionType: String?) ->
+        PreparationTransactionSettingsActivity(binding, transactionType)
     }
 }
 val dataModule = module {

@@ -39,11 +39,12 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
             layoutManager = LinearLayoutManager(this@TypeTransactionFragment.context)
             adapter = typeTransactionAdapter
         }
+        initCreateButton()
         initViewModel()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         transactionViewModel.getTransactionTypeList(fragmentType)
     }
 
@@ -53,12 +54,14 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
         })
     }
 
-    override fun onClick(item: CategoryModel) {
-        startActivity(TransactionActivity.start(this.context, item.type, item.category))
+    private fun initCreateButton() {
+        binding.categoryCreateButton.setOnClickListener {
+            startActivity(TransactionSettingsActivity.start(this.context, fragmentType))
+        }
     }
 
-    override fun onLongClick(transactionType: String, item: CategoryModel) {
-        startActivity(TransactionSettingsActivity.start(this.context, transactionType, item))
+    override fun onClick(item: CategoryModel) {
+        startActivity(TransactionActivity.start(this.context, item.type, item.category))
     }
 
     companion object {

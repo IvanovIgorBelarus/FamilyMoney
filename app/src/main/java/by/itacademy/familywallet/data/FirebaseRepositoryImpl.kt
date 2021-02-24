@@ -19,6 +19,15 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
+    override suspend fun addNewCategory(category: String, type:String) {
+        db.collection(CATEGORIES).add(
+            mapOf(
+                CATEGORY to category,
+                TRANSACTION_TYPE to type
+            )
+        )
+    }
+
     override suspend fun getTransactionsList(): List<TransactionModel> = suspendCoroutine { continuation ->
         val list = mutableListOf<TransactionModel>()
         db.collection(TRANSACTIONS).get().addOnSuccessListener { result ->
