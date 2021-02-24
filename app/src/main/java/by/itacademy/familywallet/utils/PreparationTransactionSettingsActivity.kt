@@ -9,40 +9,24 @@ import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
 
 class PreparationTransactionSettingsActivity(
     private val binding: ActivityTransactionSettingsBinding,
-    private val transactionType: String?,
-    private val item: Char?
+    private val transactionType: String?
 ) {
     fun setItemsStyles() {
         when (transactionType) {
-            EXPENSES -> setRedStyle()
-            INCOMES -> setGreenStyle()
+            EXPENSES -> setStyle(R.color.red, R.drawable.red_rectangle_button_background)
+            INCOMES -> setStyle(R.color.green, R.drawable.green_rectangle_button_background)
         }
     }
 
-    private fun setGreenStyle() {
+    private fun setStyle(color: Int, drawable: Int) {
         with(binding) {
             with(itemName) {
-                setText(item.toString())
-                setTextColor(ContextCompat.getColor(context, R.color.green))
-                setBackgroundResource(R.drawable.green_rectangle_button_background)
+                setTextColor(ContextCompat.getColor(context, color))
+                setBackgroundResource(drawable)
             }
             with(saveButton) {
-                setTextColor(ContextCompat.getColor(context, R.color.green))
-                setBackgroundResource(R.drawable.green_rectangle_button_background)
-            }
-        }
-    }
-
-    private fun setRedStyle() {
-        with(binding) {
-            with(itemName) {
-                setText(item.toString())
-                setTextColor(ContextCompat.getColor(context, R.color.red))
-                setBackgroundResource(R.drawable.red_rectangle_button_background)
-            }
-            with(saveButton) {
-                setTextColor(ContextCompat.getColor(context, R.color.red))
-                setBackgroundResource(R.drawable.red_rectangle_button_background)
+                setTextColor(ContextCompat.getColor(context, color))
+                setBackgroundResource(drawable)
             }
         }
     }
