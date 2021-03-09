@@ -36,7 +36,10 @@ class TypeTransactionAdapter(
     override fun getItemCount() = list.size
 
     fun update(list: List<CategoryModel>) {
-        this.list.addAll(list)
+        with(this.list){
+            clear()
+            addAll(list)
+        }
         notifyDataSetChanged()
     }
 

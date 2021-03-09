@@ -61,7 +61,7 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
     }
 
     override fun onClick(item: CategoryModel) {
-        startActivity(TransactionActivity.start(this.context, item.type, item.category))
+        startActivity(TransactionActivity.start(this.context, item))
     }
 
     companion object {

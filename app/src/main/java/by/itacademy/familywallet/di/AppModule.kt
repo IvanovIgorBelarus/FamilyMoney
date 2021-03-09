@@ -5,6 +5,7 @@ import by.itacademy.familywallet.data.FirebaseDataBase
 import by.itacademy.familywallet.data.FirebaseRepositoryImpl
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
+import by.itacademy.familywallet.model.CategoryModel
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.TypeTransactionAdapter
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
@@ -21,8 +22,8 @@ val adapterModule = module {
     }
 }
 val utilsModel = module {
-    factory { (binding: ActivityTransactionBinding, transactionType: String?) ->
-        PreparationTransactionActivity(binding, transactionType)
+    factory { (binding: ActivityTransactionBinding, item: CategoryModel?) ->
+        PreparationTransactionActivity(binding, item)
     }
     factory { (binding: ActivityTransactionSettingsBinding, transactionType: String?) ->
         PreparationTransactionSettingsActivity(binding, transactionType)
