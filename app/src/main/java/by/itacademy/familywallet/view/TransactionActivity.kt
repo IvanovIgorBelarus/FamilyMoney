@@ -8,6 +8,7 @@ import by.itacademy.familywallet.data.CATEGORIES
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
+import by.itacademy.familywallet.model.CategoryModel
 import by.itacademy.familywallet.model.TransactionModel
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -17,11 +18,10 @@ import java.util.*
 
 class TransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionBinding
-    private var transactionType: String? = null
-    private var transactionCategory: String? = null
+    private lateinit var item: CategoryModel
     private val repo by inject<DataRepository>()
     private val preparationTransactionActivity: PreparationTransactionActivity by inject {
-        parametersOf(binding, transactionType)
+        parametersOf(binding, item)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +30,10 @@ class TransactionActivity : AppCompatActivity() {
         setContentView(binding.root)
         val intent = intent
         if (intent != null) {
-            transactionType = intent.getStringExtra(TRANSACTION_TYPE)
-            transactionCategory = intent.getStringExtra(CATEGORIES)
+            item.type = intent.getStringExtra(TRANSACTION_TYPE)
+            item.category = intent.getStringExtra(CATEGORIES)
         }
-        if (transactionType != null) {
+        if (item.type != null) {
             preparationTransactionActivity.setItemsStyles()
         }
         with(binding) {
@@ -42,7 +42,7 @@ class TransactionActivity : AppCompatActivity() {
             }
             cashButton.setOnClickListener {
                 createDialog()
-                if (transactionType != null) {
+                if (item.type != null) {
                     createDialog()
                 }
             }
@@ -53,8 +53,8 @@ class TransactionActivity : AppCompatActivity() {
     private fun createDialog() {
         val transactionModel = TransactionModel(
             uid = FirebaseAuth.getInstance().currentUser?.uid,
-            transactionType = transactionType,
-            transactionCategory = transactionCategory,
+            transactionType = item.type,
+            transactionCategory = item.category,
             value = binding.transactionValue.text.toString().toDouble(),
             date = binding.date.date
         )
@@ -63,10 +63,10 @@ class TransactionActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context?, transactionType: String?, transactionCategory: String?) =
+        fun start(context: Context?, item: CategoryModel) =
             Intent(context, TransactionActivity::class.java).apply {
-                putExtra(TRANSACTION_TYPE, transactionType)
-                putExtra(CATEGORIES, transactionCategory)
+                putExtra(TRANSACTION_TYPE, item.type)
+                putExtra(CATEGORIES, item.category)
             }
     }
 }
