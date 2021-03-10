@@ -5,9 +5,8 @@ import by.itacademy.familywallet.data.FirebaseDataBase
 import by.itacademy.familywallet.data.FirebaseRepositoryImpl
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
-import by.itacademy.familywallet.model.CategoryModel
 import by.itacademy.familywallet.presentation.ItemClickListener
-import by.itacademy.familywallet.presentation.TypeTransactionAdapter
+import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import by.itacademy.familywallet.utils.PreparationTransactionSettingsActivity
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
@@ -18,7 +17,7 @@ import org.koin.dsl.module
 
 val adapterModule = module {
     factory { (itemClickListener: ItemClickListener) ->
-        TypeTransactionAdapter(itemClickListener)
+        FragmentAdapter(itemClickListener)
     }
 }
 val utilsModel = module {

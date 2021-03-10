@@ -7,7 +7,6 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
-import by.itacademy.familywallet.model.CategoryModel
 
 
 class PreparationTransactionActivity(

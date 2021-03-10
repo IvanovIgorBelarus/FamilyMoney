@@ -1,7 +1,7 @@
 package by.itacademy.familywallet.data
 
-import by.itacademy.familywallet.model.CategoryModel
 import by.itacademy.familywallet.model.TransactionModel
+import by.itacademy.familywallet.model.UIModel
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -48,13 +48,13 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         }
     }
 
-    override suspend fun getCategoriesList(): List<CategoryModel> = suspendCoroutine { continuation ->
-        val list = mutableListOf<CategoryModel>()
+    override suspend fun getCategoriesList(): List<UIModel.CategoryModel> = suspendCoroutine { continuation ->
+        val list = mutableListOf<UIModel.CategoryModel>()
         db.collection(CATEGORIES).get()
             .addOnSuccessListener { result ->
                 result.forEach { doc ->
                     list.add(
-                        CategoryModel(
+                        UIModel.CategoryModel(
                             doc.getString(CATEGORY),
                             doc.getString(TRANSACTION_TYPE)
                         )

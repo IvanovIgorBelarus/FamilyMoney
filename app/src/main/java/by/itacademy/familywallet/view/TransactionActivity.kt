@@ -10,7 +10,6 @@ import by.itacademy.familywallet.data.CATEGORIES
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
-import by.itacademy.familywallet.model.CategoryModel
 import by.itacademy.familywallet.model.TransactionModel
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import com.google.firebase.auth.FirebaseAuth
