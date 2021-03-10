@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
@@ -21,7 +22,7 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStatisticsBinding.bind(view)
-        statisticViewModel.liveData.observe(this, { list -> binding.te.text = "${list.size}" })
+        statisticViewModel.liveData.observe(this, Observer { list -> binding.te.text = "${list.size}" })
     }
 
     override fun onResume() {

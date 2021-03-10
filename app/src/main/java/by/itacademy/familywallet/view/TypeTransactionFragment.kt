@@ -23,7 +23,6 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
     private val typeTransactionAdapter: TypeTransactionAdapter by inject {
         parametersOf(
             this,
-            fragmentType
         )
     }
     private val transactionViewModel by viewModel<TypeTransactionViewModel>()

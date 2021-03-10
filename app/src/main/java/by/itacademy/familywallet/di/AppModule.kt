@@ -17,8 +17,8 @@ import org.koin.dsl.module
 
 
 val adapterModule = module {
-    factory { (itemClickListener: ItemClickListener, type: String) ->
-        TypeTransactionAdapter(itemClickListener, type)
+    factory { (itemClickListener: ItemClickListener) ->
+        TypeTransactionAdapter(itemClickListener)
     }
 }
 val utilsModel = module {

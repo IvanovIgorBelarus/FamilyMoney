@@ -11,8 +11,7 @@ import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
 import by.itacademy.familywallet.model.CategoryModel
 
 class TypeTransactionAdapter(
-    private val itemClickListener: ItemClickListener,
-    private val type: String
+    private val itemClickListener: ItemClickListener
 ) :
     RecyclerView.Adapter<TypeTransactionAdapter.TypeTransactionViewHolder>() {
     private var list = mutableListOf<CategoryModel?>()
@@ -30,7 +29,6 @@ class TypeTransactionAdapter(
 
     override fun onBindViewHolder(holder: TypeTransactionViewHolder, position: Int) {
         holder.bind(list[position])
-        holder.itemView.setOnClickListener { itemClickListener.onClick(list[position]) }
     }
 
     override fun getItemCount() = list.size
@@ -47,8 +45,9 @@ class TypeTransactionAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CategoryModel?) {
             with(binding.textView) {
+                rootView.setOnClickListener { itemClickListener.onClick(item) }
                 text = "${item?.category}"
-                when (type) {
+                when (item?.type) {
                     EXPENSES -> {
                         setTextColor(ContextCompat.getColor(context, R.color.red))
                         setBackgroundResource(R.drawable.red_rectangle_button_background)
