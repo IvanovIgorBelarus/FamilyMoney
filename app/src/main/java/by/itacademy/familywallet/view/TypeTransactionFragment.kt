@@ -20,11 +20,7 @@ import org.koin.core.parameter.parametersOf
 class TypeTransactionFragment : Fragment(), ItemClickListener {
     private lateinit var fragmentType: String
     private lateinit var binding: FragmentTypeTransactionBinding
-    private val fragmentAdapter: FragmentAdapter by inject {
-        parametersOf(
-            this,
-        )
-    }
+    private val fragmentAdapter: FragmentAdapter by inject { parametersOf(this)}
     private val transactionViewModel by viewModel<TypeTransactionViewModel>()
 
     override fun onCreateView(
@@ -35,8 +31,8 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTypeTransactionBinding.bind(view)
-        binding.typeAdapter.apply {
-            layoutManager = LinearLayoutManager(this@TypeTransactionFragment.context)
+        binding.adapterRv.apply {
+            layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
         }
         initCreateButton()

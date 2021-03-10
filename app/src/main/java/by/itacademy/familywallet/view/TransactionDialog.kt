@@ -20,7 +20,7 @@ class TransactionDialog(
             val builder = AlertDialog.Builder(it)
             builder
                 .setTitle(getString(R.string.warning))
-                .setMessage("${getString(R.string.message)} ${transactionModel.transactionCategory}?")
+                .setMessage("${getString(R.string.message)} ${transactionModel.category}?")
                 .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                     CoroutineScope(Dispatchers.IO).launch {
                         repo.doTransaction(transactionModel)

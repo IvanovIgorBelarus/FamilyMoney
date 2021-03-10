@@ -10,8 +10,8 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         db.collection(TRANSACTIONS).add(
             mapOf(
                 UID to transactionModel.uid,
-                TRANSACTION_TYPE to transactionModel.transactionType,
-                CATEGORY to transactionModel.transactionCategory,
+                TRANSACTION_TYPE to transactionModel.type,
+                CATEGORY to transactionModel.category,
                 MONEY_TYPE to transactionModel.moneyType,
                 VALUE to transactionModel.value,
                 DATE to transactionModel.date
@@ -35,8 +35,8 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 list.add(
                     UIModel.TransactionModel(
                         uid = doc.getString(UID),
-                        transactionType = doc.getString(TRANSACTION_TYPE),
-                        transactionCategory = doc.getString(CATEGORY),
+                        type = doc.getString(TRANSACTION_TYPE),
+                        category = doc.getString(CATEGORY),
                         moneyType = doc.getString(MONEY_TYPE),
                         value = doc.getDouble(VALUE),
                         date = doc.getLong(DATE)

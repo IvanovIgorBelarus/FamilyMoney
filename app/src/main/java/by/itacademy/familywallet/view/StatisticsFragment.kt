@@ -6,14 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
+import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.presentation.FragmentAdapter
+import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
-class StatisticsFragment : Fragment() {
+class StatisticsFragment : Fragment(), ItemClickListener {
     private val statisticViewModel by viewModel<StatisticViewModel>()
     private lateinit var binding: FragmentStatisticsBinding
+    private val fragmentAdapter: FragmentAdapter by inject { parametersOf(this)}
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,7 +30,11 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStatisticsBinding.bind(view)
-        statisticViewModel.liveData.observe(this, Observer { list -> binding.te.text = "${list.size}" })
+        statisticViewModel.liveData.observe(this, Observer { list -> fragmentAdapter.update(list) })
+        binding.adapterRv.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = fragmentAdapter
+        }
     }
 
     override fun onResume() {
@@ -33,5 +45,9 @@ class StatisticsFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = StatisticsFragment()
+    }
+
+    override fun onClick(item: UIModel.CategoryModel?) {
+
     }
 }

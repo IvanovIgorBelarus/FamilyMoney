@@ -7,8 +7,8 @@ sealed class UIModel{
     )
     class TransactionModel(
         val uid: String?,
-        val transactionType: String?,
-        val transactionCategory: String?,
+        val type: String?,
+        val category: String?,
         val moneyType: String?,
         val date: Long?,
         val value: Double?

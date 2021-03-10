@@ -54,8 +54,8 @@ class TransactionActivity : AppCompatActivity() {
     private fun createDialog(moneyType: String?) {
         val transactionModel = UIModel.TransactionModel(
             uid = FirebaseAuth.getInstance().currentUser?.uid,
-            transactionType = type,
-            transactionCategory = category,
+            type = type,
+            category = category,
             moneyType = moneyType,
             value = binding.transactionValue.text.toString().toDouble(),
             date = binding.date.date
