@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentTypeTransactionBinding
@@ -49,9 +50,7 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
     }
 
     private fun initViewModel() {
-        transactionViewModel.liveData.observe(this, { list ->
-            typeTransactionAdapter.update(list)
-        })
+        transactionViewModel.liveData.observe(this, Observer { list -> typeTransactionAdapter.update(list) })
     }
 
     private fun initCreateButton() {
@@ -60,8 +59,8 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
         }
     }
 
-    override fun onClick(item: CategoryModel) {
-        startActivity(TransactionActivity.start(this.context, item))
+    override fun onClick(item: CategoryModel?) {
+        startActivity(TransactionActivity.start(this.context, item?.type, item?.category))
     }
 
     companion object {

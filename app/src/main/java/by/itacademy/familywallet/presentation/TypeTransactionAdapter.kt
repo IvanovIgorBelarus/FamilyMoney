@@ -15,7 +15,7 @@ class TypeTransactionAdapter(
     private val type: String
 ) :
     RecyclerView.Adapter<TypeTransactionAdapter.TypeTransactionViewHolder>() {
-    private var list = mutableListOf<CategoryModel>()
+    private var list = mutableListOf<CategoryModel?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TypeTransactionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -35,7 +35,7 @@ class TypeTransactionAdapter(
 
     override fun getItemCount() = list.size
 
-    fun update(list: List<CategoryModel>) {
+    fun update(list: List<CategoryModel?>) {
         with(this.list){
             clear()
             addAll(list)
@@ -45,9 +45,9 @@ class TypeTransactionAdapter(
 
     inner class TypeTransactionViewHolder(private val binding: TypeRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: CategoryModel) {
+        fun bind(item: CategoryModel?) {
             with(binding.textView) {
-                text = "${item.category}"
+                text = "${item?.category}"
                 when (type) {
                     EXPENSES -> {
                         setTextColor(ContextCompat.getColor(context, R.color.red))

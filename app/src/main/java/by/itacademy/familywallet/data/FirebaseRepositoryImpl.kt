@@ -13,13 +13,14 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 UID to transactionModel.uid,
                 TRANSACTION_TYPE to transactionModel.transactionType,
                 CATEGORY to transactionModel.transactionCategory,
+                MONEY_TYPE to transactionModel.moneyType,
                 VALUE to transactionModel.value,
                 DATE to transactionModel.date
             )
         )
     }
 
-    override suspend fun addNewCategory(category: String, type:String) {
+    override suspend fun addNewCategory(category: String, type: String) {
         db.collection(CATEGORIES).add(
             mapOf(
                 CATEGORY to category,
@@ -37,6 +38,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                         uid = doc.getString(UID),
                         transactionType = doc.getString(TRANSACTION_TYPE),
                         transactionCategory = doc.getString(CATEGORY),
+                        moneyType = doc.getString(MONEY_TYPE),
                         value = doc.getDouble(VALUE),
                         date = doc.getLong(DATE)
                     )

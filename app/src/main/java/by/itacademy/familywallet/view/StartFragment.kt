@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import by.itacademy.familywallet.R
-import by.itacademy.familywallet.data.EXPENSES
-import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.FragmentStartBinding
 
 class StartFragment : Fragment() {
@@ -22,10 +20,10 @@ class StartFragment : Fragment() {
         binding = FragmentStartBinding.bind(view)
         with(binding) {
             makeIncomeButton.setOnClickListener {
-                startActivity(TransactionActivity.start(this@StartFragment.context, INCOMES, null))
+                // startActivity(TransactionActivity.start(this@StartFragment.context, INCOMES, null))  //пока не сделал возможность выбора категории внутри оплаты
             }
             makeCostButton.setOnClickListener {
-                startActivity(TransactionActivity.start(this@StartFragment.context, EXPENSES, null))
+                //  startActivity(TransactionActivity.start(this@StartFragment.context, EXPENSES, null))  //пока не сделал возможность выбора категории внутри оплаты
             }
         }
     }

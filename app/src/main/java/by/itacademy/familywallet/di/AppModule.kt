@@ -22,8 +22,8 @@ val adapterModule = module {
     }
 }
 val utilsModel = module {
-    factory { (binding: ActivityTransactionBinding, item: CategoryModel?) ->
-        PreparationTransactionActivity(binding, item)
+    factory { (binding: ActivityTransactionBinding, type: String?, category: String?) ->
+        PreparationTransactionActivity(binding, type, category)
     }
     factory { (binding: ActivityTransactionSettingsBinding, transactionType: String?) ->
         PreparationTransactionSettingsActivity(binding, transactionType)
