@@ -12,6 +12,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 UID to transactionModel.uid,
                 TRANSACTION_TYPE to transactionModel.type,
                 CATEGORY to transactionModel.category,
+                CURRENCY to transactionModel.currency,
                 MONEY_TYPE to transactionModel.moneyType,
                 VALUE to transactionModel.value,
                 DATE to transactionModel.date
@@ -37,6 +38,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                         uid = doc.getString(UID),
                         type = doc.getString(TRANSACTION_TYPE),
                         category = doc.getString(CATEGORY),
+                        currency = doc.getString(CURRENCY),
                         moneyType = doc.getString(MONEY_TYPE),
                         value = doc.getDouble(VALUE),
                         date = doc.getLong(DATE)

@@ -56,6 +56,7 @@ class TransactionActivity : AppCompatActivity() {
             uid = FirebaseAuth.getInstance().currentUser?.uid,
             type = type,
             category = category,
+            currency = binding.currencySpinner.selectedItem.toString(),
             moneyType = moneyType,
             value = binding.transactionValue.text.toString().toDouble(),
             date = binding.date.date

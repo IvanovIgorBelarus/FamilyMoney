@@ -9,6 +9,7 @@ sealed class UIModel{
         val uid: String?,
         val type: String?,
         val category: String?,
+        val currency: String?,
         val moneyType: String?,
         val date: Long?,
         val value: Double?

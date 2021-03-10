@@ -22,8 +22,8 @@ class StatisticItemViewHolder(private val binding: StatisticRecyclerItemBinding)
             }
         }
         with(binding) {
-            with(transactionType) {
-                text = item?.type
+            with(value) {
+                text = String.format("%s %s",item?.value.toString(),item?.currency)
                 setColor(this, item?.type)
             }
             with(transactionCategory) {
