@@ -6,14 +6,14 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
-import by.itacademy.familywallet.model.TransactionModel
+import by.itacademy.familywallet.model.UIModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TransactionDialog(
     private val repo: DataRepository,
-    private val transactionModel: TransactionModel
+    private val transactionModel: UIModel.TransactionModel
 ) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity.let {

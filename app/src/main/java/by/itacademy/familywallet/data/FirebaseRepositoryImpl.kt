@@ -1,13 +1,12 @@
 package by.itacademy.familywallet.data
 
-import by.itacademy.familywallet.model.TransactionModel
 import by.itacademy.familywallet.model.UIModel
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository {
-    override suspend fun doTransaction(transactionModel: TransactionModel) {
+    override suspend fun doTransaction(transactionModel: UIModel.TransactionModel) {
         db.collection(TRANSACTIONS).add(
             mapOf(
                 UID to transactionModel.uid,
@@ -29,12 +28,12 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
-    override suspend fun getTransactionsList(): List<TransactionModel> = suspendCoroutine { continuation ->
-        val list = mutableListOf<TransactionModel>()
+    override suspend fun getTransactionsList(): List<UIModel.TransactionModel> = suspendCoroutine { continuation ->
+        val list = mutableListOf<UIModel.TransactionModel>()
         db.collection(TRANSACTIONS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
                 list.add(
-                    TransactionModel(
+                    UIModel.TransactionModel(
                         uid = doc.getString(UID),
                         transactionType = doc.getString(TRANSACTION_TYPE),
                         transactionCategory = doc.getString(CATEGORY),

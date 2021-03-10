@@ -10,7 +10,7 @@ import by.itacademy.familywallet.data.CATEGORIES
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
-import by.itacademy.familywallet.model.TransactionModel
+import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
@@ -52,7 +52,7 @@ class TransactionActivity : AppCompatActivity() {
     }
 
     private fun createDialog(moneyType: String?) {
-        val transactionModel = TransactionModel(
+        val transactionModel = UIModel.TransactionModel(
             uid = FirebaseAuth.getInstance().currentUser?.uid,
             transactionType = type,
             transactionCategory = category,
