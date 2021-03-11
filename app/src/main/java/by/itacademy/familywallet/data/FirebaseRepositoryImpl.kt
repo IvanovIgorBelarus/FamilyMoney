@@ -1,25 +1,26 @@
 package by.itacademy.familywallet.data
 
-import by.itacademy.familywallet.model.CategoryModel
-import by.itacademy.familywallet.model.TransactionModel
+import by.itacademy.familywallet.model.UIModel
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository {
-    override suspend fun doTransaction(transactionModel: TransactionModel) {
+    override suspend fun doTransaction(transactionModel: UIModel.TransactionModel) {
         db.collection(TRANSACTIONS).add(
             mapOf(
                 UID to transactionModel.uid,
-                TRANSACTION_TYPE to transactionModel.transactionType,
-                CATEGORY to transactionModel.transactionCategory,
+                TRANSACTION_TYPE to transactionModel.type,
+                CATEGORY to transactionModel.category,
+                CURRENCY to transactionModel.currency,
+                MONEY_TYPE to transactionModel.moneyType,
                 VALUE to transactionModel.value,
                 DATE to transactionModel.date
             )
         )
     }
 
-    override suspend fun addNewCategory(category: String, type:String) {
+    override suspend fun addNewCategory(category: String, type: String) {
         db.collection(CATEGORIES).add(
             mapOf(
                 CATEGORY to category,
@@ -28,15 +29,17 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
-    override suspend fun getTransactionsList(): List<TransactionModel> = suspendCoroutine { continuation ->
-        val list = mutableListOf<TransactionModel>()
+    override suspend fun getTransactionsList(): List<UIModel.TransactionModel> = suspendCoroutine { continuation ->
+        val list = mutableListOf<UIModel.TransactionModel>()
         db.collection(TRANSACTIONS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
                 list.add(
-                    TransactionModel(
+                    UIModel.TransactionModel(
                         uid = doc.getString(UID),
-                        transactionType = doc.getString(TRANSACTION_TYPE),
-                        transactionCategory = doc.getString(CATEGORY),
+                        type = doc.getString(TRANSACTION_TYPE),
+                        category = doc.getString(CATEGORY),
+                        currency = doc.getString(CURRENCY),
+                        moneyType = doc.getString(MONEY_TYPE),
                         value = doc.getDouble(VALUE),
                         date = doc.getLong(DATE)
                     )
@@ -46,13 +49,13 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         }
     }
 
-    override suspend fun getCategoriesList(): List<CategoryModel> = suspendCoroutine { continuation ->
-        val list = mutableListOf<CategoryModel>()
+    override suspend fun getCategoriesList(): List<UIModel.CategoryModel> = suspendCoroutine { continuation ->
+        val list = mutableListOf<UIModel.CategoryModel>()
         db.collection(CATEGORIES).get()
             .addOnSuccessListener { result ->
                 result.forEach { doc ->
                     list.add(
-                        CategoryModel(
+                        UIModel.CategoryModel(
                             doc.getString(CATEGORY),
                             doc.getString(TRANSACTION_TYPE)
                         )

@@ -7,16 +7,16 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
-import by.itacademy.familywallet.model.CategoryModel
 
 
 class PreparationTransactionActivity(
     private val binding: ActivityTransactionBinding,
-    private val item: CategoryModel?,
+    private val type:String?,
+    private val category: String?,
 ) {
     private val currencyArray = arrayOf("BYN", "USD", "EUR")
     fun setItemsStyles() {
-        when (item?.type) {
+        when (type) {
             EXPENSES -> setColors(R.color.red, R.drawable.red_rectangle_button_background, R.layout.red_spinner_item)
             INCOMES -> setColors(R.color.green, R.drawable.green_rectangle_button_background, R.layout.green_spinner_item)
         }
@@ -24,6 +24,10 @@ class PreparationTransactionActivity(
 
     private fun setColors(color: Int, drawableBackground: Int, spinnerItem: Int) {
         with(binding) {
+            with(transactionCategoryTitle){
+                text = category
+                setTextColor(ContextCompat.getColor(context, color))
+            }
             with(transactionValue) {
                 setTextColor(ContextCompat.getColor(context, color))
                 setBackgroundResource(drawableBackground)

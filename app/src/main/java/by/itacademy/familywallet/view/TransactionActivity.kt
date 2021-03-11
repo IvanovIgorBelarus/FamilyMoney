@@ -4,12 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import by.itacademy.familywallet.data.CARD
+import by.itacademy.familywallet.data.CASH
 import by.itacademy.familywallet.data.CATEGORIES
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
-import by.itacademy.familywallet.model.CategoryModel
-import by.itacademy.familywallet.model.TransactionModel
+import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
@@ -18,10 +19,11 @@ import java.util.*
 
 class TransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionBinding
-    private lateinit var item: CategoryModel
+    private var type: String? = null
+    private var category: String? = null
     private val repo by inject<DataRepository>()
     private val preparationTransactionActivity: PreparationTransactionActivity by inject {
-        parametersOf(binding, item)
+        parametersOf(binding, type, category)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +32,10 @@ class TransactionActivity : AppCompatActivity() {
         setContentView(binding.root)
         val intent = intent
         if (intent != null) {
-            item.type = intent.getStringExtra(TRANSACTION_TYPE)
-            item.category = intent.getStringExtra(CATEGORIES)
+            type = intent.getStringExtra(TRANSACTION_TYPE)
+            category = intent.getStringExtra(CATEGORIES)
         }
-        if (item.type != null) {
+        if (type != null) {
             preparationTransactionActivity.setItemsStyles()
         }
         with(binding) {
@@ -41,20 +43,21 @@ class TransactionActivity : AppCompatActivity() {
                 view.date = GregorianCalendar(year, month, dayOfMonth).timeInMillis
             }
             cashButton.setOnClickListener {
-                createDialog()
-                if (item.type != null) {
-                    createDialog()
+                if (type != null) {
+                    createDialog(CASH)
                 }
             }
-            cardButton.setOnClickListener { createDialog() }
+            cardButton.setOnClickListener { createDialog(CARD) }
         }
     }
 
-    private fun createDialog() {
-        val transactionModel = TransactionModel(
+    private fun createDialog(moneyType: String?) {
+        val transactionModel = UIModel.TransactionModel(
             uid = FirebaseAuth.getInstance().currentUser?.uid,
-            transactionType = item.type,
-            transactionCategory = item.category,
+            type = type,
+            category = category,
+            currency = binding.currencySpinner.selectedItem.toString(),
+            moneyType = moneyType,
             value = binding.transactionValue.text.toString().toDouble(),
             date = binding.date.date
         )
@@ -63,10 +66,10 @@ class TransactionActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context?, item: CategoryModel) =
+        fun start(context: Context?, type: String?, category: String?) =
             Intent(context, TransactionActivity::class.java).apply {
-                putExtra(TRANSACTION_TYPE, item.type)
-                putExtra(CATEGORIES, item.category)
+                putExtra(TRANSACTION_TYPE, type)
+                putExtra(CATEGORIES, category)
             }
     }
 }

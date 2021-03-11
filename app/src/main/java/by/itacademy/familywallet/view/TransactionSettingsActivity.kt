@@ -1,9 +1,11 @@
 package by.itacademy.familywallet.view
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
@@ -11,6 +13,7 @@ import by.itacademy.familywallet.utils.PreparationTransactionSettingsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -38,13 +41,26 @@ class TransactionSettingsActivity : AppCompatActivity() {
     private fun initSaveButton() {
         binding.saveButton.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                repo.addNewCategory(
-                    category = binding.itemName.text.toString(),
-                    type = transactionType!!
-                )
+                val category = binding.itemName.text.toString()
+                if (!category.isNullOrEmpty()) {
+                    repo.addNewCategory(
+                        category = binding.itemName.text.toString(),
+                        type = transactionType!!
+                    )
+                    finish()
+                } else {
+                    withContext(Dispatchers.Main) { createNegativeDialog() }
+                }
             }
-            finish()
         }
+    }
+
+    private fun createNegativeDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.alert))
+            .setMessage(getString(R.string.alert_negative_message_category_create))
+            .setPositiveButton(getString(R.string.ok)) { dialog, _ -> dialog.cancel() }
+            .show()
     }
 
     companion object {

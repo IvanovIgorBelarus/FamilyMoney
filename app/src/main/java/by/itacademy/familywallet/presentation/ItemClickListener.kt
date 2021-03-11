@@ -1,7 +1,7 @@
 package by.itacademy.familywallet.presentation
 
-import by.itacademy.familywallet.model.CategoryModel
+import by.itacademy.familywallet.model.UIModel
 
 interface ItemClickListener {
-    fun onClick(item: CategoryModel)
+    fun onClick(item: UIModel.CategoryModel?)
 }

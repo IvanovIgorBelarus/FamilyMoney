@@ -4,11 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.StatisticsFragment">
-    <TextView
-        android:id="@+id/te"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/adapterRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="24dp"
-        android:text="@string/statistics" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
