@@ -12,7 +12,6 @@ import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.model.UIModel
-import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -23,9 +22,6 @@ class TransactionActivity : AppCompatActivity() {
     private var type: String? = null
     private var category: String? = null
     private val repo by inject<DataRepository>()
-    private val preparationTransactionActivity: PreparationTransactionActivity by inject {
-        parametersOf(binding, type, category)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +34,6 @@ class TransactionActivity : AppCompatActivity() {
         }
         if (type != null) {
             initViews()
-            //preparationTransactionActivity.setItemsStyles()
         }
     }
 

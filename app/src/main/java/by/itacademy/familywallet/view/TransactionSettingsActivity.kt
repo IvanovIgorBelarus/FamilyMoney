@@ -10,7 +10,6 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
-import by.itacademy.familywallet.utils.PreparationTransactionSettingsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,9 +20,6 @@ import org.koin.core.parameter.parametersOf
 class TransactionSettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionSettingsBinding
     private val repo by inject<DataRepository>()
-    private val preparationTransactionSettingsActivity: PreparationTransactionSettingsActivity by inject {
-        parametersOf(binding, transactionType)
-    }
     private var transactionType: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +34,6 @@ class TransactionSettingsActivity : AppCompatActivity() {
         if (transactionType != null) {
             initViews()
         }
-        //  preparationTransactionSettingsActivity.setItemsStyles()
     }
 
     private fun initViews() {
