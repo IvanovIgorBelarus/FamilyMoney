@@ -16,7 +16,7 @@ class StatisticViewModel(
     val liveData = mutableLiveData
     fun getAllTransActions() {
         CoroutineScope(Dispatchers.IO).launch {
-            val list = repo.getTransactionsList()
+            val list = repo.getTransactionsList().sortedByDescending { it.date }
             withContext(Dispatchers.Main) { mutableLiveData.value = list }
         }
     }
