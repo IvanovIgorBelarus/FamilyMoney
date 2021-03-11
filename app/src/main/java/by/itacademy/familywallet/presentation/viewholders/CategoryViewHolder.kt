@@ -9,8 +9,9 @@ import by.itacademy.familywallet.presentation.ItemClickListener
 class CategoryViewHolder(private val binding: TypeRecyclerItemBinding, private val itemClickListener: ItemClickListener) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: UIModel.CategoryModel?) {
+        itemView.setOnClickListener { itemClickListener.onClick(item) }
+        App().viewPreparation.prepareView(itemView, item?.type!!)
         with(binding.textView) {
-            rootView.setOnClickListener { itemClickListener.onClick(item) }
             text = "${item?.category}"
             App().viewPreparation.prepareView(this, item?.type!!)
         }
