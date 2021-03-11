@@ -12,6 +12,7 @@ import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.utils.Dialogs.Companion.createNegativeDialog
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
 import java.util.*
@@ -64,16 +65,20 @@ class TransactionActivity : AppCompatActivity() {
             }
             with(cashButton) {
                 setOnClickListener {
-                    if (type != null) {
+                    if (type != null && !binding.transactionValue.text.isNullOrEmpty()) {
                         createDialog(CASH)
+                    } else {
+                        createNegativeDialog(this@TransactionActivity)
                     }
                 }
                 preparation.prepareView(this, type!!)
             }
             with(cardButton) {
                 setOnClickListener {
-                    if (type != null) {
+                    if (type != null && !binding.transactionValue.text.isNullOrEmpty()) {
                         createDialog(CARD)
+                    } else {
+                        createNegativeDialog(this@TransactionActivity)
                     }
                 }
                 preparation.prepareView(this, type!!)
