@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.EXPENSES
+import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.FragmentTypeTransactionBinding
 import by.itacademy.familywallet.model.UIModel
-import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.FragmentAdapter
+import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -20,7 +23,7 @@ import org.koin.core.parameter.parametersOf
 class TypeTransactionFragment : Fragment(), ItemClickListener {
     private lateinit var fragmentType: String
     private lateinit var binding: FragmentTypeTransactionBinding
-    private val fragmentAdapter: FragmentAdapter by inject { parametersOf(this)}
+    private val fragmentAdapter: FragmentAdapter by inject { parametersOf(this) }
     private val transactionViewModel by viewModel<TypeTransactionViewModel>()
 
     override fun onCreateView(
@@ -49,8 +52,22 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
     }
 
     private fun initCreateButton() {
-        binding.categoryCreateButton.setOnClickListener {
-            startActivity(TransactionSettingsActivity.start(this.context, fragmentType))
+        with(binding) {
+            with(categoryCreateButton) {
+                setOnClickListener {
+                    startActivity(TransactionSettingsActivity.start(this.context, fragmentType))
+                }
+                when (fragmentType) {
+                    EXPENSES -> {
+                        setTextColor(ContextCompat.getColor(context, R.color.red))
+                        setBackgroundResource(R.drawable.costs_button_background)
+                    }
+                    INCOMES -> {
+                        setTextColor(ContextCompat.getColor(context, R.color.green))
+                        setBackgroundResource(R.drawable.income_button_background)
+                    }
+                }
+            }
         }
     }
 
