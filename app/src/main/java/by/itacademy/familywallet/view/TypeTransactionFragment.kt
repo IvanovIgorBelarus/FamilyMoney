@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.itacademy.familywallet.App
 import by.itacademy.familywallet.R
-import by.itacademy.familywallet.data.EXPENSES
-import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.FragmentTypeTransactionBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
@@ -57,16 +55,17 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
                 setOnClickListener {
                     startActivity(TransactionSettingsActivity.start(this.context, fragmentType))
                 }
-                when (fragmentType) {
-                    EXPENSES -> {
-                        setTextColor(ContextCompat.getColor(context, R.color.red))
-                        setBackgroundResource(R.drawable.costs_button_background)
-                    }
-                    INCOMES -> {
-                        setTextColor(ContextCompat.getColor(context, R.color.green))
-                        setBackgroundResource(R.drawable.income_button_background)
-                    }
-                }
+                App().viewPreparation.prepareView(categoryCreateButton, fragmentType)
+//                when (fragmentType) {
+//                    EXPENSES -> {
+//                        setTextColor(ContextCompat.getColor(context, R.color.red))
+//                        setBackgroundResource(R.drawable.costs_button_background)
+//                    }
+//                    INCOMES -> {
+//                        setTextColor(ContextCompat.getColor(context, R.color.green))
+//                        setBackgroundResource(R.drawable.income_button_background)
+//                    }
+//                }
             }
         }
     }

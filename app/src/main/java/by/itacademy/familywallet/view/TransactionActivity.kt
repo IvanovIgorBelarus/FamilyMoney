@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import by.itacademy.familywallet.App
 import by.itacademy.familywallet.data.CARD
 import by.itacademy.familywallet.data.CASH
 import by.itacademy.familywallet.data.CATEGORIES
@@ -36,7 +38,8 @@ class TransactionActivity : AppCompatActivity() {
             category = intent.getStringExtra(CATEGORIES)
         }
         if (type != null) {
-            preparationTransactionActivity.setItemsStyles()
+            initViews()
+            //preparationTransactionActivity.setItemsStyles()
         }
         with(binding) {
             date.setOnDateChangeListener { view, year, month, dayOfMonth ->
@@ -63,6 +66,16 @@ class TransactionActivity : AppCompatActivity() {
         )
         val dialog = TransactionDialog(repo, transactionModel)
         dialog.show(supportFragmentManager, "dialog")
+    }
+
+    private fun initViews() {
+        val preparation = App().viewPreparation
+        with(binding) {
+            with(transactionCategoryTitle) {
+                text = category
+                preparation.prepareView(transactionCategoryTitle, type!!)
+            }
+        }
     }
 
     companion object {

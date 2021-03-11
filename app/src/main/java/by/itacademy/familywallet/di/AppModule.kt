@@ -9,6 +9,7 @@ import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import by.itacademy.familywallet.utils.PreparationTransactionSettingsActivity
+import by.itacademy.familywallet.utils.ViewPreparation
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
 import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
@@ -22,6 +23,7 @@ val adapterModule = module {
     }
 }
 val utilsModel = module {
+    single { ViewPreparation() }
     factory { (binding: ActivityTransactionBinding, type: String?, category: String?) ->
         PreparationTransactionActivity(binding, type, category)
     }
