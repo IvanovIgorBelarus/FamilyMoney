@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import by.itacademy.familywallet.App
 import by.itacademy.familywallet.data.CARD
 import by.itacademy.familywallet.data.CASH
 import by.itacademy.familywallet.data.CATEGORIES
@@ -11,10 +12,8 @@ import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.model.UIModel
-import by.itacademy.familywallet.utils.PreparationTransactionActivity
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 import java.util.*
 
 class TransactionActivity : AppCompatActivity() {
@@ -22,9 +21,6 @@ class TransactionActivity : AppCompatActivity() {
     private var type: String? = null
     private var category: String? = null
     private val repo by inject<DataRepository>()
-    private val preparationTransactionActivity: PreparationTransactionActivity by inject {
-        parametersOf(binding, type, category)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,18 +32,7 @@ class TransactionActivity : AppCompatActivity() {
             category = intent.getStringExtra(CATEGORIES)
         }
         if (type != null) {
-            preparationTransactionActivity.setItemsStyles()
-        }
-        with(binding) {
-            date.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                view.date = GregorianCalendar(year, month, dayOfMonth).timeInMillis
-            }
-            cashButton.setOnClickListener {
-                if (type != null) {
-                    createDialog(CASH)
-                }
-            }
-            cardButton.setOnClickListener { createDialog(CARD) }
+            initViews()
         }
     }
 
@@ -63,6 +48,37 @@ class TransactionActivity : AppCompatActivity() {
         )
         val dialog = TransactionDialog(repo, transactionModel)
         dialog.show(supportFragmentManager, "dialog")
+    }
+
+    private fun initViews() {
+        val preparation = App().viewPreparation
+        with(binding) {
+            with(transactionCategoryTitle) {
+                text = category
+                preparation.prepareView(transactionCategoryTitle, type!!)
+            }
+            preparation.prepareView(transactionValue, type!!)
+            preparation.prepareView(currencySpinner, type!!)
+            date.setOnDateChangeListener { view, year, month, dayOfMonth ->
+                view.date = GregorianCalendar(year, month, dayOfMonth).timeInMillis
+            }
+            with(cashButton) {
+                setOnClickListener {
+                    if (type != null) {
+                        createDialog(CASH)
+                    }
+                }
+                preparation.prepareView(this, type!!)
+            }
+            with(cardButton) {
+                setOnClickListener {
+                    if (type != null) {
+                        createDialog(CARD)
+                    }
+                }
+                preparation.prepareView(this, type!!)
+            }
+        }
     }
 
     companion object {

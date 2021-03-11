@@ -3,12 +3,9 @@ package by.itacademy.familywallet.di
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.FirebaseDataBase
 import by.itacademy.familywallet.data.FirebaseRepositoryImpl
-import by.itacademy.familywallet.databinding.ActivityTransactionBinding
-import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemClickListener
-import by.itacademy.familywallet.utils.PreparationTransactionActivity
-import by.itacademy.familywallet.utils.PreparationTransactionSettingsActivity
+import by.itacademy.familywallet.utils.ViewPreparation
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
 import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
@@ -22,12 +19,7 @@ val adapterModule = module {
     }
 }
 val utilsModel = module {
-    factory { (binding: ActivityTransactionBinding, type: String?, category: String?) ->
-        PreparationTransactionActivity(binding, type, category)
-    }
-    factory { (binding: ActivityTransactionSettingsBinding, transactionType: String?) ->
-        PreparationTransactionSettingsActivity(binding, transactionType)
-    }
+    single { ViewPreparation() }
 }
 val dataModule = module {
     single<DataRepository> { FirebaseRepositoryImpl(FirebaseDataBase.instance) }

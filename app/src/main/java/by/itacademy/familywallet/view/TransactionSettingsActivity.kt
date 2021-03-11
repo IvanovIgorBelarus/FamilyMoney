@@ -5,11 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import by.itacademy.familywallet.App
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
-import by.itacademy.familywallet.utils.PreparationTransactionSettingsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,9 +20,6 @@ import org.koin.core.parameter.parametersOf
 class TransactionSettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionSettingsBinding
     private val repo by inject<DataRepository>()
-    private val preparationTransactionSettingsActivity: PreparationTransactionSettingsActivity by inject {
-        parametersOf(binding, transactionType)
-    }
     private var transactionType: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,24 +31,31 @@ class TransactionSettingsActivity : AppCompatActivity() {
                 transactionType = getStringExtra(TRANSACTION_TYPE)
             }
         }
-        preparationTransactionSettingsActivity.setItemsStyles()
-        initSaveButton()
+        if (transactionType != null) {
+            initViews()
+        }
     }
 
-    private fun initSaveButton() {
-        binding.saveButton.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val category = binding.itemName.text.toString()
-                if (!category.isNullOrEmpty()) {
-                    repo.addNewCategory(
-                        category = binding.itemName.text.toString(),
-                        type = transactionType!!
-                    )
-                    finish()
-                } else {
-                    withContext(Dispatchers.Main) { createNegativeDialog() }
+    private fun initViews() {
+        with(binding) {
+            with(saveButton) {
+                App().viewPreparation.prepareView(this, transactionType!!)
+                setOnClickListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val category = binding.itemName.text.toString()
+                        if (!category.isNullOrEmpty()) {
+                            repo.addNewCategory(
+                                category = binding.itemName.text.toString(),
+                                type = transactionType!!
+                            )
+                            finish()
+                        } else {
+                            withContext(Dispatchers.Main) { createNegativeDialog() }
+                        }
+                    }
                 }
             }
+            App().viewPreparation.prepareView(itemName, transactionType!!)
         }
     }
 
