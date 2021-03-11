@@ -19,6 +19,7 @@ class ViewPreparation {
             is TextView -> setItemsStyles(view, type)
             is EditText -> setItemsStyles(view, type)
             is Spinner -> setItemsStyles(view, type)
+            is View -> setItemsStyles(view, type)
         }
     }
 
@@ -56,6 +57,7 @@ class ViewPreparation {
                     adapter = ArrayAdapter(context, spinnerItem, currencyArray)
                 }
             }
+            is View -> view.setBackgroundResource(drawableBackground)
         }
     }
 }
