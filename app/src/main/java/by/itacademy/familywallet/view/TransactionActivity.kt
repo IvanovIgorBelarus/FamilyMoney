@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import by.itacademy.familywallet.App
 import by.itacademy.familywallet.data.CARD
 import by.itacademy.familywallet.data.CASH
@@ -41,17 +40,6 @@ class TransactionActivity : AppCompatActivity() {
             initViews()
             //preparationTransactionActivity.setItemsStyles()
         }
-        with(binding) {
-            date.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                view.date = GregorianCalendar(year, month, dayOfMonth).timeInMillis
-            }
-            cashButton.setOnClickListener {
-                if (type != null) {
-                    createDialog(CASH)
-                }
-            }
-            cardButton.setOnClickListener { createDialog(CARD) }
-        }
     }
 
     private fun createDialog(moneyType: String?) {
@@ -74,6 +62,27 @@ class TransactionActivity : AppCompatActivity() {
             with(transactionCategoryTitle) {
                 text = category
                 preparation.prepareView(transactionCategoryTitle, type!!)
+            }
+            preparation.prepareView(transactionValue, type!!)
+            preparation.prepareView(currencySpinner, type!!)
+            date.setOnDateChangeListener { view, year, month, dayOfMonth ->
+                view.date = GregorianCalendar(year, month, dayOfMonth).timeInMillis
+            }
+            with(cashButton) {
+                setOnClickListener {
+                    if (type != null) {
+                        createDialog(CASH)
+                    }
+                }
+                preparation.prepareView(this, type!!)
+            }
+            with(cardButton) {
+                setOnClickListener {
+                    if (type != null) {
+                        createDialog(CARD)
+                    }
+                }
+                preparation.prepareView(this, type!!)
             }
         }
     }

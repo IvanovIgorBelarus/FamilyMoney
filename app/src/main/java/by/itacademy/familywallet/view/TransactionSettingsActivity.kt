@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import by.itacademy.familywallet.App
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
@@ -34,24 +35,32 @@ class TransactionSettingsActivity : AppCompatActivity() {
                 transactionType = getStringExtra(TRANSACTION_TYPE)
             }
         }
-        preparationTransactionSettingsActivity.setItemsStyles()
-        initSaveButton()
+        if (transactionType != null) {
+            initViews()
+        }
+        //  preparationTransactionSettingsActivity.setItemsStyles()
     }
 
-    private fun initSaveButton() {
-        binding.saveButton.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val category = binding.itemName.text.toString()
-                if (!category.isNullOrEmpty()) {
-                    repo.addNewCategory(
-                        category = binding.itemName.text.toString(),
-                        type = transactionType!!
-                    )
-                    finish()
-                } else {
-                    withContext(Dispatchers.Main) { createNegativeDialog() }
+    private fun initViews() {
+        with(binding) {
+            with(saveButton) {
+                App().viewPreparation.prepareView(this, transactionType!!)
+                setOnClickListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val category = binding.itemName.text.toString()
+                        if (!category.isNullOrEmpty()) {
+                            repo.addNewCategory(
+                                category = binding.itemName.text.toString(),
+                                type = transactionType!!
+                            )
+                            finish()
+                        } else {
+                            withContext(Dispatchers.Main) { createNegativeDialog() }
+                        }
+                    }
                 }
             }
+            App().viewPreparation.prepareView(itemName, transactionType!!)
         }
     }
 
