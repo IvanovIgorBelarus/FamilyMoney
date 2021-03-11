@@ -40,9 +40,9 @@ class StartFragment : Fragment() {
             }
 
             with(startFragmentViewModel) {
-                liveDataExpenses.observe(this@StartFragment, Observer { expensesTextView.text = String.format("%s %s BYN", getString(R.string.spend), it) })
-                liveDataIncomes.observe(this@StartFragment, Observer { incomeTextView.text = String.format("%s %s BYN", getString(R.string.income_text), it) })
-                liveDataBalance.observe(this@StartFragment, Observer { balanceTextView.text = String.format("%s %s BYN", getString(R.string.balance), it) })
+                liveDataExpenses.observe(this@StartFragment, Observer { expensesTextView.text = String.format("%s %.2f BYN", getString(R.string.spend), it) })
+                liveDataIncomes.observe(this@StartFragment, Observer { incomeTextView.text = String.format("%s %.2f BYN", getString(R.string.income_text), it) })
+                liveDataBalance.observe(this@StartFragment, Observer { balanceTextView.text = String.format("%s %.2f BYN", getString(R.string.balance), it) })
             }
         }
     }
