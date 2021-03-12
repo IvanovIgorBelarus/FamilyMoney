@@ -9,4 +9,5 @@ interface DataRepository {
     suspend fun getPartner():UIModel.AccountModel
     suspend fun getTransactionsList(): List<UIModel.TransactionModel>
     suspend fun getCategoriesList(): List<UIModel.CategoryModel>
+    suspend fun deleteItem(categoryItem: Any?)
 }

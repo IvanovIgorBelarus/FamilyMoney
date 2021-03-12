@@ -9,7 +9,7 @@ import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
 import by.itacademy.familywallet.model.UIModel
-import by.itacademy.familywallet.utils.Dialogs.Companion.createNegativeDialog
+import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +21,7 @@ class TransactionSettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionSettingsBinding
     private val repo by inject<DataRepository>()
     private var transactionType: String? = null
+    private val dialog by inject<Dialogs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +54,7 @@ class TransactionSettingsActivity : AppCompatActivity() {
                             )
                             finish()
                         } else {
-                            withContext(Dispatchers.Main) { createNegativeDialog(this@TransactionSettingsActivity) }
+                            withContext(Dispatchers.Main) { dialog.createNegativeDialog(this@TransactionSettingsActivity) }
                         }
                     }
                 }

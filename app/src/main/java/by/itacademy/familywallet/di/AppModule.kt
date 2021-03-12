@@ -5,6 +5,8 @@ import by.itacademy.familywallet.data.FirebaseDataBase
 import by.itacademy.familywallet.data.FirebaseRepositoryImpl
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemClickListener
+import by.itacademy.familywallet.presentation.ItemOnLongClickListener
+import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.ViewPreparation
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
@@ -14,11 +16,12 @@ import org.koin.dsl.module
 
 
 val adapterModule = module {
-    factory { (itemClickListener: ItemClickListener) ->
-        FragmentAdapter(itemClickListener)
+    factory { (itemClickListener: ItemClickListener?, itemOnLongClickListener: ItemOnLongClickListener) ->
+        FragmentAdapter(itemClickListener, itemOnLongClickListener)
     }
 }
 val utilsModel = module {
+    single { Dialogs(get()) }
     single { ViewPreparation() }
 }
 val dataModule = module {

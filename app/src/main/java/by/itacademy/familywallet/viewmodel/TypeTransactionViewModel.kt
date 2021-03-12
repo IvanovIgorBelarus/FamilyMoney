@@ -18,9 +18,7 @@ class TypeTransactionViewModel(
         CoroutineScope(Dispatchers.IO).launch {
             val list = repo.getCategoriesList()
             val partner = repo.getPartner()
-            withContext(Dispatchers.Main) {
-                mutableLiveData.value = list.filter { item -> (item.type == fragmentType) && ((item.uid == partner.uid) || (item.uid == partner.partnerUid)) }
-            }
+            withContext(Dispatchers.Main) { mutableLiveData.value = list.filter { item -> (item.type == fragmentType) && ((item.uid == partner.uid) || (item.uid == partner.partnerUid)) } }
         }
     }
 }

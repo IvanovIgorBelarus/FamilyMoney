@@ -46,6 +46,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         db.collection(USERS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
                 if (doc.getString(UID) == UserUtils.getUsersUid()) {
+                    partner.id = doc.id
                     partner.uid = UserUtils.getUsersUid()
                     partner.partnerUid = doc.getString(PARTNER_UID)
                 }
@@ -60,6 +61,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
             result.forEach { doc ->
                 list.add(
                     UIModel.TransactionModel(
+                        id = doc.id,
                         uid = doc.getString(UID),
                         type = doc.getString(TRANSACTION_TYPE),
                         category = doc.getString(CATEGORY),
@@ -81,9 +83,10 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 result.forEach { doc ->
                     list.add(
                         UIModel.CategoryModel(
-                            doc.getString(UID),
-                            doc.getString(CATEGORY),
-                            doc.getString(TRANSACTION_TYPE)
+                            id = doc.id,
+                            uid = doc.getString(UID),
+                            category = doc.getString(CATEGORY),
+                            type = doc.getString(TRANSACTION_TYPE)
                         )
                     )
                 }
@@ -91,4 +94,11 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
             }
     }
 
+    override suspend fun deleteItem(item: Any?) {
+        when (item) {
+            is UIModel.CategoryModel -> db.collection(CATEGORIES).document("${item.id}").delete()
+            is UIModel.AccountModel -> db.collection(USERS).document("${item.id}").delete()
+            is UIModel.TransactionModel -> db.collection(TRANSACTIONS).document("${item.id}").delete()
+        }
+    }
 }

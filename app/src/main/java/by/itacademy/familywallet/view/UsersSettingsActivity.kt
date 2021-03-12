@@ -18,6 +18,7 @@ import org.koin.android.ext.android.inject
 class UsersSettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUsersSettingsBinding
     private val repo by inject<DataRepository>()
+    private val dialog by inject<Dialogs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,7 @@ class UsersSettingsActivity : AppCompatActivity() {
                         )
                         finish()
                     } else {
-                        withContext(Dispatchers.Main) { Dialogs.createNegativeDialog(this@UsersSettingsActivity) }
+                        withContext(Dispatchers.Main) { dialog.createNegativeDialog(this@UsersSettingsActivity) }
                     }
                 }
             }
