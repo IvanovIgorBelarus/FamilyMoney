@@ -2,6 +2,7 @@ package by.itacademy.familywallet.model
 
 sealed class UIModel{
     class CategoryModel (
+        val uid: String?,
         var category: String?,
         var type: String?
     )

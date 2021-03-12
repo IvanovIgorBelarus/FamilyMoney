@@ -20,11 +20,12 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
-    override suspend fun addNewCategory(category: String, type: String) {
+    override suspend fun addNewCategory(categoryItem: UIModel.CategoryModel) {
         db.collection(CATEGORIES).add(
             mapOf(
-                CATEGORY to category,
-                TRANSACTION_TYPE to type
+                UID to categoryItem.uid,
+                CATEGORY to categoryItem.category,
+                TRANSACTION_TYPE to categoryItem.type
             )
         )
     }
@@ -56,6 +57,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 result.forEach { doc ->
                     list.add(
                         UIModel.CategoryModel(
+                            doc.getString(UID),
                             doc.getString(CATEGORY),
                             doc.getString(TRANSACTION_TYPE)
                         )
