@@ -11,7 +11,8 @@ import by.itacademy.familywallet.presentation.viewholders.CategoryViewHolder
 import by.itacademy.familywallet.presentation.viewholders.StatisticItemViewHolder
 
 class FragmentAdapter(
-    private val itemClickListener: ItemClickListener
+    private val itemClickListener: ItemClickListener? = null,
+    private var itemOnLongClickListener: ItemOnLongClickListener? = null
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var list = mutableListOf<Any?>()
@@ -19,9 +20,9 @@ class FragmentAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            R.layout.type_recycler_item -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener)
-            R.layout.statistic_recycler_item -> StatisticItemViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false))
-            else -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener)
+            R.layout.type_recycler_item -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener, itemOnLongClickListener)
+            R.layout.statistic_recycler_item -> StatisticItemViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false), itemOnLongClickListener)
+            else -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener, null)
         }
     }
 

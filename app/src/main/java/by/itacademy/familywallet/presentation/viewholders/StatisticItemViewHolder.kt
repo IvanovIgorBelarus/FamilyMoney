@@ -5,10 +5,18 @@ import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.familywallet.App
 import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 
-class StatisticItemViewHolder(private val binding: StatisticRecyclerItemBinding) :
+class StatisticItemViewHolder(
+    private val binding: StatisticRecyclerItemBinding,
+    private var itemOnLongClickListener: ItemOnLongClickListener?
+) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: UIModel.TransactionModel?) {
+        itemView.setOnLongClickListener {
+            itemOnLongClickListener?.onLongClick(item)
+            true
+        }
         val preparation = App().viewPreparation
         preparation.prepareView(itemView, item?.type!!)
         with(binding) {

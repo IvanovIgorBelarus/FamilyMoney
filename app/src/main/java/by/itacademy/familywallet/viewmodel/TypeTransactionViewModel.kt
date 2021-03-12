@@ -17,7 +17,8 @@ class TypeTransactionViewModel(
     fun getTransactionTypeList(fragmentType: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val list = repo.getCategoriesList()
-            withContext(Dispatchers.Main) { mutableLiveData.value = list.filter { item -> item.type == fragmentType } }
+            val partner = repo.getPartner()
+            withContext(Dispatchers.Main) { mutableLiveData.value = list.filter { item -> (item.type == fragmentType) && ((item.uid == partner.uid) || (item.uid == partner.partnerUid)) } }
         }
     }
 }

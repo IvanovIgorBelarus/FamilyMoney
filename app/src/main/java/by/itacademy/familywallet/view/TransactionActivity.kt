@@ -12,8 +12,8 @@ import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 import by.itacademy.familywallet.model.UIModel
-import by.itacademy.familywallet.utils.Dialogs.Companion.createNegativeDialog
-import com.google.firebase.auth.FirebaseAuth
+import by.itacademy.familywallet.utils.Dialogs
+import by.itacademy.familywallet.utils.UserUtils
 import org.koin.android.ext.android.inject
 import java.util.*
 
@@ -22,6 +22,7 @@ class TransactionActivity : AppCompatActivity() {
     private var type: String? = null
     private var category: String? = null
     private val repo by inject<DataRepository>()
+    private val dialog by inject<Dialogs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,7 @@ class TransactionActivity : AppCompatActivity() {
 
     private fun createDialog(moneyType: String?) {
         val transactionModel = UIModel.TransactionModel(
-            uid = FirebaseAuth.getInstance().currentUser?.uid,
+            uid = UserUtils.getUsersUid(),
             type = type,
             category = category,
             currency = binding.currencySpinner.selectedItem.toString(),
@@ -68,7 +69,7 @@ class TransactionActivity : AppCompatActivity() {
                     if (type != null && !binding.transactionValue.text.isNullOrEmpty()) {
                         createDialog(CASH)
                     } else {
-                        createNegativeDialog(this@TransactionActivity)
+                        dialog.createNegativeDialog(this@TransactionActivity)
                     }
                 }
                 preparation.prepareView(this, type!!)
@@ -78,7 +79,7 @@ class TransactionActivity : AppCompatActivity() {
                     if (type != null && !binding.transactionValue.text.isNullOrEmpty()) {
                         createDialog(CARD)
                     } else {
-                        createNegativeDialog(this@TransactionActivity)
+                        dialog.createNegativeDialog(this@TransactionActivity)
                     }
                 }
                 preparation.prepareView(this, type!!)

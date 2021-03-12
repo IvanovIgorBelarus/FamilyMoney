@@ -9,18 +9,19 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
-import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
-import by.itacademy.familywallet.presentation.ItemClickListener
+import by.itacademy.familywallet.presentation.ItemOnLongClickListener
+import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class StatisticsFragment : Fragment(), ItemClickListener {
+class StatisticsFragment : Fragment(), ItemOnLongClickListener {
     private val statisticViewModel by viewModel<StatisticViewModel>()
     private lateinit var binding: FragmentStatisticsBinding
-    private val fragmentAdapter: FragmentAdapter by inject { parametersOf(this)}
+    private val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, this as ItemOnLongClickListener) }
+    private val dialog by inject<Dialogs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +40,7 @@ class StatisticsFragment : Fragment(), ItemClickListener {
 
     override fun onResume() {
         super.onResume()
-        statisticViewModel.getAllTransActions()
+        statisticViewModel.getAllTransactions()
     }
 
     companion object {
@@ -47,7 +48,8 @@ class StatisticsFragment : Fragment(), ItemClickListener {
         fun newInstance() = StatisticsFragment()
     }
 
-    override fun onClick(item: UIModel.CategoryModel?) {
-
+    override fun onLongClick(item: Any?) {
+        dialog.deleteDialog(item, this)
+        this.onResume()
     }
 }

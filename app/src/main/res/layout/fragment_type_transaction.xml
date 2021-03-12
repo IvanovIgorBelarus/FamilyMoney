@@ -16,7 +16,6 @@
         android:layout_height="48dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="10dp"
-        android:background="@drawable/costs_button_background"
         android:text="+"
         android:textColor="@color/red"
         android:textSize="24sp" />
