@@ -10,6 +10,7 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
+import by.itacademy.familywallet.utils.Dialogs.Companion.createNegativeDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,21 +51,13 @@ class TransactionSettingsActivity : AppCompatActivity() {
                             )
                             finish()
                         } else {
-                            withContext(Dispatchers.Main) { createNegativeDialog() }
+                            withContext(Dispatchers.Main) { createNegativeDialog(this@TransactionSettingsActivity) }
                         }
                     }
                 }
             }
             App().viewPreparation.prepareView(itemName, transactionType!!)
         }
-    }
-
-    private fun createNegativeDialog() {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.alert))
-            .setMessage(getString(R.string.alert_negative_message_category_create))
-            .setPositiveButton(getString(R.string.ok)) { dialog, _ -> dialog.cancel() }
-            .show()
     }
 
     companion object {

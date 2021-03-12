@@ -56,16 +56,6 @@ class TypeTransactionFragment : Fragment(), ItemClickListener {
                     startActivity(TransactionSettingsActivity.start(this.context, fragmentType))
                 }
                 App().viewPreparation.prepareView(categoryCreateButton, fragmentType)
-//                when (fragmentType) {
-//                    EXPENSES -> {
-//                        setTextColor(ContextCompat.getColor(context, R.color.red))
-//                        setBackgroundResource(R.drawable.costs_button_background)
-//                    }
-//                    INCOMES -> {
-//                        setTextColor(ContextCompat.getColor(context, R.color.green))
-//                        setBackgroundResource(R.drawable.income_button_background)
-//                    }
-//                }
             }
         }
     }

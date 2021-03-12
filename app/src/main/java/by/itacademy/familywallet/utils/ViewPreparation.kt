@@ -40,15 +40,15 @@ class ViewPreparation {
                         ColorStateList.valueOf(ContextCompat.getColor(context, color))
                 }
             }
-            is TextView -> {
-                with(view) {
-                    setTextColor(ContextCompat.getColor(context, color))
-                }
-            }
             is EditText -> {
                 with(view) {
                     setTextColor(ContextCompat.getColor(context, color))
                     setBackgroundResource(drawableBackground)
+                }
+            }
+            is TextView -> {
+                with(view) {
+                    setTextColor(ContextCompat.getColor(context, color))
                 }
             }
             is Spinner -> {
