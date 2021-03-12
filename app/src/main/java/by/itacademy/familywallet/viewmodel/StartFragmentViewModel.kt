@@ -23,14 +23,27 @@ class StartFragmentViewModel(
     fun getTransactions() {
         CoroutineScope(Dispatchers.IO).launch {
             val list = repo.getTransactionsList()
+            val partner = repo.getPartner()
             withContext(Dispatchers.Main) {
-                mutableLiveDataExpenses.value = list.filter { item -> item.type == EXPENSES }?.sumByDouble { it.value!! }
-                mutableLiveDataIncomes.value = list.filter { item -> item.type == INCOMES }?.sumByDouble { it.value!! }
+                mutableLiveDataExpenses.value = list
+                    .filter { item -> (item.type == EXPENSES) && ((item.uid == partner.uid) || (item.uid == partner.partnerUid)) }
+                    ?.sumByDouble { it.value!! }
+                mutableLiveDataIncomes.value = list
+                    .filter { item -> (item.type == INCOMES) && ((item.uid == partner.uid) || (item.uid == partner.partnerUid)) }
+                    ?.sumByDouble { it.value!! }
                 mutableLiveDataBalance.value = list.sumByDouble {
-                    if (it.type == INCOMES) {
-                        it.value!!
-                    } else {
-                        -it.value!!
+                    when (it.type) {
+                        EXPENSES -> if ((it.type == EXPENSES) && ((it.uid == partner.uid) || (it.uid == partner.partnerUid))) {
+                            -it.value!!
+                        } else {
+                            0.0
+                        }
+                        INCOMES -> if ((it.type == INCOMES) && ((it.uid == partner.uid) || (it.uid == partner.partnerUid))) {
+                            it.value!!
+                        } else {
+                            0.0
+                        }
+                        else -> 0.0
                     }
                 }
             }

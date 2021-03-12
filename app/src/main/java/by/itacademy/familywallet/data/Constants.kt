@@ -11,6 +11,8 @@ const val TRANSACTIONS = "Transactions"
 const val CASH = "наличные деньги"
 const val CARD = "оплата картой"
 const val CURRENCY = "currency"
+const val USERS="Users"
+const val PARTNER_UID="partner uid"
 
 const val DATE = "date"
 const val CATEGORY = "category"

@@ -39,7 +39,7 @@ class StatisticsFragment : Fragment(), ItemClickListener {
 
     override fun onResume() {
         super.onResume()
-        statisticViewModel.getAllTransActions()
+        statisticViewModel.getAllTransactions()
     }
 
     companion object {

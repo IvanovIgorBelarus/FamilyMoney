@@ -18,6 +18,10 @@
     <string name="ok">Да</string>
     <string name="no">Нет</string>
     <string name="save">Сохранить</string>
+    <string name="add">Добавить</string>
     <string name="alert">Внимание</string>
+    <string name="uid">Ваш uid:</string>
     <string name="alert_negative_message_category_create">Вы пытаетесь сохранить пустое или существующее значение</string>
+    <string name="users_settings">Экран пользователя</string>
+    <string name="hint_edit_user_partner">Добавить партнера: введите uid</string>
 </resources>

@@ -1,6 +1,8 @@
 package by.itacademy.familywallet.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.ActivityFragmentsBinding
@@ -14,6 +16,20 @@ class FragmentsActivity : AppCompatActivity() {
         binding = ActivityFragmentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setViewPager()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.usersSettings -> {
+                startActivity(UsersSettingsActivity.start(this))
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setViewPager() {

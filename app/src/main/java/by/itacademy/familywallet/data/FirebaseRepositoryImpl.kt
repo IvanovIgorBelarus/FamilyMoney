@@ -1,11 +1,22 @@
 package by.itacademy.familywallet.data
 
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.utils.UserUtils
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository {
+
+    override suspend fun addPartner(accountModel: UIModel.AccountModel) {
+        db.collection(USERS).add(
+            mapOf(
+                UID to accountModel.uid,
+                PARTNER_UID to accountModel.partnerUid
+            )
+        )
+    }
+
     override suspend fun doTransaction(transactionModel: UIModel.TransactionModel) {
         db.collection(TRANSACTIONS).add(
             mapOf(
@@ -28,6 +39,19 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 TRANSACTION_TYPE to categoryItem.type
             )
         )
+    }
+
+    override suspend fun getPartner(): UIModel.AccountModel = suspendCoroutine { continuation ->
+        var partner = UIModel.AccountModel()
+        db.collection(USERS).get().addOnSuccessListener { result ->
+            result.forEach { doc ->
+                if (doc.getString(UID) == UserUtils.getUsersUid()) {
+                    partner.uid = UserUtils.getUsersUid()
+                    partner.partnerUid = doc.getString(PARTNER_UID)
+                }
+            }
+            continuation.resume(partner)
+        }
     }
 
     override suspend fun getTransactionsList(): List<UIModel.TransactionModel> = suspendCoroutine { continuation ->
@@ -66,4 +90,5 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 continuation.resume(list)
             }
     }
+
 }
