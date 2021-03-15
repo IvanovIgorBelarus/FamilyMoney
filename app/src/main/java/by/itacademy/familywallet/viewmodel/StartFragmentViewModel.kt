@@ -2,6 +2,8 @@ package by.itacademy.familywallet.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import by.itacademy.familywallet.common.balanceFilter
+import by.itacademy.familywallet.common.categoryFilter
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
@@ -25,27 +27,9 @@ class StartFragmentViewModel(
             val list = repo.getTransactionsList()
             val partner = repo.getPartner()
             withContext(Dispatchers.Main) {
-                mutableLiveDataExpenses.value = list
-                    .filter { item -> (item.type == EXPENSES) && ((item.uid == partner.uid) || (item.uid == partner.partnerUid)) }
-                    ?.sumByDouble { it.value!! }
-                mutableLiveDataIncomes.value = list
-                    .filter { item -> (item.type == INCOMES) && ((item.uid == partner.uid) || (item.uid == partner.partnerUid)) }
-                    ?.sumByDouble { it.value!! }
-                mutableLiveDataBalance.value = list.sumByDouble {
-                    when (it.type) {
-                        EXPENSES -> if ((it.type == EXPENSES) && ((it.uid == partner.uid) || (it.uid == partner.partnerUid))) {
-                            -it.value!!
-                        } else {
-                            0.0
-                        }
-                        INCOMES -> if ((it.type == INCOMES) && ((it.uid == partner.uid) || (it.uid == partner.partnerUid))) {
-                            it.value!!
-                        } else {
-                            0.0
-                        }
-                        else -> 0.0
-                    }
-                }
+                mutableLiveDataExpenses.value = list.categoryFilter(EXPENSES, partner)
+                mutableLiveDataIncomes.value = list.categoryFilter(INCOMES, partner)
+                mutableLiveDataBalance.value = list.balanceFilter(partner)
             }
         }
     }

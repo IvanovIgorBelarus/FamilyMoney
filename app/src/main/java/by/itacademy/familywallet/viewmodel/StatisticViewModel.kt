@@ -2,6 +2,7 @@ package by.itacademy.familywallet.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import by.itacademy.familywallet.common.byDateFilter
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.model.UIModel
 import kotlinx.coroutines.CoroutineScope
@@ -17,9 +18,7 @@ class StatisticViewModel(
     fun getAllTransactions() {
         CoroutineScope(Dispatchers.IO).launch {
             val partner = repo.getPartner()
-            val list = repo.getTransactionsList()
-                .filter {(it.uid==partner.uid)||(it.uid==partner.partnerUid)  }
-                .sortedByDescending { it.date }
+            val list = repo.getTransactionsList().byDateFilter(partner)
             withContext(Dispatchers.Main) { mutableLiveData.value = list }
         }
     }
