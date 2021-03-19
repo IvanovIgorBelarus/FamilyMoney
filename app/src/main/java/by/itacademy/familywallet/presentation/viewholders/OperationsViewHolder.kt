@@ -7,7 +7,7 @@ import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 
-class StatisticItemViewHolder(
+class OperationsViewHolder(
     private val binding: StatisticRecyclerItemBinding,
     private var itemOnLongClickListener: ItemOnLongClickListener?
 ) :

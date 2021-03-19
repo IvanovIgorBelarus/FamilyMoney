@@ -4,27 +4,22 @@ import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.model.UIModel
 
-fun List<UIModel.TransactionModel>.categoryFilter(type: String, partner: UIModel.AccountModel): Double =
-    this.filter { item -> (item.type == type) && ((item.uid == partner.uid) || (item.uid == partner.partnerUid)) }?.sumByDouble { it.value!! }
+fun List<UIModel.TransactionModel>.categoryFilter(category: String): Double =
+    this.filter { item -> item.type == category }?.sumByDouble { it.value!! }
 
-fun List<UIModel.TransactionModel>.balanceFilter(partner: UIModel.AccountModel): Double = this.sumByDouble {
+fun List<UIModel.TransactionModel>.balanceFilter(): Double = this.sumByDouble {
     when (it.type) {
-        EXPENSES -> if ((it.uid == partner.uid) || (it.uid == partner.partnerUid)) {
-            -it.value!!
-        } else {
-            0.0
-        }
-        INCOMES -> if ((it.uid == partner.uid) || (it.uid == partner.partnerUid)) {
-            it.value!!
-        } else {
-            0.0
-        }
+        EXPENSES ->  -it.value!!
+        INCOMES ->  it.value!!
         else -> 0.0
     }
 }
 
-fun List<UIModel.TransactionModel>.byDateFilter(partner: UIModel.AccountModel): List<UIModel.TransactionModel> =
-    this.filter { (it.uid == partner.uid) || (it.uid == partner.partnerUid) }.sortedByDescending { it.date }
+fun List<UIModel.TransactionModel>.transactionsPartnersFilter(partner: UIModel.AccountModel): List<UIModel.TransactionModel> =
+    this.filter { (it.uid == partner.uid) || (it.uid == partner.partnerUid) }
+
+fun List<UIModel.CategoryModel>.categoryPartnersFilter(partner: UIModel.AccountModel): List<UIModel.CategoryModel> =
+    this.filter { (it.uid == partner.uid) || (it.uid == partner.partnerUid) }
 
 fun List<UIModel.TransactionModel>.userFilter(uid: String): List<UIModel.TransactionModel> = this.filter { it.uid == uid }.sortedByDescending { it.date }
 
