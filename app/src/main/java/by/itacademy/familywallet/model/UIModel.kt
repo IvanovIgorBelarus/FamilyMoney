@@ -14,6 +14,12 @@ sealed class UIModel {
         var type: String?
     )
 
+    data class StatisticModel(
+        var category: String?,
+        var type: String?,
+        val value: Double?
+    )
+
     data class TransactionModel(
         var id:String?=null,
         val uid: String?,

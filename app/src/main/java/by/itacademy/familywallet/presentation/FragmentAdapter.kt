@@ -8,7 +8,8 @@ import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.viewholders.CategoryViewHolder
-import by.itacademy.familywallet.presentation.viewholders.StatisticItemViewHolder
+import by.itacademy.familywallet.presentation.viewholders.OperationsViewHolder
+import by.itacademy.familywallet.presentation.viewholders.StatisticViewHolder
 
 class FragmentAdapter(
     private val itemClickListener: ItemClickListener? = null,
@@ -21,7 +22,8 @@ class FragmentAdapter(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             R.layout.type_recycler_item -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener, itemOnLongClickListener)
-            R.layout.statistic_recycler_item -> StatisticItemViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false), itemOnLongClickListener)
+            R.layout.statistic_recycler_item -> OperationsViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false), itemOnLongClickListener)
+            R.string.statistics -> StatisticViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false))
             else -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener, null)
         }
     }
@@ -30,7 +32,8 @@ class FragmentAdapter(
         val item = list[position]
         when (holder) {
             is CategoryViewHolder -> holder.bind(item as UIModel.CategoryModel)
-            is StatisticItemViewHolder -> holder.bind(item as UIModel.TransactionModel)
+            is OperationsViewHolder -> holder.bind(item as UIModel.TransactionModel)
+            is StatisticViewHolder -> holder.bind(item as UIModel.StatisticModel)
         }
 
     }
@@ -41,6 +44,7 @@ class FragmentAdapter(
         return when (list[position]) {
             is UIModel.CategoryModel -> R.layout.type_recycler_item
             is UIModel.TransactionModel -> R.layout.statistic_recycler_item
+            is UIModel.StatisticModel -> R.string.statistics
             else -> R.layout.type_recycler_item
         }
     }

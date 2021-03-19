@@ -10,19 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
 import by.itacademy.familywallet.presentation.FragmentAdapter
-import by.itacademy.familywallet.presentation.ItemOnLongClickListener
-import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class StatisticsFragment : Fragment(), ItemOnLongClickListener {
-    private val statisticViewModel by viewModel<StatisticViewModel>()
+class StatisticFragment : Fragment() {
+    private val statisticViewMode by viewModel<StatisticViewModel>()
     private lateinit var binding: FragmentStatisticsBinding
-    private val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, this as ItemOnLongClickListener) }
-    private val dialog by inject<Dialogs>()
-
+    private val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +27,7 @@ class StatisticsFragment : Fragment(), ItemOnLongClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStatisticsBinding.bind(view)
-        statisticViewModel.liveData.observe(this, Observer { list -> fragmentAdapter.update(list) })
+        statisticViewMode.liveData.observe(this, Observer { list -> fragmentAdapter.update(list) })
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
@@ -40,16 +36,11 @@ class StatisticsFragment : Fragment(), ItemOnLongClickListener {
 
     override fun onResume() {
         super.onResume()
-        statisticViewModel.getAllTransactions()
+        statisticViewMode.getAData()
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = StatisticsFragment()
-    }
-
-    override fun onLongClick(item: Any?) {
-        dialog.deleteDialog(item, this)
-        this.onResume()
+        fun newInstance() = StatisticFragment()
     }
 }

@@ -2,7 +2,7 @@ package by.itacademy.familywallet.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import by.itacademy.familywallet.common.categoryPartnersFilter
+import by.itacademy.familywallet.common.transactionsPartnersFilter
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.model.UIModel
 import kotlinx.coroutines.CoroutineScope
@@ -10,14 +10,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TypeTransactionViewModel(private val repo: DataRepository) : ViewModel() {
-    private val mutableLiveData = MutableLiveData<List<UIModel.CategoryModel>>()
+class OperationsViewModel(private val repo: DataRepository) : ViewModel() {
+    private val mutableLiveData = MutableLiveData<List<UIModel.TransactionModel>>()
     val liveData = mutableLiveData
-    fun getTransactionTypeList(fragmentType: String) {
+    fun getAllTransactions() {
         CoroutineScope(Dispatchers.IO).launch {
-            val list = repo.getCategoriesList()
             val partner = repo.getPartner()
-            withContext(Dispatchers.Main) { mutableLiveData.value = list.categoryPartnersFilter(partner).filter { item -> (item.type == fragmentType) } }
+            val list = repo.getTransactionsList().transactionsPartnersFilter(partner).sortedByDescending { it.date }
+            withContext(Dispatchers.Main) { mutableLiveData.value = list }
         }
     }
 }
