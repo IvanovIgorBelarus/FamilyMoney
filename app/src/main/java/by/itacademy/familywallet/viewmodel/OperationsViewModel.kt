@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class StatisticViewModel(
+class OperationsViewModel(
     private val repo: DataRepository
 ) : ViewModel() {
     private val mutableLiveData = MutableLiveData<List<UIModel.TransactionModel>>()

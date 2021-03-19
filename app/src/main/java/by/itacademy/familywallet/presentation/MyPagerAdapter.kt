@@ -6,7 +6,8 @@ import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.view.FragmentsActivity
 import by.itacademy.familywallet.view.StartFragment
-import by.itacademy.familywallet.view.StatisticsFragment
+import by.itacademy.familywallet.view.OperationsFragment
+import by.itacademy.familywallet.view.StatisticFragment
 import by.itacademy.familywallet.view.TypeTransactionFragment
 
 
@@ -18,7 +19,8 @@ class MyPagerAdapter(fa: FragmentsActivity) :
             0 -> StartFragment.newInstance()
             1 -> TypeTransactionFragment.newInstance(EXPENSES)
             2 -> TypeTransactionFragment.newInstance(INCOMES)
-            3 -> StatisticsFragment.newInstance()
+            3 -> OperationsFragment.newInstance()
+            4 -> StatisticFragment.newInstance()
             else ->
                 return StartFragment.newInstance()
         }
@@ -28,6 +30,7 @@ class MyPagerAdapter(fa: FragmentsActivity) :
         add(StartFragment.newInstance())
         add(TypeTransactionFragment.newInstance(EXPENSES))
         add(TypeTransactionFragment.newInstance(INCOMES))
-        add(StatisticsFragment.newInstance())
+        add(OperationsFragment.newInstance())
+        add(StatisticFragment.newInstance())
     }
 }

@@ -9,7 +9,7 @@ import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.ViewPreparation
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
-import by.itacademy.familywallet.viewmodel.StatisticViewModel
+import by.itacademy.familywallet.viewmodel.OperationsViewModel
 import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -29,7 +29,7 @@ val dataModule = module {
 }
 val viewModelModel = module {
     viewModel { TypeTransactionViewModel(get()) }
-    viewModel { StatisticViewModel(get()) }
+    viewModel { OperationsViewModel(get()) }
     viewModel { StartFragmentViewModel(get()) }
 }
 

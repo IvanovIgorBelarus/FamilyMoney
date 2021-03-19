@@ -11,6 +11,7 @@
     <string name="expenses">Расходы</string>
     <string name="income">Доходы</string>
     <string name="statistics">Статистика</string>
+    <string name="operations">Операции</string>
     <string name="cash">наличные</string>
     <string name="card">карта</string>
     <string name="warning">Подтвердите операцию</string>
