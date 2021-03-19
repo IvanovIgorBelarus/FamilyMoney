@@ -23,7 +23,7 @@ class Dialogs(private val repo: DataRepository) {
         val context = fragment.context!!
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.alert))
-            .setMessage(context.getString(R.string.alert_negative_message_category_create))
+            .setMessage(context.getString(R.string.alert_dialog_delete_item_message))
             .setNegativeButton(context.getString(R.string.no)) { _, _ -> }
             .setPositiveButton(context.getString(R.string.ok)) { dialog, _ ->
                 CoroutineScope(Dispatchers.IO).launch {
