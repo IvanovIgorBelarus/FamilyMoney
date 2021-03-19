@@ -3,8 +3,8 @@ package by.itacademy.familywallet.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.itacademy.familywallet.common.balanceFilter
-import by.itacademy.familywallet.common.transactionsPartnersFilter
 import by.itacademy.familywallet.common.categoryFilter
+import by.itacademy.familywallet.common.transactionsPartnersFilter
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES

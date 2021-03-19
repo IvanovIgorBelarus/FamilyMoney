@@ -21,20 +21,20 @@ class OperationsViewHolder(
         preparation.prepareView(itemView, item?.type!!)
         with(binding) {
             with(value) {
-                text = String.format("%s %s", item?.value.toString(), item?.currency)
-                preparation.prepareView(this, item?.type!!)
+                text = String.format("%s %s", item.value.toString(), item.currency)
+                preparation.prepareView(this, item.type)
             }
             with(transactionCategory) {
-                text = item?.category
-                preparation.prepareView(this, item?.type!!)
+                text = item.category
+                preparation.prepareView(this, item.type)
             }
             with(moneyType) {
-                text = item?.moneyType
-                preparation.prepareView(this, item?.type!!)
+                text = item.moneyType
+                preparation.prepareView(this, item.type)
             }
             with(date) {
-                text = String.format("дата операции: %s", SimpleDateFormat("dd.MM.yyyy").format(item?.date))
-                preparation.prepareView(this, item?.type!!)
+                text = String.format("дата операции: %s", SimpleDateFormat("dd.MM.yyyy").format(item.date))
+                preparation.prepareView(this, item.type)
             }
         }
     }

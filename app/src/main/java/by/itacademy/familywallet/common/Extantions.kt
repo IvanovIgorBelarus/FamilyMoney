@@ -9,8 +9,8 @@ fun List<UIModel.TransactionModel>.categoryFilter(category: String): Double =
 
 fun List<UIModel.TransactionModel>.balanceFilter(): Double = this.sumByDouble {
     when (it.type) {
-        EXPENSES ->  -it.value!!
-        INCOMES ->  it.value!!
+        EXPENSES -> -it.value!!
+        INCOMES -> it.value!!
         else -> 0.0
     }
 }

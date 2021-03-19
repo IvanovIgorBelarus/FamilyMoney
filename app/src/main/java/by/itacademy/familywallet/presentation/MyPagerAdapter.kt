@@ -5,8 +5,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.view.FragmentsActivity
-import by.itacademy.familywallet.view.StartFragment
 import by.itacademy.familywallet.view.OperationsFragment
+import by.itacademy.familywallet.view.StartFragment
 import by.itacademy.familywallet.view.StatisticFragment
 import by.itacademy.familywallet.view.TypeTransactionFragment
 
