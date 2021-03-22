@@ -4,8 +4,8 @@ import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.model.UIModel
 
-fun List<UIModel.TransactionModel>.categoryFilter(category: String): Double =
-    this.filter { item -> item.type == category }?.sumByDouble { it.value!! }
+fun List<UIModel.TransactionModel>.categoryFilter(category: String): List<UIModel.TransactionModel>  =
+    this.filter { item -> item.type == category }
 
 fun List<UIModel.TransactionModel>.balanceFilter(): Double = this.sumByDouble {
     when (it.type) {

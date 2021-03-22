@@ -28,6 +28,6 @@ sealed class UIModel {
         val currency: String?,
         val moneyType: String?,
         val date: Long?,
-        val value: Double?
+        var value: Double?
     )
 }

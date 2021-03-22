@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.App
+import by.itacademy.familywallet.data.BANK
+import by.itacademy.familywallet.data.BANK_MINUS
+import by.itacademy.familywallet.data.BANK_PLUS
 import by.itacademy.familywallet.data.CARD
 import by.itacademy.familywallet.data.CASH
 import by.itacademy.familywallet.data.CATEGORIES
@@ -55,34 +58,42 @@ class TransactionActivity : AppCompatActivity() {
     private fun initViews() {
         val preparation = App().viewPreparation
         with(binding) {
-            with(transactionCategoryTitle) {
-                text = category
+            if (type == BANK) {
+                preparation.prepareBankViews(binding, this@TransactionActivity)
+            } else {
+                transactionCategoryTitle.text = category
                 preparation.prepareView(transactionCategoryTitle, type!!)
+                preparation.prepareView(transactionValue, type!!)
+                preparation.prepareView(currencySpinner, type!!)
+                preparation.prepareView(cashButton, type!!)
+                preparation.prepareView(cardButton, type!!)
             }
-            preparation.prepareView(transactionValue, type!!)
-            preparation.prepareView(currencySpinner, type!!)
+
             date.setOnDateChangeListener { view, year, month, dayOfMonth ->
                 view.date = GregorianCalendar(year, month, dayOfMonth).timeInMillis
             }
-            with(cashButton) {
-                setOnClickListener {
-                    if (type != null && !binding.transactionValue.text.isNullOrEmpty()) {
+            cashButton.setOnClickListener {
+                if (type != null && !binding.transactionValue.text.isNullOrEmpty()) {
+                    if (type == BANK) {
+                        createDialog(BANK_PLUS)
+                    } else {
                         createDialog(CASH)
-                    } else {
-                        dialog.createNegativeDialog(this@TransactionActivity)
                     }
+                } else {
+                    dialog.createNegativeDialog(this@TransactionActivity)
                 }
-                preparation.prepareView(this, type!!)
             }
-            with(cardButton) {
-                setOnClickListener {
-                    if (type != null && !binding.transactionValue.text.isNullOrEmpty()) {
-                        createDialog(CARD)
+
+            cardButton.setOnClickListener {
+                if (type != null && !binding.transactionValue.text.isNullOrEmpty()) {
+                    if (type == BANK) {
+                        createDialog(BANK_MINUS)
                     } else {
-                        dialog.createNegativeDialog(this@TransactionActivity)
+                        createDialog(CARD)
                     }
+                } else {
+                    dialog.createNegativeDialog(this@TransactionActivity)
                 }
-                preparation.prepareView(this, type!!)
             }
         }
     }

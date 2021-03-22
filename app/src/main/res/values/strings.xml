@@ -20,6 +20,7 @@
     <string name="no">Нет</string>
     <string name="save">Сохранить</string>
     <string name="add">Добавить</string>
+    <string name="out">Забрать</string>
     <string name="alert">Внимание</string>
     <string name="uid">Ваш uid:</string>
     <string name="alert_negative_message_category_create">Вы пытаетесь сохранить пустое или существующее значение</string>
@@ -27,4 +28,6 @@
     <string name="users_settings">Экран пользователя</string>
     <string name="hint_edit_user_partner">введите uid партнера</string>
     <string name="settings_user_description">Для ведения общего бюджета вам необходимо обменяться uid-номерами с вашим партнером. Номер uid должен добавить каждый участик. Проект расчитан на 1-2 человек</string>
+    <string name="bank">Копилка:</string>
+    <string name="open">Открыть</string>
 </resources>

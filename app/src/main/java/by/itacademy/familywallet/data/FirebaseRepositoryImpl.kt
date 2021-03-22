@@ -31,6 +31,24 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
+    override suspend fun doBakTransactions(transactionModel: UIModel.TransactionModel) {
+        var value = if (transactionModel.moneyType == BANK_MINUS) {
+           -transactionModel.value!!
+        } else {
+            transactionModel.value!!
+        }
+        db.collection(TRANSACTIONS).add(
+            mapOf(
+                UID to transactionModel.uid,
+                TRANSACTION_TYPE to transactionModel.type,
+                CURRENCY to transactionModel.currency,
+                MONEY_TYPE to "копилка",
+                VALUE to value,
+                DATE to transactionModel.date
+            )
+        )
+    }
+
     override suspend fun addNewCategory(categoryItem: UIModel.CategoryModel) {
         db.collection(CATEGORIES).add(
             mapOf(
