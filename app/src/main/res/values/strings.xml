@@ -22,7 +22,7 @@
     <string name="add">Добавить</string>
     <string name="out">Забрать</string>
     <string name="alert">Внимание</string>
-    <string name="uid">Ваш uid:</string>
+    <string name="uid">Приветствую, %s! Ваш uid:</string>
     <string name="alert_negative_message_category_create">Вы пытаетесь сохранить пустое или существующее значение</string>
     <string name="alert_dialog_delete_item_message">Вы действительно хотите удалить выбранный элемент?</string>
     <string name="users_settings">Экран пользователя</string>
