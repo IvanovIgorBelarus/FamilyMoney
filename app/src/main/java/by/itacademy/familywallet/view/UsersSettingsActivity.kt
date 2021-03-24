@@ -31,7 +31,7 @@ class UsersSettingsActivity : AppCompatActivity() {
             saveButton.setOnClickListener {
                 val text = itemName.text.toString()
                 CoroutineScope(Dispatchers.IO).launch {
-                    if (!text.isNullOrEmpty()) {
+                    if (!text.isNullOrEmpty()&&text!=UserUtils.getUsersUid()) {
                         val nullPartner = repo.getPartner()
                         repo.deleteItem(nullPartner)
                         repo.addPartner(
