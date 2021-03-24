@@ -122,6 +122,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
             is UIModel.CategoryModel -> db.collection(CATEGORIES).document("${item.id}").delete()
             is UIModel.AccountModel -> db.collection(USERS).document("${item.id}").delete()
             is UIModel.TransactionModel -> db.collection(TRANSACTIONS).document("${item.id}").delete()
+            is UIModel.AccountModel->db.collection(USERS).document("${item.id}").delete()
         }
     }
 }

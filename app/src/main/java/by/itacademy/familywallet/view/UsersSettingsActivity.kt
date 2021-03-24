@@ -29,6 +29,8 @@ class UsersSettingsActivity : AppCompatActivity() {
                 val text = itemName.text.toString()
                 CoroutineScope(Dispatchers.IO).launch {
                     if (!text.isNullOrEmpty()) {
+                        val nullPartner=repo.getPartner()
+                        repo.deleteItem(nullPartner)
                         repo.addPartner(
                             UIModel.AccountModel(
                                 uid = UserUtils.getUsersUid(),

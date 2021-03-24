@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addUserInCloud(){
         CoroutineScope(Dispatchers.IO).launch {
-            val isPartner = repo.getPartner().uid==null?:false
+            val isPartner = repo.getPartner().uid.isNullOrEmpty()
             if (isPartner) {
                 repo.addPartner(UIModel.AccountModel(uid = UserUtils.getUsersUid()))
             }
