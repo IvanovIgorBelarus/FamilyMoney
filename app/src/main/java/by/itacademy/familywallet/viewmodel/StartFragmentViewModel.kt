@@ -11,6 +11,7 @@ import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.EUR
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
+import by.itacademy.familywallet.data.RUB
 import by.itacademy.familywallet.data.USD
 import by.itacademy.familywallet.model.UIModel
 import kotlinx.coroutines.CoroutineScope
@@ -36,7 +37,7 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
                 mutableLiveDataExpenses.value = list.transactionsPartnersFilter(partner).categoryFilter(EXPENSES)?.sumByDouble { it.value!! }
                 mutableLiveDataIncomes.value = list.transactionsPartnersFilter(partner).categoryFilter(INCOMES)?.sumByDouble { it.value!! }
                 mutableLiveDataBalance.value = list.transactionsPartnersFilter(partner).balanceFilter()
-                mutableLiveDataBank.value=getBankString(list.transactionsPartnersFilter(partner).categoryFilter(BANK))
+                mutableLiveDataBank.value = getBankString(list.transactionsPartnersFilter(partner).categoryFilter(BANK))
             }
         }
     }
@@ -45,13 +46,15 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
         var byn = 0.0
         var usd = 0.0
         var eur = 0.0
+        var rub = 0.0
         list.forEach { item ->
             when (item.currency) {
                 USD -> usd += item.value!!
                 EUR -> eur += item.value!!
+                RUB -> rub += item.value!!
                 BYN -> byn += item.value!!
             }
         }
-        return String.format("USD: %.2f\nEUR: %.2f\nBYN: %.2f", usd, eur, byn)
+        return String.format("USD: %.2f\nEUR: %.2f\nRUB: %.2f\nBYN: %.2f", usd, eur, rub, byn)
     }
 }

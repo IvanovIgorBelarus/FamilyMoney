@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.databinding.ActivityMainBinding
+import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.utils.UserUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -15,11 +18,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    private val repo: DataRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // val user = auth.currentUser
+                    addUserInCloud()
                     startActivity(Intent(this, FragmentsActivity::class.java))
                     finish()
                     //updateUI(user)
@@ -70,6 +79,15 @@ class MainActivity : AppCompatActivity() {
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    private fun addUserInCloud(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val isPartner = repo.getPartner().uid==null?:false
+            if (isPartner) {
+                repo.addPartner(UIModel.AccountModel(uid = UserUtils.getUsersUid()))
+            }
+        }
     }
 
     companion object {

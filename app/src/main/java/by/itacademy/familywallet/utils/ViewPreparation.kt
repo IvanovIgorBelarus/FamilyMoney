@@ -15,6 +15,7 @@ import by.itacademy.familywallet.data.BYN
 import by.itacademy.familywallet.data.EUR
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
+import by.itacademy.familywallet.data.RUB
 import by.itacademy.familywallet.data.USD
 import by.itacademy.familywallet.databinding.ActivityTransactionBinding
 
@@ -60,7 +61,7 @@ class ViewPreparation {
             }
             is Spinner -> {
                 with(view) {
-                    val currencyArray = arrayOf(BYN, USD, EUR)
+                    val currencyArray = arrayOf(BYN, USD, EUR, RUB)
                     adapter = ArrayAdapter(context, spinnerItem, currencyArray)
                 }
             }
@@ -83,7 +84,7 @@ class ViewPreparation {
                 setBackgroundResource(drawableBackground)
             }
             with(currencySpinner) {
-                val currencyArray = arrayOf(BYN, USD, EUR)
+                val currencyArray = arrayOf(BYN, USD, EUR, RUB)
                 adapter = ArrayAdapter(context, spinnerItem, currencyArray)
             }
             with(cashButton) {

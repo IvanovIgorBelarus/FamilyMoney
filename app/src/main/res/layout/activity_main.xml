@@ -15,6 +15,7 @@
         android:padding="10dp"
         android:text="@string/registration"
         android:textColor="@color/blue"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,12 +25,23 @@
         android:id="@+id/loginIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:background="@drawable/green_rectangle_button_background"
         android:text="@string/login_in"
         android:textColor="@color/green"
         app:layout_constraintEnd_toEndOf="@+id/registration"
         app:layout_constraintStart_toStartOf="@+id/registration"
-        app:layout_constraintTop_toBottomOf="@+id/registration" />
+        app:layout_constraintTop_toTopOf="@+id/registration" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:text="@string/start_description"
+        android:textColor="@color/green"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginIn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

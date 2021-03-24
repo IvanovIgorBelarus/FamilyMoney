@@ -33,7 +33,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
 
     override suspend fun doBakTransactions(transactionModel: UIModel.TransactionModel) {
         var value = if (transactionModel.moneyType == BANK_MINUS) {
-           -transactionModel.value!!
+            -transactionModel.value!!
         } else {
             transactionModel.value!!
         }
@@ -63,7 +63,12 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         var partner = UIModel.AccountModel()
         db.collection(USERS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
-                if (doc.getString(UID) == UserUtils.getUsersUid()) {
+                if (doc.getString(UID) == UserUtils.getUsersUid() && doc.getString(PARTNER_UID) != null) {
+                    partner.id = doc.id
+                    partner.uid = UserUtils.getUsersUid()
+                    partner.partnerUid = doc.getString(PARTNER_UID)
+                    return@forEach
+                } else if (doc.getString(UID) == UserUtils.getUsersUid()) {
                     partner.id = doc.id
                     partner.uid = UserUtils.getUsersUid()
                     partner.partnerUid = doc.getString(PARTNER_UID)
