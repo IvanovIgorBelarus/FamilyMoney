@@ -42,7 +42,7 @@ class FragmentsActivity : AppCompatActivity() {
                 1 -> tab.setText(R.string.expenses)
                 2 -> tab.setText(R.string.income)
                 3 -> tab.setText(R.string.operations)
-                4-> tab.setText(R.string.statistics)
+                4 -> tab.setText(R.string.statistics)
             }
         }.attach()
     }

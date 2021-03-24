@@ -11,7 +11,7 @@
         android:id="@+id/expensesTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:text="@string/spend"
         android:textColor="@color/red"
         android:textSize="18sp"
@@ -39,35 +39,43 @@
         android:text="@string/balance"
         android:textColor="@color/blue"
         android:textSize="18sp"
-        app:drawableStartCompat="@drawable/ic_baseline_savings_24"
+        app:drawableStartCompat="@drawable/ic_baseline_monetization_on_24"
         app:drawableTint="@color/blue"
         app:layout_constraintTop_toBottomOf="@+id/incomeTextView" />
 
-    <Button
-        android:id="@+id/makeCostButton"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/bankTextTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/costs_button_background"
-        android:text="@string/expenses"
-        android:textColor="@color/red"
+        android:layout_marginTop="30dp"
+        android:text="@string/bank"
+        android:textColor="@color/blue"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:drawableStartCompat="@drawable/ic_baseline_savings_24"
+        app:drawableTint="@color/blue"
+        app:layout_constraintTop_toBottomOf="@+id/balanceTextView" />
+
+    <TextView
+        android:id="@+id/bankTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="30dp"
+        android:textColor="@color/blue"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/bankTextTitle" />
 
     <Button
-        android:id="@+id/makeIncomeButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/openBank"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/income_button_background"
-        android:text="@string/income"
-        android:textColor="@color/green"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:background="@drawable/blue_rectangle_button_background"
+        android:text="@string/open"
+        android:textColor="@color/blue"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bankTextTitle"
+        tools:ignore="RtlSymmetry" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

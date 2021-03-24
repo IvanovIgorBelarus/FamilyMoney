@@ -5,6 +5,8 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.BANK_MINUS
+import by.itacademy.familywallet.data.BANK_PLUS
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.model.UIModel
 import kotlinx.coroutines.CoroutineScope
@@ -20,10 +22,14 @@ class TransactionDialog(
             val builder = AlertDialog.Builder(it)
             builder
                 .setTitle(getString(R.string.warning))
-                .setMessage("${getString(R.string.message)} ${transactionModel.category}?")
+                .setMessage(message())
                 .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                     CoroutineScope(Dispatchers.IO).launch {
-                        repo.doTransaction(transactionModel)
+                        if (transactionModel.moneyType == BANK_MINUS || transactionModel.moneyType == BANK_PLUS) {
+                            repo.doBakTransactions(transactionModel)
+                        } else {
+                            repo.doTransaction(transactionModel)
+                        }
                     }
                     dialog.cancel()
                     activity?.finish()
@@ -32,6 +38,13 @@ class TransactionDialog(
                     dialog.cancel()
                 }
             builder.create()
+        }
+    }
+    private fun message(): String{
+        return if (transactionModel.moneyType == BANK_MINUS || transactionModel.moneyType == BANK_PLUS) {
+            "${getString(R.string.message)} данные?"
+        } else {
+            "${getString(R.string.message)} ${transactionModel.category}?"
         }
     }
 }

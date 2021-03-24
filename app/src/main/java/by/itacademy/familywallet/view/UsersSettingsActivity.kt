@@ -3,12 +3,15 @@ package by.itacademy.familywallet.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.databinding.ActivityUsersSettingsBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +32,8 @@ class UsersSettingsActivity : AppCompatActivity() {
                 val text = itemName.text.toString()
                 CoroutineScope(Dispatchers.IO).launch {
                     if (!text.isNullOrEmpty()) {
+                        val nullPartner = repo.getPartner()
+                        repo.deleteItem(nullPartner)
                         repo.addPartner(
                             UIModel.AccountModel(
                                 uid = UserUtils.getUsersUid(),
@@ -42,6 +47,12 @@ class UsersSettingsActivity : AppCompatActivity() {
                 }
             }
             uid.text = UserUtils.getUsersUid()
+            title.text = String.format(getString(R.string.uid), UserUtils.getUserName())
+            Log.d(by.itacademy.familywallet.data.TAG, "${UserUtils.getUserPhoto()}")
+            Glide.with(userPhoto)
+                .load(UserUtils.getUserPhoto())
+                .circleCrop()
+                .into(userPhoto)
         }
     }
 

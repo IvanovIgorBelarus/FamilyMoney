@@ -31,6 +31,24 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
+    override suspend fun doBakTransactions(transactionModel: UIModel.TransactionModel) {
+        var value = if (transactionModel.moneyType == BANK_MINUS) {
+            -transactionModel.value!!
+        } else {
+            transactionModel.value!!
+        }
+        db.collection(TRANSACTIONS).add(
+            mapOf(
+                UID to transactionModel.uid,
+                TRANSACTION_TYPE to transactionModel.type,
+                CURRENCY to transactionModel.currency,
+                MONEY_TYPE to "копилка",
+                VALUE to value,
+                DATE to transactionModel.date
+            )
+        )
+    }
+
     override suspend fun addNewCategory(categoryItem: UIModel.CategoryModel) {
         db.collection(CATEGORIES).add(
             mapOf(
@@ -45,7 +63,12 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         var partner = UIModel.AccountModel()
         db.collection(USERS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
-                if (doc.getString(UID) == UserUtils.getUsersUid()) {
+                if (doc.getString(UID) == UserUtils.getUsersUid() && doc.getString(PARTNER_UID) != null) {
+                    partner.id = doc.id
+                    partner.uid = UserUtils.getUsersUid()
+                    partner.partnerUid = doc.getString(PARTNER_UID)
+                    return@forEach
+                } else if (doc.getString(UID) == UserUtils.getUsersUid()) {
                     partner.id = doc.id
                     partner.uid = UserUtils.getUsersUid()
                     partner.partnerUid = doc.getString(PARTNER_UID)
@@ -99,6 +122,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
             is UIModel.CategoryModel -> db.collection(CATEGORIES).document("${item.id}").delete()
             is UIModel.AccountModel -> db.collection(USERS).document("${item.id}").delete()
             is UIModel.TransactionModel -> db.collection(TRANSACTIONS).document("${item.id}").delete()
+            is UIModel.AccountModel->db.collection(USERS).document("${item.id}").delete()
         }
     }
 }
