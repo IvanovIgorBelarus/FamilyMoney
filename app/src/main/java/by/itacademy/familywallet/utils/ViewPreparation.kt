@@ -1,11 +1,13 @@
 package by.itacademy.familywallet.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -32,20 +34,18 @@ class ViewPreparation {
 
     private fun setItemsStyles(view: View, type: String) {
         when (type) {
-            EXPENSES -> setColors(view, R.color.red, R.drawable.red_rectangle_button_background, R.layout.red_spinner_item)
-            INCOMES -> setColors(view, R.color.green, R.drawable.green_rectangle_button_background, R.layout.green_spinner_item)
-            BANK -> setColors(view, R.color.blue, R.drawable.blue_rectangle_button_background, R.layout.blue_spinner_item)
+            EXPENSES -> setColors(view, R.color.red, R.drawable.red_rectangle_button_background,R.drawable.ic_baseline_add_circle_outline_red, R.layout.red_spinner_item)
+            INCOMES -> setColors(view, R.color.green, R.drawable.green_rectangle_button_background,R.drawable.ic_baseline_add_circle_outline_green, R.layout.green_spinner_item)
+            BANK -> setColors(view, R.color.blue, R.drawable.blue_rectangle_button_background,0, R.layout.blue_spinner_item)
         }
     }
 
-    private fun setColors(view: View, color: Int, drawableBackground: Int, spinnerItem: Int) {
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun setColors(view: View, color: Int, drawableBackground: Int, icon:Int, spinnerItem: Int) {
         when (view) {
-            is Button -> {
+            is ImageButton -> {
                 with(view) {
-                    setTextColor(ContextCompat.getColor(context, color))
-                    setBackgroundResource(drawableBackground)
-                    compoundDrawableTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(context, color))
+                    setImageDrawable(resources.getDrawable(icon,context.theme))
                 }
             }
             is EditText -> {

@@ -17,6 +17,7 @@
         tools:context=".view.TypeTransactionFragment">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="64dp"
             android:id="@+id/adapterRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -33,14 +34,13 @@
                 android:layout_gravity="center" />
         </FrameLayout>
 
-        <Button
+        <ImageButton
             android:id="@+id/categoryCreateButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@color/backgroundColor"
             android:layout_gravity="bottom|end"
-            android:layout_margin="10dp"
-            android:text="+"
-            android:textColor="@color/red"
-            android:textSize="24sp" />
+            android:layout_margin="20dp"
+            android:visibility="@{viewModel.isLoading ? View.GONE :View.VISIBLE}" />
     </FrameLayout>
 </layout>
