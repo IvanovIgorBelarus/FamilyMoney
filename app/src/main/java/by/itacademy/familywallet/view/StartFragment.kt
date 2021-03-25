@@ -33,6 +33,8 @@ class StartFragment : Fragment() {
 
     private fun initViews() {
         with(binding) {
+            viewModel=startFragmentViewModel
+            executePendingBindings()
             openBank.setOnClickListener {
                 startActivity(TransactionActivity.start(this@StartFragment.context, BANK, null))
             }

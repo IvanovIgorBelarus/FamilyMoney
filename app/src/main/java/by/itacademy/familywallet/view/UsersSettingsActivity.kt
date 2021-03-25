@@ -48,7 +48,6 @@ class UsersSettingsActivity : AppCompatActivity() {
             }
             uid.text = UserUtils.getUsersUid()
             title.text = String.format(getString(R.string.uid), UserUtils.getUserName())
-            Log.d(by.itacademy.familywallet.data.TAG, "${UserUtils.getUserPhoto()}")
             Glide.with(userPhoto)
                 .load(UserUtils.getUserPhoto())
                 .circleCrop()

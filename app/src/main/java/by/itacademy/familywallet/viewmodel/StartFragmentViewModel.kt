@@ -1,5 +1,6 @@
 package by.itacademy.familywallet.viewmodel
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.itacademy.familywallet.common.balanceFilter
@@ -28,8 +29,9 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
     val liveDataBalance = mutableLiveDataBalance
     private val mutableLiveDataBank = MutableLiveData<String>()
     val liveDataDataBank = mutableLiveDataBank
-
+    val isLoading = ObservableField<Boolean>()
     fun getTransactions() {
+        isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
             val list = repo.getTransactionsList()
             val partner = repo.getPartner()
@@ -38,6 +40,7 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
                 mutableLiveDataIncomes.value = list.transactionsPartnersFilter(partner).categoryFilter(INCOMES)?.sumByDouble { it.value!! }
                 mutableLiveDataBalance.value = list.transactionsPartnersFilter(partner).balanceFilter()
                 mutableLiveDataBank.value = getBankString(list.transactionsPartnersFilter(partner).categoryFilter(BANK))
+                isLoading.set(false)
             }
         }
     }

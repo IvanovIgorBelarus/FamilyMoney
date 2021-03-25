@@ -1,5 +1,6 @@
 package by.itacademy.familywallet.viewmodel
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.itacademy.familywallet.common.categoryPartnersFilter
@@ -16,7 +17,9 @@ import kotlinx.coroutines.withContext
 class StatisticViewModel(private val repo: DataRepository) : ViewModel() {
     private val mutableLiveData = MutableLiveData<List<UIModel.StatisticModel>>()
     val liveData = mutableLiveData
+    val isLoading = ObservableField<Boolean>()
     fun getAData() {
+        isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
             val resultList = mutableListOf<UIModel.StatisticModel>()
             val partner = repo.getPartner()
@@ -34,7 +37,10 @@ class StatisticViewModel(private val repo: DataRepository) : ViewModel() {
                     resultList.add(item)
                 }
             }
-            withContext(Dispatchers.Main) { mutableLiveData.value = resultList }
+            withContext(Dispatchers.Main) {
+                mutableLiveData.value = resultList
+                isLoading.set(false)
+            }
         }
     }
 

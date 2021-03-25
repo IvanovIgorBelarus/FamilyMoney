@@ -32,6 +32,8 @@ class StatisticFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
         }
+        binding.viewModel=statisticViewMode
+        binding.executePendingBindings()
     }
 
     override fun onResume() {
