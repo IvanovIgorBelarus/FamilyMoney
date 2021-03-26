@@ -21,8 +21,8 @@ class FragmentAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            R.layout.type_recycler_item -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener, itemOnLongClickListener)
-            R.layout.statistic_recycler_item -> OperationsViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false), itemOnLongClickListener)
+            R.string.income -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener, itemOnLongClickListener)
+            R.string.operations -> OperationsViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false), itemOnLongClickListener)
             R.string.statistics -> StatisticViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false))
             else -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), null, null)
         }
@@ -42,8 +42,8 @@ class FragmentAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (list[position]) {
-            is UIModel.CategoryModel -> R.layout.type_recycler_item
-            is UIModel.TransactionModel -> R.layout.statistic_recycler_item
+            is UIModel.CategoryModel -> R.string.income
+            is UIModel.TransactionModel -> R.string.operations
             is UIModel.StatisticModel -> R.string.statistics
             else -> R.layout.type_recycler_item
         }

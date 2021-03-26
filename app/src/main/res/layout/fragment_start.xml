@@ -1,110 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.StartFragment">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="viewModel"
-            type="by.itacademy.familywallet.viewmodel.StartFragmentViewModel" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <TextView
+        android:id="@+id/expensesTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.StartFragment">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/spend"
+        android:textColor="@color/red"
+        android:textSize="18sp"
+        app:drawableStartCompat="@drawable/ic_baseline_arrow_downward_24"
+        app:drawableTint="@color/red"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/progress_color"
-            android:visibility="@{viewModel.isLoading ? View.VISIBLE :View.GONE}">
+    <TextView
+        android:id="@+id/incomeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/income_text"
+        android:textColor="@color/green"
+        android:textSize="18sp"
+        app:drawableStartCompat="@drawable/ic_baseline_arrow_upward_24"
+        app:drawableTint="@color/green"
+        app:layout_constraintTop_toBottomOf="@+id/expensesTextView" />
 
-            <ProgressBar
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center" />
-        </FrameLayout>
+    <TextView
+        android:id="@+id/balanceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/balance"
+        android:textColor="@color/blue"
+        android:textSize="18sp"
+        app:drawableStartCompat="@drawable/ic_baseline_monetization_on_24"
+        app:drawableTint="@color/blue"
+        app:layout_constraintTop_toBottomOf="@+id/incomeTextView" />
 
-        <TextView
-            android:id="@+id/expensesTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="64dp"
-            android:text="@string/spend"
-            android:textColor="@color/red"
-            android:textSize="18sp"
-            app:drawableStartCompat="@drawable/ic_baseline_arrow_downward_24"
-            app:drawableTint="@color/red"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/bankTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/bank"
+        android:textColor="@color/blue"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_baseline_savings_24"
+        app:drawableTint="@color/blue"
+        app:layout_constraintTop_toBottomOf="@+id/balanceTextView" />
 
-        <TextView
-            android:id="@+id/incomeTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/income_text"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            app:drawableStartCompat="@drawable/ic_baseline_arrow_upward_24"
-            app:drawableTint="@color/green"
-            app:layout_constraintTop_toBottomOf="@+id/expensesTextView" />
+    <TextView
+        android:id="@+id/bankTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:paddingStart="30dp"
+        android:textColor="@color/blue"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/bankTextTitle" />
 
-        <TextView
-            android:id="@+id/balanceTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/balance"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            app:drawableStartCompat="@drawable/ic_baseline_monetization_on_24"
-            app:drawableTint="@color/blue"
-            app:layout_constraintTop_toBottomOf="@+id/incomeTextView" />
-
-        <TextView
-            android:id="@+id/bankTextTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/bank"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:drawableStartCompat="@drawable/ic_baseline_savings_24"
-            app:drawableTint="@color/blue"
-            app:layout_constraintTop_toBottomOf="@+id/balanceTextView" />
-
-        <TextView
-            android:id="@+id/bankTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:paddingStart="30dp"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/bankTextTitle" />
-
-        <Button
-            android:id="@+id/openBank"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/blue_rectangle_button_background"
-            android:text="@string/open"
-            android:textColor="@color/blue"
-            android:textSize="12sp"
-            android:visibility="@{viewModel.isLoading ? View.GONE :View.VISIBLE}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/bankTextTitle"
-            tools:ignore="RtlSymmetry" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <Button
+        android:id="@+id/openBank"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_rectangle_button_background"
+        android:text="@string/open"
+        android:textColor="@color/blue"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bankTextTitle"
+        tools:ignore="RtlSymmetry" />
+</androidx.constraintlayout.widget.ConstraintLayout>

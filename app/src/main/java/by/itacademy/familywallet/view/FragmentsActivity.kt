@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.ActivityFragmentsBinding
 import by.itacademy.familywallet.presentation.MyPagerAdapter
+import by.itacademy.familywallet.utils.ProgressBarUtils
 import com.google.android.material.tabs.TabLayoutMediator
 
 class FragmentsActivity : AppCompatActivity() {
@@ -16,6 +17,8 @@ class FragmentsActivity : AppCompatActivity() {
         binding = ActivityFragmentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setViewPager()
+        binding.progress = ProgressBarUtils
+        binding.executePendingBindings()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

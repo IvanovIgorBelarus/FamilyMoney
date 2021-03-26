@@ -49,8 +49,6 @@ class TypeTransactionFragment : Fragment(), ItemClickListener, ItemOnLongClickLi
     }
 
     private fun initViewModel() {
-        binding.viewModel=transactionViewModel
-        binding.executePendingBindings()
         transactionViewModel.liveData.observe(this, Observer { list -> fragmentAdapter.update(list) })
     }
 

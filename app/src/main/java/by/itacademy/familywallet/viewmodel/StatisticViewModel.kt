@@ -1,6 +1,5 @@
 package by.itacademy.familywallet.viewmodel
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.itacademy.familywallet.common.categoryPartnersFilter
@@ -9,6 +8,7 @@ import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +17,6 @@ import kotlinx.coroutines.withContext
 class StatisticViewModel(private val repo: DataRepository) : ViewModel() {
     private val mutableLiveData = MutableLiveData<List<UIModel.StatisticModel>>()
     val liveData = mutableLiveData
-    val isLoading = ObservableField<Boolean>()
     fun getAData() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
