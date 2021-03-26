@@ -31,4 +31,5 @@
     <string name="bank">Копилка:</string>
     <string name="open">Открыть</string>
     <string name="start_description">Пожалуйста, войдите в приложение с помощью вашего google-аккаунта</string>
+    <string name="pie_description">Диаграмма затрат</string>
 </resources>

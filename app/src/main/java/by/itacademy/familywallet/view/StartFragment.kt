@@ -15,6 +15,7 @@ import org.koin.android.ext.android.inject
 class StartFragment : Fragment() {
     private lateinit var binding: FragmentStartBinding
     private val startFragmentViewModel by inject<StartFragmentViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +42,10 @@ class StartFragment : Fragment() {
                 liveDataIncomes.observe(this@StartFragment, Observer { incomeTextView.text = String.format("%s %.2f BYN", getString(R.string.income_text), it) })
                 liveDataBalance.observe(this@StartFragment, Observer { balanceTextView.text = String.format("%s %.2f BYN", getString(R.string.balance), it) })
                 liveDataDataBank.observe(this@StartFragment, Observer { bankTextView.text = it })
+            }
+            with(diagram) {
+                description.text = getString(R.string.pie_description)
+                isRotationEnabled = true
             }
         }
     }
