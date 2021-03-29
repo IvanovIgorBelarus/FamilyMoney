@@ -44,12 +44,13 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
             val partner = repo.getPartner()
             val expensesList = list.transactionsPartnersFilter(partner).categoryFilter(EXPENSES)
             val categories = repo.getCategoriesList()
-            PieModelMapper.map(categories,expensesList).forEach { item->  Log.d(TAG,"[${item.category}: ${item.value}]") }
+            // PieModelMapper.map(categories,expensesList).forEach { item->  Log.d(TAG,"[${item.category}: ${item.value}]") }
             withContext(Dispatchers.Main) {
                 mutableLiveDataExpenses.value = expensesList.sumByDouble { it.value!! }
                 mutableLiveDataIncomes.value = list.transactionsPartnersFilter(partner).categoryFilter(INCOMES)?.sumByDouble { it.value!! }
                 mutableLiveDataBalance.value = list.transactionsPartnersFilter(partner).balanceFilter()
                 mutableLiveDataBank.value = getBankString(list.transactionsPartnersFilter(partner).categoryFilter(BANK))
+                mutableLiveDataPie.value = PieModelMapper.map(categories, expensesList)
                 isLoading.set(false)
             }
         }

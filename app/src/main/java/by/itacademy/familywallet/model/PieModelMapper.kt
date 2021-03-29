@@ -10,7 +10,7 @@ object PieModelMapper {
         categories.forEach { category ->
             if (category.type == EXPENSES) {
                 var categoryValue = expenses.filter { item -> item.category == category.category }.sumByDouble { it.value!! }
-                resultList.add(PieModel(value = categoryValue / sumValue * 100, category = category.category))
+                resultList.add(PieModel(value = (categoryValue / sumValue * 10000).toInt().toFloat()/100, category = category.category))
             }
         }
         return resultList
