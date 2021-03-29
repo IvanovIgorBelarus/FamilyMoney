@@ -41,7 +41,7 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
     fun getTransactions() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
-            val list = repo.getTransactionsList().currentDateFilter(dateFilterType)
+            val list = repo.getTransactionsList().currentDateFilter()
             val partner = repo.getPartner()
             val expensesList = list.transactionsPartnersFilter(partner).categoryFilter(EXPENSES)
             val categories = repo.getCategoriesList()

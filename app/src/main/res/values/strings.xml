@@ -32,4 +32,8 @@
     <string name="open">Открыть</string>
     <string name="start_description">Пожалуйста, войдите в приложение с помощью вашего google-аккаунта</string>
     <string name="pie_description">Диаграмма затрат</string>
+    <string name="no_filter">всё время</string>
+    <string name="month">месяц</string>
+    <string name="week">неделя</string>
+    <string name="day">день</string>
 </resources>

@@ -25,7 +25,7 @@ class OperationsViewModel(private val repo: DataRepository) : ViewModel() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
             val partner = repo.getPartner()
-            val list = repo.getTransactionsList().transactionsPartnersFilter(partner).currentDateFilter(dateFilterType).sortedByDescending { it.date }
+            val list = repo.getTransactionsList().transactionsPartnersFilter(partner).currentDateFilter().sortedByDescending { it.date }
             withContext(Dispatchers.Main) {
                 mutableLiveData.value = list
                 isLoading.set(false)

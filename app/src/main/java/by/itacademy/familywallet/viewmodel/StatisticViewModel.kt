@@ -28,7 +28,7 @@ class StatisticViewModel(private val repo: DataRepository) : ViewModel() {
             val incomes = mutableListOf<UIModel.StatisticModel>()
             val expenses = mutableListOf<UIModel.StatisticModel>()
             val partner = repo.getPartner()
-            val transactionsList = repo.getTransactionsList().transactionsPartnersFilter(partner).currentDateFilter(dateFilterType)
+            val transactionsList = repo.getTransactionsList().transactionsPartnersFilter(partner).currentDateFilter()
             val categoryList = repo.getCategoriesList().categoryPartnersFilter(partner)
             categoryList.forEach {
                 val item = filterForResult(transactionsList, it.category, INCOMES)
