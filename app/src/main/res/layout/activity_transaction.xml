@@ -24,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_margin="10dp"
+        android:firstDayOfWeek="2"
         app:layout_constraintBottom_toTopOf="@id/transactionValue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,11 +1,13 @@
 package by.itacademy.familywallet.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import by.itacademy.familywallet.App
+import by.itacademy.familywallet.App.Companion.dateFilterType
 import by.itacademy.familywallet.common.balanceFilter
 import by.itacademy.familywallet.common.categoryFilter
-import by.itacademy.familywallet.common.categoryPartnersFilter
+import by.itacademy.familywallet.common.currentDateFilter
+import by.itacademy.familywallet.common.currentMonthFilter
 import by.itacademy.familywallet.common.transactionsPartnersFilter
 import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.data.BYN
@@ -14,7 +16,6 @@ import by.itacademy.familywallet.data.EUR
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.RUB
-import by.itacademy.familywallet.data.TAG
 import by.itacademy.familywallet.data.USD
 import by.itacademy.familywallet.model.PieModel
 import by.itacademy.familywallet.model.PieModelMapper
@@ -40,11 +41,10 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
     fun getTransactions() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
-            val list = repo.getTransactionsList()
+            val list = repo.getTransactionsList().currentDateFilter(dateFilterType)
             val partner = repo.getPartner()
             val expensesList = list.transactionsPartnersFilter(partner).categoryFilter(EXPENSES)
             val categories = repo.getCategoriesList()
-            // PieModelMapper.map(categories,expensesList).forEach { item->  Log.d(TAG,"[${item.category}: ${item.value}]") }
             withContext(Dispatchers.Main) {
                 mutableLiveDataExpenses.value = expensesList.sumByDouble { it.value!! }
                 mutableLiveDataIncomes.value = list.transactionsPartnersFilter(partner).categoryFilter(INCOMES)?.sumByDouble { it.value!! }

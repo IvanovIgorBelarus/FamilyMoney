@@ -26,3 +26,8 @@ const val BYN="BYN"
 const val USD="USD"
 const val EUR="EUR"
 const val RUB="RUB"
+
+const val MONTH_FILTER="month"
+const val WEEK_FILTER="week"
+const val DAY_FILTER="filter"
+const val NO_DATE_FILTER="no_filter"

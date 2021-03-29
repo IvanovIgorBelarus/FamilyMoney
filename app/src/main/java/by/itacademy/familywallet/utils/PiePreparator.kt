@@ -4,7 +4,6 @@ import android.content.Context
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.model.PieModel
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -44,7 +43,6 @@ object PiePreparator {
         resultList.add(context.resources.getColor(R.color.color10, context.theme))
         resultList.add(context.resources.getColor(R.color.color11, context.theme))
         resultList.add(context.resources.getColor(R.color.color12, context.theme))
-        resultList.add(context.resources.getColor(R.color.color13, context.theme))
 
         return resultList
     }

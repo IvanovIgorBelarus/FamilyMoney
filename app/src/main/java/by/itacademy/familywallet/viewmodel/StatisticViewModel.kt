@@ -2,7 +2,11 @@ package by.itacademy.familywallet.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import by.itacademy.familywallet.App
+import by.itacademy.familywallet.App.Companion.dateFilterType
 import by.itacademy.familywallet.common.categoryPartnersFilter
+import by.itacademy.familywallet.common.currentDateFilter
+import by.itacademy.familywallet.common.currentMonthFilter
 import by.itacademy.familywallet.common.transactionsPartnersFilter
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.EXPENSES
@@ -21,20 +25,26 @@ class StatisticViewModel(private val repo: DataRepository) : ViewModel() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
             val resultList = mutableListOf<UIModel.StatisticModel>()
+            val incomes = mutableListOf<UIModel.StatisticModel>()
+            val expenses = mutableListOf<UIModel.StatisticModel>()
             val partner = repo.getPartner()
-            val transactionsList = repo.getTransactionsList().transactionsPartnersFilter(partner)
+            val transactionsList = repo.getTransactionsList().transactionsPartnersFilter(partner).currentDateFilter(dateFilterType)
             val categoryList = repo.getCategoriesList().categoryPartnersFilter(partner)
             categoryList.forEach {
                 val item = filterForResult(transactionsList, it.category, INCOMES)
                 if (item.value != 0.0 && !resultList.contains(item)) {
-                    resultList.add(item)
+                    incomes.add(item)
                 }
             }
             categoryList.forEach {
                 val item = filterForResult(transactionsList, it.category, EXPENSES)
                 if (item.value != 0.0 && !resultList.contains(item)) {
-                    resultList.add(item)
+                    expenses.add(item)
                 }
+            }
+            with(resultList) {
+                addAll(incomes.sortedByDescending { it.value })
+                addAll(expenses.sortedByDescending { it.value })
             }
             withContext(Dispatchers.Main) {
                 mutableLiveData.value = resultList

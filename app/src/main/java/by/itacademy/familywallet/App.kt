@@ -1,6 +1,7 @@
 package by.itacademy.familywallet
 
 import android.app.Application
+import by.itacademy.familywallet.data.MONTH_FILTER
 import by.itacademy.familywallet.di.adapterModule
 import by.itacademy.familywallet.di.dataModule
 import by.itacademy.familywallet.di.utilsModel
@@ -20,5 +21,9 @@ class App : Application() {
             androidContext(this@App)
             modules(adapterModule, utilsModel, dataModule, viewModelModel)
         }
+    }
+
+    companion object{
+        var dateFilterType= MONTH_FILTER
     }
 }
