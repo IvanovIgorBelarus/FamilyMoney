@@ -2,11 +2,39 @@
 <resources>
     <color name="colorPrimary">#02B815</color>
     <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorAccent">#1F32DD</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="progress_color">#99CDCDCD</color>
+    <color name="backgroundColor">#00000000</color>
 
     <color name="blue">#1F32DD</color>
     <color name="green">#02B815</color>
     <color name="red">#E82121</color>
+
+<!--    <color name="color1">#de425b</color>-->
+<!--    <color name="color2">#eb6056</color>-->
+<!--    <color name="color3">#f57e55</color>-->
+<!--    <color name="color4">#fb9a59</color>-->
+<!--    <color name="color5">#feb663</color>-->
+<!--    <color name="color6">#ffd173</color>-->
+<!--    <color name="color7">#ffeb8a</color>-->
+<!--    <color name="color8">#d6dc7f</color>-->
+<!--    <color name="color9">#afcd77</color>-->
+<!--    <color name="color10">#89bd73</color>-->
+<!--    <color name="color11">#64ab71</color>-->
+<!--    <color name="color12">#3d996f</color>-->
+<!--    <color name="color13">#488f31</color>-->
+
+    <color name="color1">#396376</color>
+    <color name="color2">#4D95B6</color>
+    <color name="color3">#6C63A8</color>
+    <color name="color4">#777396</color>
+    <color name="color5">#D05AA0</color>
+    <color name="color6">#BF87A8</color>
+    <color name="color7">#FB7E7C</color>
+    <color name="color8">#E99493</color>
+    <color name="color9">#F8C15C</color>
+    <color name="color10">#EADA4E</color>
+
 </resources>

@@ -20,6 +20,9 @@ android {
     buildFeatures {
         viewBinding true
     }
+    dataBinding {
+        enabled = true
+    }
 
     buildTypes {
         release {
@@ -70,4 +73,6 @@ dependencies {
     // Add the dependency for the Firebase SDK for Google Analytics
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    //MPAndroidChart library
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

@@ -1,13 +1,15 @@
 package by.itacademy.familywallet.view
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import by.itacademy.familywallet.App
+import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
-import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
+import by.itacademy.familywallet.databinding.FragmentNewCategoryBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
@@ -17,21 +19,21 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
-class TransactionSettingsActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityTransactionSettingsBinding
+class NewCategoryFragment : Fragment() {
+    private lateinit var binding: FragmentNewCategoryBinding
     private val repo by inject<DataRepository>()
     private var transactionType: String? = null
     private val dialog by inject<Dialogs>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityTransactionSettingsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        with(intent) {
-            if (this != null) {
-                transactionType = getStringExtra(TRANSACTION_TYPE)
-            }
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = inflater.inflate(R.layout.fragment_new_category, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentNewCategoryBinding.bind(view)
+        transactionType = arguments?.getString(TRANSACTION_TYPE)
         if (transactionType != null) {
             initViews()
         }
@@ -52,9 +54,11 @@ class TransactionSettingsActivity : AppCompatActivity() {
                                     type = transactionType!!
                                 )
                             )
-                            finish()
+                            withContext(Dispatchers.Main) {
+                                (activity as FragmentsActivity).onBackPressed()
+                            }
                         } else {
-                            withContext(Dispatchers.Main) { dialog.createNegativeDialog(this@TransactionSettingsActivity) }
+                            withContext(Dispatchers.Main) { dialog.createNegativeDialog(context, getString(R.string.alert_negative_message_category_create)) }
                         }
                     }
                 }
@@ -63,10 +67,12 @@ class TransactionSettingsActivity : AppCompatActivity() {
         }
     }
 
+
     companion object {
-        fun start(context: Context?, transactionType: String) =
-            Intent(context, TransactionSettingsActivity::class.java).apply {
-                putExtra(TRANSACTION_TYPE, transactionType)
+        fun newInstance(transactionType: String) = NewCategoryFragment().apply {
+            arguments = Bundle().apply {
+                putString(TRANSACTION_TYPE, transactionType)
             }
+        }
     }
 }

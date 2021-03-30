@@ -1,5 +1,8 @@
 package by.itacademy.familywallet.di
 
+import androidx.appcompat.app.AppCompatActivity
+import by.itacademy.familywallet.common.ScreenManager
+import by.itacademy.familywallet.common.ScreenManagerImpl
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.FirebaseDataBase
 import by.itacademy.familywallet.data.FirebaseRepositoryImpl
@@ -21,14 +24,17 @@ val adapterModule = module {
         FragmentAdapter(itemClickListener, itemOnLongClickListener)
     }
 }
-val utilsModel = module {
+val utilsModule = module {
     single { Dialogs(get()) }
     single { ViewPreparation() }
+}
+val commonModule = module {
+    single<ScreenManager> { (container: Int, activity: AppCompatActivity) -> ScreenManagerImpl(container, activity) }
 }
 val dataModule = module {
     single<DataRepository> { FirebaseRepositoryImpl(FirebaseDataBase.instance) }
 }
-val viewModelModel = module {
+val viewModelModule = module {
     viewModel { TypeTransactionViewModel(get()) }
     viewModel { OperationsViewModel(get()) }
     viewModel { StartFragmentViewModel(get()) }
