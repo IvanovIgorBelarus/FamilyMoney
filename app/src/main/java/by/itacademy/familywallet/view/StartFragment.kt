@@ -2,7 +2,6 @@ package by.itacademy.familywallet.view
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.BANK
-import by.itacademy.familywallet.data.TAG
 import by.itacademy.familywallet.databinding.FragmentStartBinding
 import by.itacademy.familywallet.utils.PiePreparator
-import by.itacademy.familywallet.utils.toEndOfDay
-import by.itacademy.familywallet.utils.toStartOfDay
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
 import org.koin.android.ext.android.inject
-import java.util.*
 
 class StartFragment : Fragment() {
     private lateinit var binding: FragmentStartBinding
@@ -32,8 +27,6 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStartBinding.bind(view)
         initViews()
-        val lastDay=Calendar.getInstance().time.toEndOfDay
-        Log.d(TAG, "$lastDay")
     }
 
     override fun onResume() {

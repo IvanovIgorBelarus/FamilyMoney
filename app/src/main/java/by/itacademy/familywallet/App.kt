@@ -3,9 +3,10 @@ package by.itacademy.familywallet
 import android.app.Application
 import by.itacademy.familywallet.data.MONTH_FILTER
 import by.itacademy.familywallet.di.adapterModule
+import by.itacademy.familywallet.di.commonModule
 import by.itacademy.familywallet.di.dataModule
-import by.itacademy.familywallet.di.utilsModel
-import by.itacademy.familywallet.di.viewModelModel
+import by.itacademy.familywallet.di.utilsModule
+import by.itacademy.familywallet.di.viewModelModule
 import by.itacademy.familywallet.utils.ViewPreparation
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -19,7 +20,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(adapterModule, utilsModel, dataModule, viewModelModel)
+            modules(adapterModule, utilsModule, dataModule, viewModelModule, commonModule)
         }
     }
 

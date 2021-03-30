@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import by.itacademy.familywallet.App
 import by.itacademy.familywallet.App.Companion.endDate
 import by.itacademy.familywallet.App.Companion.startDate
 import by.itacademy.familywallet.R
@@ -59,7 +58,7 @@ class Dialogs(private val repo: DataRepository) {
                 endDate = pickerCalendar.time.toEndOfDay.time
             }
         }, year, month, day)
-        dialog.datePicker.firstDayOfWeek=2
+        dialog.datePicker.firstDayOfWeek = 2
         dialog.show()
     }
 }

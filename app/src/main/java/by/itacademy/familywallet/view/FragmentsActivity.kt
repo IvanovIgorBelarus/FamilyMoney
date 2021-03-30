@@ -5,13 +5,18 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.common.ScreenManager
 import by.itacademy.familywallet.databinding.ActivityFragmentsBinding
 import by.itacademy.familywallet.presentation.MyPagerAdapter
 import by.itacademy.familywallet.utils.ProgressBarUtils
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class FragmentsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFragmentsBinding
+    private val screenManager: ScreenManager by inject { parametersOf(R.id.fragment_container, this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFragmentsBinding.inflate(layoutInflater)
@@ -32,11 +37,12 @@ class FragmentsActivity : AppCompatActivity() {
                 startActivity(UsersSettingsActivity.start(this))
             }
             R.id.filter -> {
-                supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.fragment_container, DateSettingFragment.newInstance())
-                    .addToBackStack(null)
-                    .commit()
+                screenManager.startFragment(DateSettingFragment.newInstance())
+//                supportFragmentManager
+//                    .beginTransaction()
+//                    .add(R.id.fragment_container, DateSettingFragment.newInstance())
+//                    .addToBackStack(null)
+//                    .commit()
             }
         }
         return super.onOptionsItemSelected(item)
