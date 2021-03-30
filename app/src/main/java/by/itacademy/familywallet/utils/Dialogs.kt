@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import by.itacademy.familywallet.App.Companion.endDate
 import by.itacademy.familywallet.App.Companion.startDate
 import by.itacademy.familywallet.R

@@ -3,7 +3,6 @@ package by.itacademy.familywallet.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button

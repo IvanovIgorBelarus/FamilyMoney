@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import by.itacademy.familywallet.App
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
-import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.FragmentNewCategoryBinding
 import by.itacademy.familywallet.model.UIModel
@@ -56,7 +55,7 @@ class NewCategoryFragment : Fragment() {
                                 )
                             )
                             withContext(Dispatchers.Main) {
-                                (activity as FragmentsActivity).onDataSetChange(if (transactionType == INCOMES) {2} else {1})
+                                (activity as FragmentsActivity).onBackPressed()
                             }
                         } else {
                             withContext(Dispatchers.Main) { dialog.createNegativeDialog(context, getString(R.string.alert_negative_message_category_create)) }

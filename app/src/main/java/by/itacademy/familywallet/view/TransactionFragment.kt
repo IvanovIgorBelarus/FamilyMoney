@@ -13,10 +13,8 @@ import by.itacademy.familywallet.data.BANK_PLUS
 import by.itacademy.familywallet.data.CARD
 import by.itacademy.familywallet.data.CASH
 import by.itacademy.familywallet.data.CATEGORIES
-import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.FragmentTransactionBinding
-
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
@@ -101,9 +99,7 @@ class TransactionFragment : Fragment() {
     }
 
     fun closeFragment() {
-        var currentItem = 0
-        currentItem = if (type == INCOMES) {2} else {1}
-        (activity as FragmentsActivity).onDataSetChange(currentItem)
+        (activity as FragmentsActivity).onBackPressed()
     }
 
     companion object {

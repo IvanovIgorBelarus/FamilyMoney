@@ -14,7 +14,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -71,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                     //updateUI(user)
                 } else {
                     Log.w(by.itacademy.familywallet.data.TAG, "signInWithCredential:failure", task.exception)
-                    dialog.createNegativeDialog(this,getString(R.string.alert_negative_auth_message))
+                    dialog.createNegativeDialog(this, getString(R.string.alert_negative_auth_message))
                     //updateUI(null)
                 }
             }
@@ -82,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun addUserInCloud(){
+    private fun addUserInCloud() {
         CoroutineScope(Dispatchers.IO).launch {
             val isPartner = repo.getPartner().uid.isNullOrEmpty()
             if (isPartner) {

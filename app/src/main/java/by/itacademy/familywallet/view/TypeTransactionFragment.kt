@@ -56,7 +56,6 @@ class TypeTransactionFragment : Fragment(), ItemClickListener, ItemOnLongClickLi
         with(binding) {
             with(categoryCreateButton) {
                 setOnClickListener {
-                    // startActivity(TransactionSettingsActivity.start(this.context, fragmentType))
                     (activity as FragmentsActivity).screenManager.startFragment(NewCategoryFragment.newInstance(fragmentType))
                 }
                 App().viewPreparation.prepareView(categoryCreateButton, fragmentType)

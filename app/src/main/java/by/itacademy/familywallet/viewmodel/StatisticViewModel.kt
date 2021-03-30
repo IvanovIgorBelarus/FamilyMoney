@@ -2,11 +2,8 @@ package by.itacademy.familywallet.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import by.itacademy.familywallet.App
-import by.itacademy.familywallet.App.Companion.dateFilterType
 import by.itacademy.familywallet.common.categoryPartnersFilter
 import by.itacademy.familywallet.common.currentDateFilter
-import by.itacademy.familywallet.common.currentMonthFilter
 import by.itacademy.familywallet.common.transactionsPartnersFilter
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.EXPENSES
