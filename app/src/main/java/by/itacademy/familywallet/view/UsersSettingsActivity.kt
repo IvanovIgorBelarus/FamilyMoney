@@ -44,69 +44,9 @@ class UsersSettingsActivity : AppCompatActivity() {
                 .circleCrop()
                 .into(userPhoto)
         }
-        enabledButton()
-        initButtons()
     }
 
-    private fun initButtons() {
-        with(binding) {
-            noFilterButton.setOnClickListener {
-                dateFilterType = NO_DATE_FILTER
-                enabledButton()
-                finish()
-            }
-            monthFilterButton.setOnClickListener {
-                dateFilterType = MONTH_FILTER
-                enabledButton()
-                finish()
-            }
-            weekFilterButton.setOnClickListener {
-                dateFilterType = WEEK_FILTER
-                enabledButton()
-                finish()
-            }
-            dayFilterButton.setOnClickListener {
-                dateFilterType = DAY_FILTER
-                enabledButton()
-                finish()
-            }
-        }
-    }
 
-    private fun enabledButton() {
-        with(binding) {
-            when (dateFilterType) {
-                NO_DATE_FILTER -> {
-                    noFilterButton.isEnabled = false
-                    App().viewPreparation.prepareView(noFilterButton, INCOMES)
-                    monthFilterButton.isEnabled = true
-                    weekFilterButton.isEnabled = true
-                    dayFilterButton.isEnabled = true
-                }
-                MONTH_FILTER -> {
-                    noFilterButton.isEnabled = true
-                    monthFilterButton.isEnabled = false
-                    App().viewPreparation.prepareView(monthFilterButton, INCOMES)
-                    weekFilterButton.isEnabled = true
-                    dayFilterButton.isEnabled = true
-                }
-                WEEK_FILTER -> {
-                    noFilterButton.isEnabled = true
-                    monthFilterButton.isEnabled = true
-                    weekFilterButton.isEnabled = false
-                    App().viewPreparation.prepareView(weekFilterButton, INCOMES)
-                    dayFilterButton.isEnabled = true
-                }
-                DAY_FILTER -> {
-                    noFilterButton.isEnabled = true
-                    monthFilterButton.isEnabled = true
-                    weekFilterButton.isEnabled = true
-                    dayFilterButton.isEnabled = false
-                    App().viewPreparation.prepareView(dayFilterButton, INCOMES)
-                }
-            }
-        }
-    }
 
 
     private fun createPartner() {
@@ -123,7 +63,7 @@ class UsersSettingsActivity : AppCompatActivity() {
                 )
                 finish()
             } else {
-                withContext(Dispatchers.Main) { dialog.createNegativeDialog(this@UsersSettingsActivity) }
+                withContext(Dispatchers.Main) { dialog.createNegativeDialog(this@UsersSettingsActivity,getString(R.string.alert_negative_message_category_create)) }
             }
         }
     }

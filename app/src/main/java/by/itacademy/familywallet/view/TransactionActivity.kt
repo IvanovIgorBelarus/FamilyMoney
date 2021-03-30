@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.App
+import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.data.BANK_MINUS
 import by.itacademy.familywallet.data.BANK_PLUS
@@ -80,7 +81,7 @@ class TransactionActivity : AppCompatActivity() {
                         createDialog(CASH)
                     }
                 } else {
-                    dialog.createNegativeDialog(this@TransactionActivity)
+                    dialog.createNegativeDialog(this@TransactionActivity, getString(R.string.alert_negative_message_transaction))
                 }
             }
 
@@ -92,7 +93,7 @@ class TransactionActivity : AppCompatActivity() {
                         createDialog(CARD)
                     }
                 } else {
-                    dialog.createNegativeDialog(this@TransactionActivity)
+                    dialog.createNegativeDialog(this@TransactionActivity,getString(R.string.alert_negative_message_transaction))
                 }
             }
         }

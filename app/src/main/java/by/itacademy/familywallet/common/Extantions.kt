@@ -2,10 +2,13 @@ package by.itacademy.familywallet.common
 
 import by.itacademy.familywallet.App
 import by.itacademy.familywallet.App.Companion.dateFilterType
+import by.itacademy.familywallet.App.Companion.endDate
+import by.itacademy.familywallet.App.Companion.startDate
 import by.itacademy.familywallet.data.DAY_FILTER
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.MONTH_FILTER
+import by.itacademy.familywallet.data.RANGE_FILTER
 import by.itacademy.familywallet.data.WEEK_FILTER
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.toEndOfDay
@@ -44,11 +47,15 @@ fun List<UIModel.TransactionModel>.currentMonthFilter(): List<UIModel.Transactio
     return this.filter { it.date!! in firstDayOfMonth..lastDayOfMonth }
 }
 
+fun List<UIModel.TransactionModel>.currentRangeFilter(): List<UIModel.TransactionModel> = this.filter { it.date!! in startDate!!..endDate!! }
+
+
 fun List<UIModel.TransactionModel>.currentDateFilter(): List<UIModel.TransactionModel>{
     return when(dateFilterType){
         MONTH_FILTER-> this.currentMonthFilter()
         WEEK_FILTER-> this.currentWeekFilter()
         DAY_FILTER-> this.currentDayFilter()
+        RANGE_FILTER->this.currentRangeFilter()
         else -> this
     }
 }

@@ -10,26 +10,37 @@ import com.github.mikephil.charting.data.PieEntry
 
 object PiePreparator {
     fun preparePie(pie: PieChart, data: List<PieModel>, context: Context) {
+        pie.data = PieData(getDataSet(data, context))
+        pie.invalidate()
+    }
+
+    private fun getDataSet(data: List<PieModel>, context: Context): PieDataSet {
         val prepareList = data.sortedByDescending { it.value }
         var entrys = arrayListOf<PieEntry>()
         var othersValue = 0.0f
+        var count = 0
         for (i in 0..8) {
-            entrys.add(PieEntry(prepareList[i].value, prepareList[i].category!!))
+            if (prepareList[i].value>2.0f) {  //затраты со значением меньше двух процентов не отображаются на пироге
+                entrys.add(PieEntry(prepareList[i].value, prepareList[i].category!!))
+                count++
+            }
         }
         for (i in 9 until data.size) {
             othersValue += prepareList[i].value
         }
-        entrys.add(PieEntry(othersValue, "остальные"))
+        if (othersValue != 2.0f) { //затраты со значением меньше двух процентов не отображаются на пироге
+            entrys.add(PieEntry(othersValue, "остальные"))
+            count++
+        }
         val pieDataSet = PieDataSet(entrys, null).apply {
             sliceSpace = 1f
             valueTextSize = 12f
-            colors = getPieColors(context)
+            colors = getPieColors(context, count)
         }
-        pie.data = PieData(pieDataSet)
-        pie.invalidate()
+        return pieDataSet
     }
 
-    private fun getPieColors(context: Context): List<Int> {
+    private fun getPieColors(context: Context, count: Int): List<Int> {
         var resultList = mutableListOf<Int>()
         resultList.add(context.resources.getColor(R.color.color1, context.theme))
         resultList.add(context.resources.getColor(R.color.color2, context.theme))
@@ -41,8 +52,6 @@ object PiePreparator {
         resultList.add(context.resources.getColor(R.color.color8, context.theme))
         resultList.add(context.resources.getColor(R.color.color9, context.theme))
         resultList.add(context.resources.getColor(R.color.color10, context.theme))
-
-
-        return resultList
+        return resultList.subList(0, count)
     }
 }

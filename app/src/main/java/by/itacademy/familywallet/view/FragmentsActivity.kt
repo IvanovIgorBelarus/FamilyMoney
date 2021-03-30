@@ -31,6 +31,13 @@ class FragmentsActivity : AppCompatActivity() {
             R.id.usersSettings -> {
                 startActivity(UsersSettingsActivity.start(this))
             }
+            R.id.filter -> {
+                supportFragmentManager
+                    .beginTransaction()
+                    .add(R.id.fragment_container, DateSettingFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -48,5 +55,10 @@ class FragmentsActivity : AppCompatActivity() {
                 4 -> tab.setText(R.string.statistics)
             }
         }.attach()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        setViewPager()
     }
 }

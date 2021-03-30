@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.App
+import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.ActivityTransactionSettingsBinding
@@ -54,7 +55,7 @@ class TransactionSettingsActivity : AppCompatActivity() {
                             )
                             finish()
                         } else {
-                            withContext(Dispatchers.Main) { dialog.createNegativeDialog(this@TransactionSettingsActivity) }
+                            withContext(Dispatchers.Main) { dialog.createNegativeDialog(this@TransactionSettingsActivity, getString(R.string.alert_negative_message_category_create)) }
                         }
                     }
                 }

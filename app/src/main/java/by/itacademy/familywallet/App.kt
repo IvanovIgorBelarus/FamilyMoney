@@ -23,7 +23,9 @@ class App : Application() {
         }
     }
 
-    companion object{
-        var dateFilterType= MONTH_FILTER
+    companion object {
+        var dateFilterType = MONTH_FILTER
+        var startDate: Long? = null
+        var endDate: Long? = null
     }
 }

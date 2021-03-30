@@ -1,8 +1,13 @@
 package by.itacademy.familywallet.utils
 
+import java.text.SimpleDateFormat
 import java.util.*
 
 object DateUtils {
+    fun parseDate(date: Date, pattern: String, locale: Locale = Locale.getDefault()): String {
+        val dateFormat = SimpleDateFormat(pattern, locale)
+        return dateFormat.format(date)
+    }
     fun parseDateDown(date: Date): Date {
         val calendar = Calendar.getInstance()
         calendar.time = date
@@ -32,3 +37,7 @@ val Date.toStartOfDay: Date
 
 val Date.toEndOfDay: Date
     get() = DateUtils.parseDateUp(this)
+
+fun Date.formatDate(pattern: String): String {
+    return DateUtils.parseDate(this, pattern)
+}

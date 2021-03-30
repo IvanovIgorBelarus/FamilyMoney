@@ -30,4 +30,7 @@ const val RUB="RUB"
 const val MONTH_FILTER="month"
 const val WEEK_FILTER="week"
 const val DAY_FILTER="filter"
+const val RANGE_FILTER="range filter"
 const val NO_DATE_FILTER="no_filter"
+
+const val FULL_DATE="dd.MM.yyyy"
