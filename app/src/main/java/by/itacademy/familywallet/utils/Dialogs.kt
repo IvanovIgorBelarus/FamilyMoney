@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class Dialogs(private val repo: DataRepository) {
-    fun createNegativeDialog(context: Context, message:String) {
+    fun createNegativeDialog(context: Context, message: String) {
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.alert))
             .setMessage(message)
@@ -49,15 +49,17 @@ class Dialogs(private val repo: DataRepository) {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
-        DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+        val dialog = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             val pickerCalendar = Calendar.getInstance()
             pickerCalendar.set(year, month, dayOfMonth)
             textDate.text = pickerCalendar.time.formatDate(FULL_DATE)
             if (textDate.id == R.id.startDateTextView) {
-                startDate = pickerCalendar.timeInMillis
+                startDate = pickerCalendar.time.toStartOfDay.time
             } else {
-                endDate = pickerCalendar.timeInMillis
+                endDate = pickerCalendar.time.toEndOfDay.time
             }
-        }, year, month, day).show()
+        }, year, month, day)
+        dialog.datePicker.firstDayOfWeek=2
+        dialog.show()
     }
 }

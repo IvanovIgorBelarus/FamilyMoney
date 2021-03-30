@@ -8,6 +8,7 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.databinding.ActivityMainBinding
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private val repo: DataRepository by inject()
+    private val dialog by inject<Dialogs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +71,7 @@ class MainActivity : AppCompatActivity() {
                     //updateUI(user)
                 } else {
                     Log.w(by.itacademy.familywallet.data.TAG, "signInWithCredential:failure", task.exception)
-                    val view = binding.root
-                    Snackbar.make(view, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                    dialog.createNegativeDialog(this,getString(R.string.alert_negative_auth_message))
                     //updateUI(null)
                 }
             }
