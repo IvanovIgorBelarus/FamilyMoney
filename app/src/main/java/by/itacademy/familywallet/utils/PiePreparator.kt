@@ -41,8 +41,7 @@ object PiePreparator {
         resultList.add(context.resources.getColor(R.color.color8, context.theme))
         resultList.add(context.resources.getColor(R.color.color9, context.theme))
         resultList.add(context.resources.getColor(R.color.color10, context.theme))
-        resultList.add(context.resources.getColor(R.color.color11, context.theme))
-        resultList.add(context.resources.getColor(R.color.color12, context.theme))
+
 
         return resultList
     }
