@@ -21,7 +21,7 @@ class FragmentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFragmentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setViewPager()
+        setViewPager(0)
         binding.progress = ProgressBarUtils
         binding.executePendingBindings()
     }
@@ -43,11 +43,12 @@ class FragmentsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setViewPager() {
-        val viewPager2 = binding.viewPager2
-        viewPager2.adapter = MyPagerAdapter(this)
+    private fun setViewPager(currentItem:Int) {
+        val viewPager = binding.viewPager2
+        viewPager.adapter = MyPagerAdapter(this)
+        viewPager.currentItem=currentItem
         val tabs = binding.tabLayout
-        TabLayoutMediator(tabs, viewPager2) { tab, position ->
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
             when (position) {
                 0 -> tab.setText(R.string.main)
                 1 -> tab.setText(R.string.expenses)
@@ -58,8 +59,8 @@ class FragmentsActivity : AppCompatActivity() {
         }.attach()
     }
 
-    fun onDataSetChange() {
+    fun onDataSetChange(currentItem:Int) {
         onBackPressed()
-        setViewPager()
+        setViewPager(currentItem)
     }
 }

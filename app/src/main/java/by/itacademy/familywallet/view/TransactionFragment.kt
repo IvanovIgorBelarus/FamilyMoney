@@ -13,6 +13,7 @@ import by.itacademy.familywallet.data.BANK_PLUS
 import by.itacademy.familywallet.data.CARD
 import by.itacademy.familywallet.data.CASH
 import by.itacademy.familywallet.data.CATEGORIES
+import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.FragmentTransactionBinding
 
@@ -100,11 +101,13 @@ class TransactionFragment : Fragment() {
     }
 
     fun closeFragment() {
-        (activity as FragmentsActivity).onDataSetChange()
+        var currentItem = 0
+        currentItem = if (type == INCOMES) {2} else {1}
+        (activity as FragmentsActivity).onDataSetChange(currentItem)
     }
 
     companion object {
-        fun getInstance(type: String?, category: String?) = TransactionFragment().apply {
+        fun newInstance(type: String?, category: String?) = TransactionFragment().apply {
             arguments = Bundle().apply {
                 putString(TRANSACTION_TYPE, type)
                 putString(CATEGORIES, category)

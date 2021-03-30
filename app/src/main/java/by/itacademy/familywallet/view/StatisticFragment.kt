@@ -40,7 +40,6 @@ class StatisticFragment : Fragment() {
     }
 
     companion object {
-        @JvmStatic
         fun newInstance() = StatisticFragment()
     }
 }

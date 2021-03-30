@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 class ScreenManagerImpl(
     private val container: Int,
     private val activity: AppCompatActivity
-):ScreenManager {
+) : ScreenManager {
     override fun startFragment(fragment: Fragment) {
         activity.supportFragmentManager
             .beginTransaction()
-            .add(container, fragment)
+            .replace(container, fragment)
             .addToBackStack(null)
             .commit()
     }
