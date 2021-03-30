@@ -34,15 +34,11 @@ class FragmentsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.usersSettings -> {
-                startActivity(UsersSettingsActivity.start(this))
+               // startActivity(UsersSettingsActivity.start(this))
+                screenManager.startFragment(UsersSettingsFragment.newInstance())
             }
             R.id.filter -> {
                 screenManager.startFragment(DateSettingFragment.newInstance())
-//                supportFragmentManager
-//                    .beginTransaction()
-//                    .add(R.id.fragment_container, DateSettingFragment.newInstance())
-//                    .addToBackStack(null)
-//                    .commit()
             }
         }
         return super.onOptionsItemSelected(item)

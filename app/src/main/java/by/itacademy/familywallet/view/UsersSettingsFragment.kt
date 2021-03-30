@@ -1,19 +1,13 @@
 package by.itacademy.familywallet.view
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import by.itacademy.familywallet.App
-import by.itacademy.familywallet.App.Companion.dateFilterType
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import by.itacademy.familywallet.R
-import by.itacademy.familywallet.data.DAY_FILTER
 import by.itacademy.familywallet.data.DataRepository
-import by.itacademy.familywallet.data.INCOMES
-import by.itacademy.familywallet.data.MONTH_FILTER
-import by.itacademy.familywallet.data.NO_DATE_FILTER
-import by.itacademy.familywallet.data.WEEK_FILTER
-import by.itacademy.familywallet.databinding.ActivityUsersSettingsBinding
+import by.itacademy.familywallet.databinding.FragmentUsersSettingsBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
@@ -24,15 +18,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
-class UsersSettingsActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityUsersSettingsBinding
+class UsersSettingsFragment : Fragment() {
+    private lateinit var binding: FragmentUsersSettingsBinding
     private val repo by inject<DataRepository>()
     private val dialog by inject<Dialogs>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityUsersSettingsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = inflater.inflate(R.layout.fragment_users_settings, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentUsersSettingsBinding.bind(view)
         with(binding) {
             saveButton.setOnClickListener {
                 createPartner()
@@ -46,9 +44,6 @@ class UsersSettingsActivity : AppCompatActivity() {
         }
     }
 
-
-
-
     private fun createPartner() {
         val text = binding.itemName.text.toString()
         CoroutineScope(Dispatchers.IO).launch {
@@ -61,14 +56,15 @@ class UsersSettingsActivity : AppCompatActivity() {
                         partnerUid = text
                     )
                 )
-                finish()
+                withContext(Dispatchers.Main) { (activity as FragmentsActivity).onDateSettingsChange() }
             } else {
-                withContext(Dispatchers.Main) { dialog.createNegativeDialog(this@UsersSettingsActivity,getString(R.string.alert_negative_message_category_create)) }
+                withContext(Dispatchers.Main) { dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_message_category_create)) }
             }
         }
     }
 
     companion object {
-        fun start(context: Context?) = Intent(context, UsersSettingsActivity::class.java)
+        fun newInstance() = UsersSettingsFragment()
     }
+
 }
