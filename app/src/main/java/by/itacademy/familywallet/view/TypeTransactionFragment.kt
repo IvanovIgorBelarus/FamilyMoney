@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.App
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.databinding.FragmentTypeTransactionBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
@@ -64,7 +65,8 @@ class TypeTransactionFragment : Fragment(), ItemClickListener, ItemOnLongClickLi
     }
 
     override fun onClick(item: Any?) {
-        startActivity(TransactionActivity.start(this.context, (item as UIModel.CategoryModel)?.type, item?.category))
+        //startActivity(TransactionActivity.start(this.context, (item as UIModel.CategoryModel)?.type, item?.category))
+        (activity as FragmentsActivity).screenManager.startFragment(TransactionFragment.getInstance((item as UIModel.CategoryModel)?.type, item?.category))
     }
 
     companion object {

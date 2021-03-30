@@ -20,7 +20,7 @@ import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.RUB
 import by.itacademy.familywallet.data.USD
-import by.itacademy.familywallet.databinding.ActivityTransactionBinding
+import by.itacademy.familywallet.databinding.FragmentTransactionBinding
 
 class ViewPreparation {
     fun prepareView(view: View, type: String) {
@@ -77,7 +77,7 @@ class ViewPreparation {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun prepareBankViews(binding: ActivityTransactionBinding, context: Context) {
+    fun prepareBankViews(binding: FragmentTransactionBinding, context: Context) {
         val color = R.color.blue
         val drawableBackground = R.drawable.blue_rectangle_button_background
         val spinnerItem = R.layout.blue_spinner_item

@@ -56,7 +56,7 @@ class UsersSettingsFragment : Fragment() {
                         partnerUid = text
                     )
                 )
-                withContext(Dispatchers.Main) { (activity as FragmentsActivity).onDateSettingsChange() }
+                withContext(Dispatchers.Main) { (activity as FragmentsActivity).onDataSetChange() }
             } else {
                 withContext(Dispatchers.Main) { dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_message_category_create)) }
             }

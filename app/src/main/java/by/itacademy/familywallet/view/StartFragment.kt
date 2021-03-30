@@ -46,7 +46,8 @@ class StartFragment : Fragment() {
                 legend.isEnabled = false
             }
             openBank.setOnClickListener {
-                startActivity(TransactionActivity.start(this@StartFragment.context, BANK, null))
+              //  startActivity(TransactionActivity.start(this@StartFragment.context, BANK, null))
+                (activity as FragmentsActivity).screenManager.startFragment(TransactionFragment.getInstance(BANK, null))
             }
             with(startFragmentViewModel) {
                 liveDataExpenses.observe(this@StartFragment, Observer { expensesTextView.text = String.format("%s %.2f BYN", getString(R.string.spend), it) })

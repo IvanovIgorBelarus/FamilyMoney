@@ -15,7 +15,7 @@ import org.koin.core.parameter.parametersOf
 
 class FragmentsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFragmentsBinding
-    private val screenManager: ScreenManager by inject { parametersOf(R.id.fragment_container, this) }
+    val screenManager: ScreenManager by inject { parametersOf(R.id.fragment_container, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,6 @@ class FragmentsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.usersSettings -> {
-               // startActivity(UsersSettingsActivity.start(this))
                 screenManager.startFragment(UsersSettingsFragment.newInstance())
             }
             R.id.filter -> {
@@ -59,7 +58,7 @@ class FragmentsActivity : AppCompatActivity() {
         }.attach()
     }
 
-    fun onDateSettingsChange() {
+    fun onDataSetChange() {
         onBackPressed()
         setViewPager()
     }
