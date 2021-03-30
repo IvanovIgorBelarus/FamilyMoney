@@ -43,25 +43,25 @@ class DateSettingFragment : Fragment() {
         with(binding) {
             noFilterButton.setOnClickListener {
                 dateFilterType = NO_DATE_FILTER
-                activity?.onBackPressed()
+                (activity as FragmentsActivity).onDateSettingsChange()
             }
             monthFilterButton.setOnClickListener {
                 dateFilterType = MONTH_FILTER
-                activity?.onBackPressed()
+                (activity as FragmentsActivity).onDateSettingsChange()
             }
             weekFilterButton.setOnClickListener {
                 dateFilterType = WEEK_FILTER
-                activity?.onBackPressed()
+                (activity as FragmentsActivity).onDateSettingsChange()
             }
             dayFilterButton.setOnClickListener {
                 dateFilterType = DAY_FILTER
-                activity?.onBackPressed()
+                (activity as FragmentsActivity).onDateSettingsChange()
             }
 
             rangeFilterButton.setOnClickListener {
                 if (startDate != null && endDate != null && startDate!! < endDate!!) {
                     dateFilterType = RANGE_FILTER
-                    activity?.onBackPressed()
+                    (activity as FragmentsActivity).onDateSettingsChange()
                 } else {
                     dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_date_range_message))
                 }

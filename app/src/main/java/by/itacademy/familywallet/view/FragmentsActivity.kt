@@ -57,8 +57,8 @@ class FragmentsActivity : AppCompatActivity() {
         }.attach()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
+    fun onDateSettingsChange() {
+        onBackPressed()
         setViewPager()
     }
 }
