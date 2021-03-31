@@ -19,6 +19,8 @@
         android:padding="10dp"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:hint="@string/category_edit_hint"
+        android:textColorHint="@color/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

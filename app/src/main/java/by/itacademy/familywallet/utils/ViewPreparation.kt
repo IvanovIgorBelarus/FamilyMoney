@@ -34,9 +34,9 @@ class ViewPreparation {
 
     private fun setItemsStyles(view: View, type: String) {
         when (type) {
-            EXPENSES -> setColors(view, R.color.red, R.drawable.red_rectangle_button_background, R.drawable.ic_baseline_add_circle_outline_red, R.layout.red_spinner_item)
-            INCOMES -> setColors(view, R.color.green, R.drawable.green_rectangle_button_background, R.drawable.ic_baseline_add_circle_outline_green, R.layout.green_spinner_item)
-            BANK -> setColors(view, R.color.blue, R.drawable.blue_rectangle_button_background, 0, R.layout.blue_spinner_item)
+            EXPENSES -> setColors(view, R.color.expensesColor, R.drawable.expenses_rectangle_button_background, R.drawable.ic_baseline_add_circle_outline_expenses, R.layout.expenses_spinner_item)
+            INCOMES -> setColors(view, R.color.incomesColor, R.drawable.incomes_rectangle_button_background, R.drawable.ic_baseline_add_circle_outline_incomes, R.layout.incomes_spinner_item)
+            BANK -> setColors(view, R.color.primaryTextColor, R.drawable.primary_rectangle_button_background, 0, R.layout.primary_spinner_item)
         }
     }
 
@@ -57,6 +57,7 @@ class ViewPreparation {
             is EditText -> {
                 with(view) {
                     setTextColor(ContextCompat.getColor(context, color))
+                    setHintTextColor(ContextCompat.getColor(context, color))
                     setBackgroundResource(drawableBackground)
                 }
             }
@@ -77,9 +78,9 @@ class ViewPreparation {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     fun prepareBankViews(binding: FragmentTransactionBinding, context: Context) {
-        val color = R.color.blue
-        val drawableBackground = R.drawable.blue_rectangle_button_background
-        val spinnerItem = R.layout.blue_spinner_item
+        val color = R.color.primaryTextColor
+        val drawableBackground = R.drawable.primary_rectangle_button_background
+        val spinnerItem = R.layout.primary_spinner_item
 
         with(binding) {
             with(transactionCategoryTitle) {
@@ -96,19 +97,19 @@ class ViewPreparation {
             }
             with(cashButton) {
                 setText(R.string.add)
-                setTextColor(ContextCompat.getColor(context, R.color.green))
-                setBackgroundResource(R.drawable.green_rectangle_button_background)
+                setTextColor(ContextCompat.getColor(context, R.color.incomesColor))
+                setBackgroundResource(R.drawable.incomes_rectangle_button_background)
                 setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_baseline_arrow_upward_24, context.theme), null, null, null)
                 compoundDrawableTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green))
+                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.incomesColor))
             }
             with(cardButton) {
                 setText(R.string.out)
-                setTextColor(ContextCompat.getColor(context, R.color.red))
-                setBackgroundResource(R.drawable.red_rectangle_button_background)
+                setTextColor(ContextCompat.getColor(context, R.color.expensesColor))
+                setBackgroundResource(R.drawable.expenses_rectangle_button_background)
                 setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_baseline_arrow_downward_24, context.theme), null, null, null)
                 compoundDrawableTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.red))
+                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.expensesColor))
             }
         }
     }
