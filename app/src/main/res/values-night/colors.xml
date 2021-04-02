@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#396376</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#1F32DD</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="progress_color">#99CDCDCD</color>
+    <color name="backgroundColor">#00000000</color>
+
+    <color name="primaryTextColor">#FFFFFFFF</color>
+    <color name="expensesColor">#6D63B5</color>
+    <color name="incomesColor">#BC5090</color>
+    <color name="operationColor">#FF6361</color>
+    <color name="statisticColor">#FFA600</color>
+
+    <color name="expensesBackgroundColor">@color/expensesColor</color>
+    <color name="incomesBackgroundColor">@color/incomesColor</color>
+    <color name="tabBackgroundColor">@color/colorPrimary</color>
+    <color name="textPieColor">@color/white</color>
+
+    <color name="color1">#396376</color>
+    <color name="color2">#4D95B6</color>
+    <color name="color3">#6C63A8</color>
+    <color name="color4">#777396</color>
+    <color name="color5">#D05AA0</color>
+    <color name="color6">#BF87A8</color>
+    <color name="color7">#FB7E7C</color>
+    <color name="color8">#E99493</color>
+    <color name="color9">#F8C15C</color>
+    <color name="color10">#EADA4E</color>
+
+</resources>
