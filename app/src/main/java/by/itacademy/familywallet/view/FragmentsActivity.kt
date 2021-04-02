@@ -2,16 +2,19 @@ package by.itacademy.familywallet.view
 
 import android.app.TaskStackBuilder
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
+import by.itacademy.familywallet.App.Companion.dateFilterType
+import by.itacademy.familywallet.App.Companion.endDate
+import by.itacademy.familywallet.App.Companion.startDate
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.ScreenManager
+import by.itacademy.familywallet.data.DAY_FILTER
+import by.itacademy.familywallet.data.EXPENSES
+import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.databinding.ActivityFragmentsBinding
 import by.itacademy.familywallet.utils.ProgressBarUtils
 import org.koin.android.ext.android.inject
@@ -24,6 +27,9 @@ class FragmentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFragmentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        dateFilterType = getSharedPreferences(DAY_FILTER, Context.MODE_PRIVATE).getString(DAY_FILTER, "")!!
+        startDate = getSharedPreferences(INCOMES, Context.MODE_PRIVATE).getLong(INCOMES, 0)!!
+        endDate = getSharedPreferences(EXPENSES, Context.MODE_PRIVATE).getLong(EXPENSES, 0)!!
         screenManager.startFragment(ViewPagerFragment.newInstance())
         binding.progress = ProgressBarUtils
         binding.executePendingBindings()
@@ -36,6 +42,13 @@ class FragmentsActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        getSharedPreferences(DAY_FILTER, Context.MODE_PRIVATE).edit().putString(DAY_FILTER, dateFilterType).apply() // сохраняем фильтр при закрытии приложения
+        getSharedPreferences(INCOMES, Context.MODE_PRIVATE).edit().putLong(INCOMES, startDate?:0).apply()
+        getSharedPreferences(EXPENSES, Context.MODE_PRIVATE).edit().putLong(EXPENSES, endDate?:0).apply()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -65,8 +78,8 @@ class FragmentsActivity : AppCompatActivity() {
     }
 
     private fun restartApp() {
-       TaskStackBuilder.create(this)
-           .addNextIntent(this.intent)
-           .startActivities()
+        TaskStackBuilder.create(this)
+            .addNextIntent(this.intent)
+            .startActivities()
     }
 }
