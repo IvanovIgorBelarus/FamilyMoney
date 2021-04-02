@@ -15,10 +15,12 @@ import by.itacademy.familywallet.common.ScreenManager
 import by.itacademy.familywallet.data.DAY_FILTER
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
+import by.itacademy.familywallet.data.MONTH_FILTER
 import by.itacademy.familywallet.databinding.ActivityFragmentsBinding
 import by.itacademy.familywallet.utils.ProgressBarUtils
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+import java.util.*
 
 class FragmentsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFragmentsBinding
@@ -27,9 +29,9 @@ class FragmentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFragmentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        dateFilterType = getSharedPreferences(DAY_FILTER, Context.MODE_PRIVATE).getString(DAY_FILTER, "")!!
-        startDate = getSharedPreferences(INCOMES, Context.MODE_PRIVATE).getLong(INCOMES, 0)!!
-        endDate = getSharedPreferences(EXPENSES, Context.MODE_PRIVATE).getLong(EXPENSES, 0)!!
+        dateFilterType = getSharedPreferences(DAY_FILTER, Context.MODE_PRIVATE).getString(DAY_FILTER, MONTH_FILTER)!!
+        startDate = getSharedPreferences(INCOMES, Context.MODE_PRIVATE).getLong(INCOMES, Calendar.getInstance().timeInMillis)!!
+        endDate = getSharedPreferences(EXPENSES, Context.MODE_PRIVATE).getLong(EXPENSES, Calendar.getInstance().timeInMillis)!!
         screenManager.startFragment(ViewPagerFragment.newInstance())
         binding.progress = ProgressBarUtils
         binding.executePendingBindings()

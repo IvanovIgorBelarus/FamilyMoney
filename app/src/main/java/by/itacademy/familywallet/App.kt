@@ -13,7 +13,6 @@ import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import java.util.*
 
 class App : Application() {
     val viewPreparation: ViewPreparation by inject()
@@ -28,7 +27,7 @@ class App : Application() {
 
     companion object {
         lateinit var dateFilterType: String
-        var startDate: Long? = Calendar.getInstance().timeInMillis
-        var endDate: Long? = Calendar.getInstance().timeInMillis
+        var startDate: Long? = null
+        var endDate: Long? = null
     }
 }
