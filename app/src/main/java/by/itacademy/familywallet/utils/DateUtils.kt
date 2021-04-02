@@ -19,13 +19,7 @@ object DateUtils {
     fun parseDateLastDateOfMonth(date: Date): Date {
         val calendar = Calendar.getInstance()
         calendar.time = date
-
-        val lastDay = when (date.getMonth) {
-            0, 2, 6, 7, 9, 11 -> 31
-            3, 5, 8, 10 -> 30
-            else -> 28
-        }
-        calendar.set(Calendar.DAY_OF_MONTH, lastDay)
+        calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
         return calendar.time
     }
 
