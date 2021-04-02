@@ -1,11 +1,13 @@
 package by.itacademy.familywallet.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.TAG
 import by.itacademy.familywallet.databinding.FragmentViewPagerBinding
 import by.itacademy.familywallet.presentation.MyPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -21,6 +23,7 @@ class ViewPagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentViewPagerBinding.bind(view)
+        (activity as FragmentsActivity).supportActionBar?.show()
         setViewPager()
     }
 

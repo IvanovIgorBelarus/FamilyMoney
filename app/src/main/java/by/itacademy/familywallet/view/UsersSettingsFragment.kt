@@ -31,6 +31,7 @@ class UsersSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUsersSettingsBinding.bind(view)
+        (activity as FragmentsActivity).supportActionBar?.hide()
         with(binding) {
             saveButton.setOnClickListener {
                 createPartner()

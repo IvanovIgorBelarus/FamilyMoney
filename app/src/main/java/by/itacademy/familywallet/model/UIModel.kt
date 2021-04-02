@@ -1,5 +1,7 @@
 package by.itacademy.familywallet.model
 
+import java.util.*
+
 sealed class UIModel {
     data class AccountModel(
         var id: String? = null,
@@ -29,5 +31,11 @@ sealed class UIModel {
         val moneyType: String?,
         val date: Long?,
         var value: Double?
+    )
+
+    data class MonthModel(
+        val monthAndYear: String,
+        val startDate: Long,
+        val endDate: Long
     )
 }

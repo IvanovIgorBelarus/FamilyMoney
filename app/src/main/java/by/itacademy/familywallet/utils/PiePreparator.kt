@@ -28,7 +28,7 @@ object PiePreparator {
         for (i in 9 until data.size) {
             othersValue += prepareList[i].value
         }
-        if (othersValue != 2.0f) { //затраты со значением меньше двух процентов не отображаются на пироге
+        if (othersValue > 0.5f) { //затраты со значением меньше двух процентов не отображаются на пироге
             entrys.add(PieEntry(othersValue, "остальные"))
             count++
         }
