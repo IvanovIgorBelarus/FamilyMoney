@@ -1,9 +1,11 @@
 package by.itacademy.familywallet.view
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.ScreenManager
 import by.itacademy.familywallet.databinding.ActivityFragmentsBinding
@@ -14,7 +16,7 @@ import org.koin.core.parameter.parametersOf
 class FragmentsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFragmentsBinding
     val screenManager: ScreenManager by inject { parametersOf(R.id.fragment_container, this) }
-
+    private var isChecked=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFragmentsBinding.inflate(layoutInflater)
@@ -37,6 +39,14 @@ class FragmentsActivity : AppCompatActivity() {
             R.id.filter -> {
                 screenManager.startFragment(DateSettingFragment.newInstance())
             }
+//            R.id.theme -> {
+//                isChecked = !isChecked
+//                if (isChecked) {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                } else {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//                }
+//            }
         }
         return super.onOptionsItemSelected(item)
     }

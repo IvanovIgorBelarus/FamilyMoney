@@ -41,12 +41,11 @@ class StartFragment : Fragment() {
                 isRotationEnabled = true
                 isClickable = false
                 holeRadius = 10f
-                setEntryLabelColor(Color.BLACK)
+                setEntryLabelColor(context.resources.getColor(R.color.textPieColor, context.theme))
                 setTransparentCircleAlpha(0)
                 legend.isEnabled = false
             }
             openBank.setOnClickListener {
-              //  startActivity(TransactionActivity.start(this@StartFragment.context, BANK, null))
                 (activity as FragmentsActivity).screenManager.startFragment(TransactionFragment.newInstance(BANK, null))
             }
             with(startFragmentViewModel) {

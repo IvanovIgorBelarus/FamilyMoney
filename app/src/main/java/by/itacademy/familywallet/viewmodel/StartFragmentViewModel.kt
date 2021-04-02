@@ -38,15 +38,15 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
     fun getTransactions() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
-            val list = repo.getTransactionsList().currentDateFilter()
             val partner = repo.getPartner()
-            val expensesList = list.transactionsPartnersFilter(partner).categoryFilter(EXPENSES)
+            val list = repo.getTransactionsList().transactionsPartnersFilter(partner)
+            val expensesList = list.currentDateFilter().categoryFilter(EXPENSES)
             val categories = repo.getCategoriesList()
             withContext(Dispatchers.Main) {
                 mutableLiveDataExpenses.value = expensesList.sumByDouble { it.value!! }
-                mutableLiveDataIncomes.value = list.transactionsPartnersFilter(partner).categoryFilter(INCOMES)?.sumByDouble { it.value!! }
-                mutableLiveDataBalance.value = list.transactionsPartnersFilter(partner).balanceFilter()
-                mutableLiveDataBank.value = getBankString(list.transactionsPartnersFilter(partner).categoryFilter(BANK))
+                mutableLiveDataIncomes.value = list.currentDateFilter().categoryFilter(INCOMES)?.sumByDouble { it.value!! }
+                mutableLiveDataBalance.value = list.currentDateFilter().balanceFilter()
+                mutableLiveDataBank.value = getBankString(list.categoryFilter(BANK))
                 mutableLiveDataPie.value = PieModelMapper.map(categories, expensesList)
                 isLoading.set(false)
             }
