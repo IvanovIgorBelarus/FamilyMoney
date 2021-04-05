@@ -3,6 +3,7 @@ package by.itacademy.familywallet.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.itacademy.familywallet.common.balanceFilter
+import by.itacademy.familywallet.common.categoryTypeFilter
 import by.itacademy.familywallet.common.typeFilter
 import by.itacademy.familywallet.common.currentDateFilter
 import by.itacademy.familywallet.common.transactionsPartnersFilter
@@ -41,7 +42,7 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
             val partner = repo.getPartner()
             val list = repo.getTransactionsList().transactionsPartnersFilter(partner)
             val expensesList = list.currentDateFilter().typeFilter(EXPENSES)
-            val categories = repo.getCategoriesList()
+            val categories = repo.getCategoriesList().categoryTypeFilter(EXPENSES)
             withContext(Dispatchers.Main) {
                 mutableLiveDataExpenses.value = expensesList.sumByDouble { it.value!! }
                 mutableLiveDataIncomes.value = list.currentDateFilter().typeFilter(INCOMES)?.sumByDouble { it.value!! }

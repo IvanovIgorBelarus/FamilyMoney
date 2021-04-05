@@ -14,8 +14,8 @@ import by.itacademy.familywallet.utils.toEndOfDay
 import by.itacademy.familywallet.utils.toStartOfDay
 import java.util.*
 
-fun List<UIModel.TransactionModel>.typeFilter(category: String): List<UIModel.TransactionModel> =
-    this.filter { item -> item.type == category }
+fun List<UIModel.TransactionModel>.typeFilter(type: String): List<UIModel.TransactionModel> =
+    this.filter { item -> item.type == type }
 
 fun List<UIModel.TransactionModel>.balanceFilter(): Double = this.sumByDouble {
     when (it.type) {
@@ -61,6 +61,8 @@ fun List<UIModel.TransactionModel>.currentDateFilter(): List<UIModel.Transaction
 
 fun List<UIModel.CategoryModel>.categoryPartnersFilter(partner: UIModel.AccountModel): List<UIModel.CategoryModel> =
     this.filter { (it.uid == partner.uid) || (it.uid == partner.partnerUid) }
+
+fun List<UIModel.CategoryModel>.categoryTypeFilter(type: String): List<UIModel.CategoryModel> = this.filter { it.type==type }
 
 fun List<UIModel.TransactionModel>.userFilter(uid: String): List<UIModel.TransactionModel> = this.filter { it.uid == uid }.sortedByDescending { it.date }
 
