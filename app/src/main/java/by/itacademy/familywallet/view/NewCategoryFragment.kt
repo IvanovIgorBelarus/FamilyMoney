@@ -32,6 +32,7 @@ class NewCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as FragmentsActivity).supportActionBar?.hide()
         binding = FragmentNewCategoryBinding.bind(view)
         transactionType = arguments?.getString(TRANSACTION_TYPE)
         if (transactionType != null) {

@@ -11,6 +11,7 @@ import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.ViewPreparation
+import by.itacademy.familywallet.viewmodel.CategoryOperationViewModel
 import by.itacademy.familywallet.viewmodel.DateSettingsViewModel
 import by.itacademy.familywallet.viewmodel.OperationsViewModel
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
@@ -41,6 +42,7 @@ val viewModelModule = module {
     viewModel { StartFragmentViewModel(get()) }
     viewModel { StatisticViewModel(get()) }
     viewModel { DateSettingsViewModel(get()) }
+    viewModel { CategoryOperationViewModel(get()) }
 }
 
 

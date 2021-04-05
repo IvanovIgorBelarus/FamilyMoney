@@ -3,7 +3,7 @@ package by.itacademy.familywallet.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.itacademy.familywallet.common.balanceFilter
-import by.itacademy.familywallet.common.categoryFilter
+import by.itacademy.familywallet.common.typeFilter
 import by.itacademy.familywallet.common.currentDateFilter
 import by.itacademy.familywallet.common.transactionsPartnersFilter
 import by.itacademy.familywallet.data.BANK
@@ -40,13 +40,13 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             val partner = repo.getPartner()
             val list = repo.getTransactionsList().transactionsPartnersFilter(partner)
-            val expensesList = list.currentDateFilter().categoryFilter(EXPENSES)
+            val expensesList = list.currentDateFilter().typeFilter(EXPENSES)
             val categories = repo.getCategoriesList()
             withContext(Dispatchers.Main) {
                 mutableLiveDataExpenses.value = expensesList.sumByDouble { it.value!! }
-                mutableLiveDataIncomes.value = list.currentDateFilter().categoryFilter(INCOMES)?.sumByDouble { it.value!! }
+                mutableLiveDataIncomes.value = list.currentDateFilter().typeFilter(INCOMES)?.sumByDouble { it.value!! }
                 mutableLiveDataBalance.value = list.currentDateFilter().balanceFilter()
-                mutableLiveDataBank.value = getBankString(list.categoryFilter(BANK))
+                mutableLiveDataBank.value = getBankString(list.typeFilter(BANK))
                 mutableLiveDataPie.value = PieModelMapper.map(categories, expensesList)
                 isLoading.set(false)
             }

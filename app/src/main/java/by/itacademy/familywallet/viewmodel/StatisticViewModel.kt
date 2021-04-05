@@ -21,7 +21,7 @@ class StatisticViewModel(private val repo: DataRepository) : ViewModel() {
     fun getAData() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
-            val resultList = mutableListOf<UIModel.StatisticModel>()
+            val resultList = mutableSetOf<UIModel.StatisticModel>()
             val incomes = mutableListOf<UIModel.StatisticModel>()
             val expenses = mutableListOf<UIModel.StatisticModel>()
             val partner = repo.getPartner()
@@ -44,7 +44,7 @@ class StatisticViewModel(private val repo: DataRepository) : ViewModel() {
                 addAll(expenses.sortedByDescending { it.value })
             }
             withContext(Dispatchers.Main) {
-                mutableLiveData.value = resultList
+                mutableLiveData.value = resultList.toList()
                 isLoading.set(false)
             }
         }

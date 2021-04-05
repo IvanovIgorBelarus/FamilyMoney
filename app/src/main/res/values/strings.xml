@@ -46,5 +46,6 @@
     <string name="alert_negative_auth_message">Ошибка! Проверьте интернет-соединение</string>
     <string name="category_edit_hint">имя категории?</string>
     <string name="theme_icon_title">тема</string>
+    <string name="category_operation_title">Затраны по выбранной категории(%s):</string>
 
 </resources>

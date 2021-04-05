@@ -35,6 +35,7 @@ class TransactionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTransactionBinding.bind(view)
+        (activity as FragmentsActivity).supportActionBar?.hide()
         type = arguments?.getString(TRANSACTION_TYPE)
         category = arguments?.getString(CATEGORIES)
         if (type != null) {

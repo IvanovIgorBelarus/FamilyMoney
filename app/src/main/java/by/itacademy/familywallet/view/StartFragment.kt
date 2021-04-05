@@ -1,6 +1,5 @@
 package by.itacademy.familywallet.view
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,10 @@ import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.databinding.FragmentStartBinding
 import by.itacademy.familywallet.utils.PiePreparator
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import org.koin.android.ext.android.inject
 
 class StartFragment : Fragment() {
@@ -38,12 +41,19 @@ class StartFragment : Fragment() {
         with(binding) {
             with(diagram) {
                 description.isEnabled = false
-                isRotationEnabled = true
+                isRotationEnabled = false
                 isClickable = false
                 holeRadius = 10f
                 setEntryLabelColor(context.resources.getColor(R.color.textPieColor, context.theme))
                 setTransparentCircleAlpha(0)
                 legend.isEnabled = false
+                setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                    override fun onNothingSelected() {}
+
+                    override fun onValueSelected(e: Entry?, h: Highlight?) {
+                        (activity as FragmentsActivity).screenManager.startFragment(CategoryOperationFragment.newInstance((e as PieEntry).label))
+                    }
+                })
             }
             openBank.setOnClickListener {
                 (activity as FragmentsActivity).screenManager.startFragment(TransactionFragment.newInstance(BANK, null))
