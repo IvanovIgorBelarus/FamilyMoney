@@ -39,12 +39,13 @@ class CategoryOperationFragment : Fragment() {
             adapter = fragmentAdapter
         }
         with(categoryOperationViewModel) {
-            getAllTransactions(category)
+            getTransactions(category)
             liveData.observe(this@CategoryOperationFragment, Observer { list -> fragmentAdapter.update(list) })
         }
     }
 
     companion object {
-        fun newInstance(category: String) = CategoryOperationFragment().apply { this.category = category }
+        fun newInstance(category: String) = CategoryOperationFragment().apply {
+            this.category = category }
     }
 }
