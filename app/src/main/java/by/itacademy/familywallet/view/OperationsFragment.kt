@@ -32,7 +32,7 @@ class OperationsFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
 
     override fun onResume() {
         super.onResume()
-        viewModel.getTransactions()
+        viewModel.getData()
     }
 
     companion object {

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CategoryOperationViewModel(private val repo: DataRepository, private val category: String) : BaseViewModel() {
-    override fun getTransactions() {
+    override fun getData() {
         ProgressBarUtils.isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
             val partner = repo.getPartner()

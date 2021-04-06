@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class OperationsViewModel(private val repo: DataRepository) : BaseViewModel() {
-    override fun getTransactions() {
+    override fun getData() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
             val partner = repo.getPartner()

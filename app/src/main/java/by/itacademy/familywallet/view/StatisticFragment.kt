@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
@@ -15,10 +13,10 @@ import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class StatisticFragment : Fragment() {
-    private val statisticViewMode by viewModel<StatisticViewModel>()
+class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.layout.fragment_statistics) {
     private lateinit var binding: FragmentStatisticsBinding
-    private val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
+    override val viewModel by viewModel<StatisticViewModel>()
+    override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,16 +25,16 @@ class StatisticFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStatisticsBinding.bind(view)
-        statisticViewMode.liveData.observe(this, Observer { list -> fragmentAdapter.update(list) })
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
         }
+        updateAdapter()
     }
 
     override fun onResume() {
         super.onResume()
-        statisticViewMode.getAData()
+        viewModel.getData()
     }
 
     companion object {

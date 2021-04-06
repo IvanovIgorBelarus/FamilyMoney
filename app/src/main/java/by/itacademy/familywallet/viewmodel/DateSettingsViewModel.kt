@@ -1,7 +1,5 @@
 package by.itacademy.familywallet.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import by.itacademy.familywallet.common.transactionsPartnersFilter
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.model.UIModel
@@ -17,10 +15,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class DateSettingsViewModel(private val repo: DataRepository) : ViewModel() {
-    private val mutableLiveData = MutableLiveData<List<UIModel.MonthModel>>()
-    val liveData = mutableLiveData
-    fun getMonthList() {
+class DateSettingsViewModel(private val repo: DataRepository) : BaseViewModel() {
+
+    override fun getData() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
             val partner = repo.getPartner()

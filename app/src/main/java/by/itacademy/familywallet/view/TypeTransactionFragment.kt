@@ -34,7 +34,7 @@ class TypeTransactionFragment : BaseFragment<FragmentAdapter, TypeTransactionVie
 
     override fun onResume() {
         super.onResume()
-        viewModel.getTransactions()
+        viewModel.getData()
     }
 
     private fun initCreateButton() {

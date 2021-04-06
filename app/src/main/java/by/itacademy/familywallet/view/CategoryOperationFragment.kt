@@ -36,7 +36,7 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
         }
-        viewModel.getTransactions()
+        viewModel.getData()
         updateAdapter()
     }
 
