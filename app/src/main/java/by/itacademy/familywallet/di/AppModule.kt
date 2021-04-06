@@ -37,12 +37,12 @@ val dataModule = module {
     single<DataRepository> { FirebaseRepositoryImpl(FirebaseDataBase.instance) }
 }
 val viewModelModule = module {
-    viewModel { TypeTransactionViewModel(get()) }
+    viewModel { (fragmentType: String) -> TypeTransactionViewModel(get(), fragmentType) }
     viewModel { OperationsViewModel(get()) }
     viewModel { StartFragmentViewModel(get()) }
     viewModel { StatisticViewModel(get()) }
     viewModel { DateSettingsViewModel(get()) }
-    viewModel { CategoryOperationViewModel(get()) }
+    viewModel { (category: String) -> CategoryOperationViewModel(get(), category) }
 }
 
 
