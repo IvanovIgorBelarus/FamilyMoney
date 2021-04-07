@@ -1,4 +1,4 @@
-package by.itacademy.familywallet.view
+package by.itacademy.familywallet.view.activity
 
 import android.content.Intent
 import android.os.Bundle

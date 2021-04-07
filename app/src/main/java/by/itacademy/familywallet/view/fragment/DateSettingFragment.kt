@@ -1,4 +1,4 @@
-package by.itacademy.familywallet.view
+package by.itacademy.familywallet.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +22,8 @@ import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.utils.formatDate
+import by.itacademy.familywallet.view.BaseFragment
+import by.itacademy.familywallet.view.activity.FragmentsActivity
 import by.itacademy.familywallet.viewmodel.BaseViewModel
 import by.itacademy.familywallet.viewmodel.DateSettingsViewModel
 import org.koin.android.ext.android.inject

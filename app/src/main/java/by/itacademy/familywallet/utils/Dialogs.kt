@@ -13,7 +13,7 @@ import by.itacademy.familywallet.data.BANK_PLUS
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.FULL_DATE
 import by.itacademy.familywallet.model.UIModel
-import by.itacademy.familywallet.view.TransactionFragment
+import by.itacademy.familywallet.view.fragment.TransactionFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

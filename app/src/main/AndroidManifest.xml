@@ -13,8 +13,8 @@
         <activity android:name=".view.UsersSettingsActivity"></activity>
         <activity android:name=".view.TransactionSettingsActivity" />
         <activity android:name=".view.TransactionActivity" />
-        <activity android:name=".view.FragmentsActivity" />
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.activity.FragmentsActivity" />
+        <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

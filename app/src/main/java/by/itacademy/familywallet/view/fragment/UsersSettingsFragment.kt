@@ -1,4 +1,4 @@
-package by.itacademy.familywallet.view
+package by.itacademy.familywallet.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import by.itacademy.familywallet.databinding.FragmentUsersSettingsBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
+import by.itacademy.familywallet.view.activity.FragmentsActivity
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

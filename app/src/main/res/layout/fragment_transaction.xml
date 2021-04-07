@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="10dp"
-    tools:context=".view.TransactionFragment">
+    tools:context=".view.fragment.TransactionFragment">
 
     <TextView
         android:id="@+id/transactionCategoryTitle"

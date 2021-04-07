@@ -1,4 +1,4 @@
-package by.itacademy.familywallet.view
+package by.itacademy.familywallet.view.activity
 
 import android.app.TaskStackBuilder
 import android.content.Context
@@ -18,6 +18,9 @@ import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.MONTH_FILTER
 import by.itacademy.familywallet.databinding.ActivityFragmentsBinding
 import by.itacademy.familywallet.utils.ProgressBarUtils
+import by.itacademy.familywallet.view.fragment.DateSettingFragment
+import by.itacademy.familywallet.view.fragment.UsersSettingsFragment
+import by.itacademy.familywallet.view.fragment.viewpager.ViewPagerFragment
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import java.util.*

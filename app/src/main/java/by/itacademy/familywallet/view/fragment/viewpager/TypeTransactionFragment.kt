@@ -1,4 +1,4 @@
-package by.itacademy.familywallet.view
+package by.itacademy.familywallet.view.fragment.viewpager
 
 import android.os.Bundle
 import android.view.View
@@ -10,6 +10,10 @@ import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
+import by.itacademy.familywallet.view.BaseFragment
+import by.itacademy.familywallet.view.activity.FragmentsActivity
+import by.itacademy.familywallet.view.fragment.NewCategoryFragment
+import by.itacademy.familywallet.view.fragment.TransactionFragment
 import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel

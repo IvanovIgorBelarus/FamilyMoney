@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".view.DateSettingFragment">
+    tools:context=".view.fragment.DateSettingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/primary_rectangle_button_background"

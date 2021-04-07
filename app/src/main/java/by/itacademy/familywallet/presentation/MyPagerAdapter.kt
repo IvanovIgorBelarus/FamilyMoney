@@ -4,10 +4,10 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
-import by.itacademy.familywallet.view.OperationsFragment
-import by.itacademy.familywallet.view.StartFragment
-import by.itacademy.familywallet.view.StatisticFragment
-import by.itacademy.familywallet.view.TypeTransactionFragment
+import by.itacademy.familywallet.view.fragment.viewpager.OperationsFragment
+import by.itacademy.familywallet.view.fragment.viewpager.StartFragment
+import by.itacademy.familywallet.view.fragment.viewpager.StatisticFragment
+import by.itacademy.familywallet.view.fragment.viewpager.TypeTransactionFragment
 
 
 class MyPagerAdapter(fa: Fragment) :

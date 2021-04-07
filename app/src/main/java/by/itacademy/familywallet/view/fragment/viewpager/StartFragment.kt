@@ -1,4 +1,4 @@
-package by.itacademy.familywallet.view
+package by.itacademy.familywallet.view.fragment.viewpager
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,9 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.databinding.FragmentStartBinding
 import by.itacademy.familywallet.utils.PiePreparator
+import by.itacademy.familywallet.view.activity.FragmentsActivity
+import by.itacademy.familywallet.view.fragment.CategoryOperationFragment
+import by.itacademy.familywallet.view.fragment.TransactionFragment
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieEntry

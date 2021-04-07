@@ -1,4 +1,4 @@
-package by.itacademy.familywallet.view
+package by.itacademy.familywallet.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +18,7 @@ import by.itacademy.familywallet.databinding.FragmentTransactionBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
+import by.itacademy.familywallet.view.activity.FragmentsActivity
 import org.koin.android.ext.android.inject
 import java.util.*
 

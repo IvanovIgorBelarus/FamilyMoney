@@ -1,4 +1,4 @@
-package by.itacademy.familywallet.view
+package by.itacademy.familywallet.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,15 +8,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
 import by.itacademy.familywallet.presentation.FragmentAdapter
-import by.itacademy.familywallet.viewmodel.StatisticViewModel
+import by.itacademy.familywallet.view.BaseFragment
+import by.itacademy.familywallet.view.activity.FragmentsActivity
+import by.itacademy.familywallet.viewmodel.CategoryOperationViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.layout.fragment_statistics) {
+class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperationViewModel>(R.layout.fragment_statistics) {
     private lateinit var binding: FragmentStatisticsBinding
-    override val viewModel by viewModel<StatisticViewModel>()
+    override val viewModel by viewModel<CategoryOperationViewModel>() { parametersOf(category) }
     override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
+    private lateinit var category: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,19 +29,22 @@ class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.la
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStatisticsBinding.bind(view)
+        with(binding.statisticTitle) {
+            visibility = View.VISIBLE
+            text = String.format(getString(R.string.category_operation_title), category)
+        }
+        (activity as FragmentsActivity).supportActionBar?.show()
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
         }
+        viewModel.getData()
         updateAdapter()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getData()
-    }
-
     companion object {
-        fun newInstance() = StatisticFragment()
+        fun newInstance(category: String) = CategoryOperationFragment().apply {
+            this.category = category
+        }
     }
 }

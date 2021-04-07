@@ -9,7 +9,7 @@
     android:focusable="true"
     android:padding="10dp"
     android:orientation="horizontal"
-    tools:context=".view.NewCategoryFragment">
+    tools:context=".view.fragment.NewCategoryFragment">
 
     <EditText
         android:id="@+id/itemName"
