@@ -34,9 +34,9 @@ class ViewPreparation {
 
     private fun setItemsStyles(view: View, type: String) {
         when (type) {
-            EXPENSES -> setColors(view, R.color.expensesColor, R.drawable.expenses_rectangle_button_background, R.drawable.ic_baseline_add_circle_outline_expenses, R.layout.expenses_spinner_item)
-            INCOMES -> setColors(view, R.color.incomesColor, R.drawable.incomes_rectangle_button_background, R.drawable.ic_baseline_add_circle_outline_incomes, R.layout.incomes_spinner_item)
-            BANK -> setColors(view, R.color.primaryTextColor, R.drawable.primary_rectangle_button_background, 0, R.layout.primary_spinner_item)
+            EXPENSES -> setColors(view, R.color.expensesColor, R.color.white, R.drawable.ic_baseline_add_circle_outline_expenses, R.layout.expenses_spinner_item)
+            INCOMES -> setColors(view, R.color.incomesColor, R.color.white, R.drawable.ic_baseline_add_circle_outline_incomes, R.layout.incomes_spinner_item)
+            BANK -> setColors(view, R.color.primaryTextColor, R.color.white, 0, R.layout.primary_spinner_item)
         }
     }
 
