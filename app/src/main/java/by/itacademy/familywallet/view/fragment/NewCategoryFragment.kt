@@ -14,6 +14,7 @@ import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
 import by.itacademy.familywallet.view.activity.FragmentsActivity
+import by.itacademy.familywallet.view.fragment.viewpager.TypeTransactionFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,7 +45,6 @@ class NewCategoryFragment : Fragment() {
     private fun initViews() {
         with(binding) {
             with(saveButton) {
-                //  App().viewPreparation.prepareView(this, transactionType!!)
                 setOnClickListener {
                     CoroutineScope(Dispatchers.IO).launch {
                         val category = binding.itemName.text.toString()
@@ -65,8 +65,8 @@ class NewCategoryFragment : Fragment() {
                     }
                 }
             }
+            selectIconButton.setOnClickListener { (activity as FragmentsActivity).screenManager.startFragment(IconChooseFragment.newInstance()) }
             title.text = String.format(getString(R.string.new_category_tittle), if (transactionType == INCOMES) getString(R.string.income) else getString(R.string.expenses))
-            //App().viewPreparation.prepareView(itemName, transactionType!!)
         }
     }
 

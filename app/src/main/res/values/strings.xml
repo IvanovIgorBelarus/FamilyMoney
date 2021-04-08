@@ -50,4 +50,5 @@
     <string name="toast_others_title">Остальные затраты смотрите во вкладке "операции"</string>
     <string name="new_category_tittle">Создание новой категории "%s"</string>
     <string name="change_theme_message">Для смены темы необходимо перезагрузить приложение</string>
+    <string name="choose">Выбрать</string>
 </resources>
