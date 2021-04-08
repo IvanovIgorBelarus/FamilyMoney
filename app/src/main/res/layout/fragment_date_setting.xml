@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/tabBackgroundColor"
     android:orientation="vertical"
     android:layout_marginTop="?attr/actionBarSize"
     tools:context=".view.fragment.DateSettingFragment">

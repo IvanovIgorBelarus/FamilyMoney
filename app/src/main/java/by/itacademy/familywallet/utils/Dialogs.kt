@@ -27,6 +27,8 @@ class Dialogs(private val repo: DataRepository) {
             .setMessage(message)
             .setPositiveButton(context.getString(R.string.ok)) { dialog, _ -> dialog.cancel() }
             .show()
+            .window
+            ?.setBackgroundDrawableResource(R.color.tabBackgroundColor)
     }
 
     fun deleteDialog(item: Any?, fragment: Fragment) {
@@ -45,6 +47,8 @@ class Dialogs(private val repo: DataRepository) {
                 }
             }
             .show()
+            .window
+            ?.setBackgroundDrawableResource(R.color.tabBackgroundColor)
     }
 
     fun createDateDialog(context: Context, textDate: TextView) {
@@ -86,6 +90,8 @@ class Dialogs(private val repo: DataRepository) {
                 dialog.cancel()
             }
             .show()
+            .window
+            ?.setBackgroundDrawableResource(R.color.tabBackgroundColor)
     }
 
     private fun message(context: Context, transactionModel: UIModel.TransactionModel): String {

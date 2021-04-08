@@ -1,10 +1,8 @@
 package by.itacademy.familywallet.utils
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.ColorStateList
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -12,14 +10,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import by.itacademy.familywallet.R
-import by.itacademy.familywallet.data.BANK
-import by.itacademy.familywallet.data.BYN
-import by.itacademy.familywallet.data.EUR
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
-import by.itacademy.familywallet.data.RUB
-import by.itacademy.familywallet.data.USD
-import by.itacademy.familywallet.databinding.FragmentTransactionBinding
 
 class ViewPreparation {
     fun prepareView(view: View, type: String) {
@@ -34,8 +26,8 @@ class ViewPreparation {
 
     private fun setItemsStyles(view: View, type: String) {
         when (type) {
-            EXPENSES -> setColors(view, R.color.expensesColor, R.color.white, R.drawable.ic_baseline_add_circle_outline_expenses)
-            INCOMES -> setColors(view, R.color.incomesColor, R.color.white, R.drawable.ic_baseline_add_circle_outline_incomes)
+            EXPENSES -> setColors(view, R.color.expensesColor, R.color.expensesBackgroundColor, R.drawable.ic_baseline_add_circle_outline_expenses)
+            INCOMES -> setColors(view, R.color.incomesColor, R.color.incomesBackgroundColor, R.drawable.ic_baseline_add_circle_outline_incomes)
         }
     }
 

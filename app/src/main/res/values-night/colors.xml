@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#396376</color>
+    <color name="colorPrimary">#003F5C</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#1F32DD</color>
     <color name="black">#FF000000</color>
@@ -9,13 +9,13 @@
     <color name="backgroundColor">#00000000</color>
 
     <color name="primaryTextColor">#FFFFFFFF</color>
-    <color name="expensesColor">#6D63B5</color>
-    <color name="incomesColor">#BC5090</color>
+    <color name="expensesColor">@color/white</color>
+    <color name="incomesColor">@color/white</color>
     <color name="operationColor">#FF6361</color>
     <color name="statisticColor">#FFA600</color>
 
-    <color name="expensesBackgroundColor">@color/expensesColor</color>
-    <color name="incomesBackgroundColor">@color/incomesColor</color>
+    <color name="expensesBackgroundColor">#6D63B5</color>
+    <color name="incomesBackgroundColor">#BC5090</color>
     <color name="tabBackgroundColor">@color/colorPrimary</color>
     <color name="textPieColor">@color/white</color>
 

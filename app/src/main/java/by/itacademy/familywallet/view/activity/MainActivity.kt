@@ -1,9 +1,11 @@
 package by.itacademy.familywallet.view.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.databinding.ActivityMainBinding
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         auth = Firebase.auth
+        setTheme()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -87,6 +90,15 @@ class MainActivity : AppCompatActivity() {
             if (isPartner) {
                 repo.addPartner(UIModel.AccountModel(uid = UserUtils.getUsersUid()))
             }
+        }
+    }
+
+    private fun setTheme(){
+        val isChecked=getSharedPreferences("1", Context.MODE_PRIVATE).getBoolean("1",true)
+        if (!isChecked) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 
