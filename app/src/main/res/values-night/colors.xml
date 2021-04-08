@@ -14,8 +14,8 @@
     <color name="operationColor">#FF6361</color>
     <color name="statisticColor">#FFA600</color>
 
-    <color name="expensesBackgroundColor">#6D63B5</color>
-    <color name="incomesBackgroundColor">#BC5090</color>
+    <color name="expensesBackgroundColor">#58508d</color>
+    <color name="incomesBackgroundColor">@color/color2</color>
     <color name="tabBackgroundColor">@color/colorPrimary</color>
     <color name="textPieColor">@color/white</color>
 
