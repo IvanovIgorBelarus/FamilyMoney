@@ -47,6 +47,7 @@ class StartFragment : Fragment() {
                 isRotationEnabled = false
                 isClickable = false
                 holeRadius = 10f
+                setHoleColor(context.resources.getColor(R.color.tabBackgroundColor, context.theme))
                 setEntryLabelColor(context.resources.getColor(R.color.textPieColor, context.theme))
                 setTransparentCircleAlpha(0)
                 legend.isEnabled = false

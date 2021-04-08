@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@color/tabBackgroundColor"
         app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/incomesColor"
+        app:tabSelectedTextColor="@color/primaryTextColor"
         app:tabTextColor="@color/primaryTextColor" />
 
 </FrameLayout>

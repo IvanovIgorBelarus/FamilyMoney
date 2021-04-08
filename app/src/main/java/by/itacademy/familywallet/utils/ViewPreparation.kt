@@ -10,6 +10,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 
@@ -26,8 +27,9 @@ class ViewPreparation {
 
     private fun setItemsStyles(view: View, type: String) {
         when (type) {
-            EXPENSES -> setColors(view, R.color.expensesColor, R.color.expensesBackgroundColor, R.drawable.ic_baseline_add_circle_outline_expenses)
-            INCOMES -> setColors(view, R.color.incomesColor, R.color.incomesBackgroundColor, R.drawable.ic_baseline_add_circle_outline_incomes)
+            EXPENSES -> setColors(view, R.color.expensesColor, R.drawable.expenses_rectangle_button_background, R.drawable.ic_baseline_add_circle_outline_expenses)
+            INCOMES -> setColors(view, R.color.incomesColor, R.drawable.incomes_rectangle_button_background, R.drawable.ic_baseline_add_circle_outline_incomes)
+            BANK ->setColors(view, R.color.primaryTextColor, R.drawable.primary_rectangle_button_background, R.drawable.ic_baseline_add_circle_outline_incomes)
         }
     }
 

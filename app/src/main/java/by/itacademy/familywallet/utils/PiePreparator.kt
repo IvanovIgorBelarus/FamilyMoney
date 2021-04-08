@@ -42,6 +42,7 @@ object PiePreparator {
             count++
         }
         return PieDataSet(entrys, null).apply {
+            valueTextColor = context.resources.getColor(R.color.textPieColor, context.theme)
             sliceSpace = 1f
             valueTextSize = 12f
             colors = getPieColors(context, count)
