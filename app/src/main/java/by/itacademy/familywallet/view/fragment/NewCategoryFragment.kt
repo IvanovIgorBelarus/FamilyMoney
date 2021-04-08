@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import by.itacademy.familywallet.App
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
+import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.databinding.FragmentNewCategoryBinding
 import by.itacademy.familywallet.model.UIModel
@@ -44,7 +44,7 @@ class NewCategoryFragment : Fragment() {
     private fun initViews() {
         with(binding) {
             with(saveButton) {
-                App().viewPreparation.prepareView(this, transactionType!!)
+                //  App().viewPreparation.prepareView(this, transactionType!!)
                 setOnClickListener {
                     CoroutineScope(Dispatchers.IO).launch {
                         val category = binding.itemName.text.toString()
@@ -65,7 +65,8 @@ class NewCategoryFragment : Fragment() {
                     }
                 }
             }
-            App().viewPreparation.prepareView(itemName, transactionType!!)
+            title.text = String.format(getString(R.string.new_category_tittle), if (transactionType == INCOMES) getString(R.string.income) else getString(R.string.expenses))
+            //App().viewPreparation.prepareView(itemName, transactionType!!)
         }
     }
 

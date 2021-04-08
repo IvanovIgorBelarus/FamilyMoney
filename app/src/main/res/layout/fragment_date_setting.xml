@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
+    android:layout_marginTop="?attr/actionBarSize"
     tools:context=".view.fragment.DateSettingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -145,6 +146,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/adapterRv"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

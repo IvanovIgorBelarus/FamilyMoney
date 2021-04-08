@@ -7,20 +7,34 @@
     android:background="@color/white"
     android:clickable="false"
     android:focusable="true"
-    android:padding="10dp"
     android:orientation="horizontal"
+    android:padding="10dp"
     tools:context=".view.fragment.NewCategoryFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/itemName"
         android:layout_width="0dp"
         android:layout_height="60dp"
+        android:background="@drawable/primary_rectangle_button_background"
+        android:hint="@string/category_edit_hint"
         android:lines="1"
         android:padding="10dp"
+        android:textColorHint="@color/primaryTextColor"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:hint="@string/category_edit_hint"
-        android:textColorHint="@color/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,11 +42,12 @@
 
     <Button
         android:id="@+id/saveButton"
-        android:padding="4dp"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
+        android:background="@drawable/primary_rectangle_button_background"
         android:clickable="true"
+        android:padding="4dp"
         android:text="@string/save"
         android:textSize="16sp"
         android:textStyle="bold"

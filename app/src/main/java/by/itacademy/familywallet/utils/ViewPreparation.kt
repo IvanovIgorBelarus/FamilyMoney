@@ -34,14 +34,13 @@ class ViewPreparation {
 
     private fun setItemsStyles(view: View, type: String) {
         when (type) {
-            EXPENSES -> setColors(view, R.color.expensesColor, R.color.white, R.drawable.ic_baseline_add_circle_outline_expenses, R.layout.expenses_spinner_item)
-            INCOMES -> setColors(view, R.color.incomesColor, R.color.white, R.drawable.ic_baseline_add_circle_outline_incomes, R.layout.incomes_spinner_item)
-            BANK -> setColors(view, R.color.primaryTextColor, R.color.white, 0, R.layout.primary_spinner_item)
+            EXPENSES -> setColors(view, R.color.expensesColor, R.color.white, R.drawable.ic_baseline_add_circle_outline_expenses)
+            INCOMES -> setColors(view, R.color.incomesColor, R.color.white, R.drawable.ic_baseline_add_circle_outline_incomes)
         }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun setColors(view: View, color: Int, drawableBackground: Int, icon: Int, spinnerItem: Int) {
+    private fun setColors(view: View, color: Int, drawableBackground: Int, icon: Int) {
         when (view) {
             is Button -> with(view) {
                 setTextColor(ContextCompat.getColor(context, color))
@@ -66,51 +65,7 @@ class ViewPreparation {
                     setTextColor(ContextCompat.getColor(context, color))
                 }
             }
-            is Spinner -> {
-                with(view) {
-                    val currencyArray = arrayOf(BYN, USD, EUR, RUB)
-                    adapter = ArrayAdapter(context, spinnerItem, currencyArray)
-                }
-            }
             is View -> view.setBackgroundResource(drawableBackground)
-        }
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    fun prepareBankViews(binding: FragmentTransactionBinding, context: Context) {
-        val color = R.color.primaryTextColor
-        val drawableBackground = R.drawable.primary_rectangle_button_background
-        val spinnerItem = R.layout.primary_spinner_item
-
-        with(binding) {
-            with(transactionCategoryTitle) {
-                setTextColor(ContextCompat.getColor(context, color))
-                text = context.getString(R.string.bank)
-            }
-            with(transactionValue) {
-                setTextColor(ContextCompat.getColor(context, color))
-                setBackgroundResource(drawableBackground)
-            }
-            with(currencySpinner) {
-                val currencyArray = arrayOf(BYN, USD, EUR, RUB)
-                adapter = ArrayAdapter(context, spinnerItem, currencyArray)
-            }
-            with(cashButton) {
-                setText(R.string.add)
-                setTextColor(ContextCompat.getColor(context, R.color.incomesColor))
-                setBackgroundResource(R.drawable.incomes_rectangle_button_background)
-                setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_baseline_arrow_upward_24, context.theme), null, null, null)
-                compoundDrawableTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.incomesColor))
-            }
-            with(cardButton) {
-                setText(R.string.out)
-                setTextColor(ContextCompat.getColor(context, R.color.expensesColor))
-                setBackgroundResource(R.drawable.expenses_rectangle_button_background)
-                setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_baseline_arrow_downward_24, context.theme), null, null, null)
-                compoundDrawableTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.expensesColor))
-            }
         }
     }
 }

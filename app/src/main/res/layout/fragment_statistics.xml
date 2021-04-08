@@ -18,6 +18,8 @@
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
         android:id="@+id/adapterRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

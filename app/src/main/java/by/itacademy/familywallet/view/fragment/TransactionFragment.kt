@@ -4,16 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import by.itacademy.familywallet.App
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.data.BANK_MINUS
 import by.itacademy.familywallet.data.BANK_PLUS
+import by.itacademy.familywallet.data.BYN
 import by.itacademy.familywallet.data.CARD
 import by.itacademy.familywallet.data.CASH
 import by.itacademy.familywallet.data.CATEGORIES
+import by.itacademy.familywallet.data.EUR
+import by.itacademy.familywallet.data.RUB
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
+import by.itacademy.familywallet.data.USD
 import by.itacademy.familywallet.databinding.FragmentTransactionBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Dialogs
@@ -45,17 +50,18 @@ class TransactionFragment : Fragment() {
     }
 
     private fun initViews() {
-        val preparation = App().viewPreparation
         with(binding) {
             if (type == BANK) {
-                preparation.prepareBankViews(binding, context!!)
+                cashButton.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_baseline_arrow_upward_24, context?.theme), null, null, null)
+                cashButton.setText(R.string.add)
+                cardButton.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_baseline_arrow_downward_24, context?.theme), null, null, null)
+                cardButton.setText(R.string.out)
             } else {
                 transactionCategoryTitle.text = category
-                preparation.prepareView(transactionCategoryTitle, type!!)
-                preparation.prepareView(transactionValue, type!!)
-                preparation.prepareView(currencySpinner, type!!)
-                preparation.prepareView(cashButton, type!!)
-                preparation.prepareView(cardButton, type!!)
+            }
+            with(currencySpinner) {
+                val currencyArray = arrayOf(BYN, USD, EUR, RUB)
+                adapter = ArrayAdapter(context, R.layout.primary_spinner_item, currencyArray)
             }
 
             date.setOnDateChangeListener { view, year, month, dayOfMonth ->

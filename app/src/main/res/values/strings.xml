@@ -48,4 +48,5 @@
     <string name="theme_icon_title">тема</string>
     <string name="category_operation_title">Затраны по выбранной категории(%s):</string>
     <string name="toast_others_title">Остальные затраты смотрите во вкладке "операции"</string>
+    <string name="new_category_tittle">Создание новой категории "%s"</string>
 </resources>
