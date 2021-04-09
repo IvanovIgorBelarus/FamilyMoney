@@ -17,6 +17,7 @@ import org.koin.core.parameter.parametersOf
 
 class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperationViewModel>(R.layout.fragment_statistics) {
     private lateinit var binding: FragmentStatisticsBinding
+
     override val viewModel by viewModel<CategoryOperationViewModel>() { parametersOf(category) }
     override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
     private lateinit var category: String
@@ -29,7 +30,7 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStatisticsBinding.bind(view)
-        with(binding.statisticTitle) {
+        with(binding.titleTextView) {
             visibility = View.VISIBLE
             text = String.format(getString(R.string.category_operation_title), category)
         }

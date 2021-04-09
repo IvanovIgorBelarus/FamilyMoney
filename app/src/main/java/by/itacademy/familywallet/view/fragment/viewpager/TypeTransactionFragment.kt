@@ -21,6 +21,7 @@ import org.koin.core.parameter.parametersOf
 
 class TypeTransactionFragment : BaseFragment<FragmentAdapter, TypeTransactionViewModel>(R.layout.fragment_type_transaction), ItemClickListener {
     private lateinit var fragmentType: String
+
     private lateinit var binding: FragmentTypeTransactionBinding
     override val fragmentAdapter: FragmentAdapter by inject { parametersOf(this as ItemClickListener, this as ItemOnLongClickListener) }
     override val viewModel by viewModel<TypeTransactionViewModel> { parametersOf(fragmentType) }

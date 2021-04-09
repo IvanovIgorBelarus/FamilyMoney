@@ -6,7 +6,7 @@
     tools:context=".view.fragment.viewpager.OperationsFragment">
 
     <TextView
-        android:id="@+id/statisticTitle"
+        android:id="@+id/titleTextView"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:layout_width="match_parent"

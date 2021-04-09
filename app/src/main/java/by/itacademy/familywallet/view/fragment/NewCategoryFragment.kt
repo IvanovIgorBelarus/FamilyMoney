@@ -42,7 +42,7 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 uid = arguments?.getString(UID),
                 category = arguments?.getString(CATEGORY),
                 type = arguments?.getString(TRANSACTION_TYPE),
-                icon = if (arguments?.getInt(ICON)==0) Icons.getIcons()[0] else arguments?.getInt(ICON)!!
+                icon = if (arguments?.getInt(ICON) == 0) Icons.getIcons()[0] else arguments?.getInt(ICON)!!
             )
         }
     }
@@ -74,7 +74,11 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 setColorFilter(resources.getColor(R.color.primaryTextColor, context.theme))
                 setOnClickListener { addFragment(IconChooseFragment.newInstance()) }
             }
-            title.text = String.format(getString(R.string.new_category_tittle), if (item?.type!! == INCOMES) getString(R.string.income) else getString(R.string.expenses))
+            if (item?.id.isNullOrEmpty()) {
+                title.text = String.format(getString(R.string.new_category_tittle), if (item?.type!! == INCOMES) getString(R.string.income) else getString(R.string.expenses))
+            } else {
+                title.text = String.format(getString(R.string.new_category_update_tittle), if (item?.type!! == INCOMES) getString(R.string.income) else getString(R.string.expenses))
+            }
         }
     }
 

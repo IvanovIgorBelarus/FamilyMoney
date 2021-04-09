@@ -16,6 +16,7 @@ import org.koin.core.parameter.parametersOf
 
 class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.layout.fragment_statistics) {
     private lateinit var binding: FragmentStatisticsBinding
+
     override val viewModel by viewModel<StatisticViewModel>()
     override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
     override fun onCreateView(
