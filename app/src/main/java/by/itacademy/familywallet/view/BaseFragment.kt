@@ -19,7 +19,7 @@ import org.koin.android.ext.android.inject
 abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private val layout: Int) : Fragment(), ItemOnLongClickListener {
     protected abstract val fragmentAdapter: AD
     protected abstract val viewModel: VM
-    protected val dialog by inject<Dialogs>()
+    val dialog by inject<Dialogs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

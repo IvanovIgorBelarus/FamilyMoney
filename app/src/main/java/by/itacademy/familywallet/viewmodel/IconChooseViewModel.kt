@@ -1,12 +1,8 @@
 package by.itacademy.familywallet.viewmodel
 
-import android.view.View
 import android.view.ViewGroup.LayoutParams
-import android.view.ViewGroup.VISIBLE
 import android.widget.ImageButton
 import android.widget.TableRow
-import androidx.core.view.marginLeft
-import androidx.core.view.marginTop
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.IconWrapper
 import by.itacademy.familywallet.databinding.FragmentIconChooseBinding

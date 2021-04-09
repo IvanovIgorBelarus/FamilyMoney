@@ -19,10 +19,6 @@ class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.la
 
     override val viewModel by viewModel<StatisticViewModel>()
     override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.fragment_statistics, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

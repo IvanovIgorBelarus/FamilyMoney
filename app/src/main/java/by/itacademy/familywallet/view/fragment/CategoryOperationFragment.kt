@@ -22,11 +22,6 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
     override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
     private lateinit var category: String
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.fragment_statistics, container, false)
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStatisticsBinding.bind(view)

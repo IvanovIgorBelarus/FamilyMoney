@@ -1,19 +1,14 @@
 package by.itacademy.familywallet.view.fragment.viewpager
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.databinding.FragmentStartBinding
 import by.itacademy.familywallet.presentation.FragmentAdapter
-import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.utils.PiePreparator
 import by.itacademy.familywallet.view.BaseFragment
-import by.itacademy.familywallet.view.activity.FragmentsActivity
 import by.itacademy.familywallet.view.fragment.CategoryOperationFragment
 import by.itacademy.familywallet.view.fragment.TransactionFragment
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
@@ -24,7 +19,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class StartFragment : BaseFragment<FragmentAdapter,StartFragmentViewModel>(R.layout.fragment_start) {
+class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.layout.fragment_start) {
     private lateinit var binding: FragmentStartBinding
 
     override val viewModel by inject<StartFragmentViewModel>()
@@ -60,7 +55,7 @@ class StartFragment : BaseFragment<FragmentAdapter,StartFragmentViewModel>(R.lay
                 })
             }
             openBank.setOnClickListener {
-                (activity as FragmentsActivity).screenManager.startFragment(TransactionFragment.newInstance(BANK, null))
+                addFragment(TransactionFragment.newInstance(BANK, null))
             }
             with(viewModel) {
                 liveDataExpenses.observe(this@StartFragment, Observer { expensesTextView.text = String.format("%s %.2f BYN", getString(R.string.spend), it) })

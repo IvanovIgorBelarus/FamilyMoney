@@ -1,7 +1,9 @@
 package by.itacademy.familywallet.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.balanceFilter
 import by.itacademy.familywallet.common.categoryTypeFilter
 import by.itacademy.familywallet.common.typeFilter
@@ -15,10 +17,14 @@ import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.RUB
 import by.itacademy.familywallet.data.USD
+import by.itacademy.familywallet.databinding.FragmentStartBinding
 import by.itacademy.familywallet.model.PieModel
 import by.itacademy.familywallet.model.PieModelMapper
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.utils.PiePreparator
 import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
+import by.itacademy.familywallet.view.fragment.viewpager.StartFragment
+import com.google.api.Context
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

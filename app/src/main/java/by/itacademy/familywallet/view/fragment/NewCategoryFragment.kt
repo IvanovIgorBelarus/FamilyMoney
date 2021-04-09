@@ -28,8 +28,8 @@ import org.koin.core.parameter.parametersOf
 
 class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_new_category) {
     private lateinit var binding: FragmentNewCategoryBinding
-    private val repo by inject<DataRepository>()
-    private var item: UIModel.CategoryModel? = null
+    val repo by inject<DataRepository>()
+    var item: UIModel.CategoryModel? = null
 
     override val viewModel by inject<BaseViewModel>()
     override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }

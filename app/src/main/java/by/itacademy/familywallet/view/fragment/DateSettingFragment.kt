@@ -37,11 +37,6 @@ class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
     override val viewModel by viewModel<DateSettingsViewModel>()
     override val fragmentAdapter: FragmentAdapter by inject { parametersOf(this as ItemClickListener, null) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_date_setting, container, false)
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDateSettingBinding.bind(view)
