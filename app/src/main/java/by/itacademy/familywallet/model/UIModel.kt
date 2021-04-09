@@ -1,7 +1,5 @@
 package by.itacademy.familywallet.model
 
-import java.util.*
-
 sealed class UIModel {
     data class AccountModel(
         var id: String? = null,
@@ -11,9 +9,10 @@ sealed class UIModel {
 
     data class CategoryModel(
         var id: String? = null,
-        val uid: String?,
-        var category: String?,
-        var type: String?
+        var uid: String? = null,
+        var category: String? = null,
+        var type: String? = null,
+        var icon: Long? = null
     )
 
     data class StatisticModel(
@@ -24,13 +23,13 @@ sealed class UIModel {
 
     data class TransactionModel(
         var id: String? = null,
-        val uid: String?,
-        val type: String?,
-        val category: String?,
-        val currency: String?,
-        val moneyType: String?,
-        val date: Long?,
-        var value: Double?
+        var uid: String? = null,
+        var type: String? = null,
+        var category: String? = null,
+        var currency: String? = null,
+        var moneyType: String? = null,
+        var date: Long? = null,
+        var value: Double? = null
     )
 
     data class MonthModel(

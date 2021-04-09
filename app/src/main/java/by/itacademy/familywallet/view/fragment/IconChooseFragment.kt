@@ -14,7 +14,7 @@ import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class IconChooseFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_type_transaction) {
+class IconChooseFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_type_transaction),ItemClickListener {
 
     private lateinit var binding: FragmentTypeTransactionBinding
     override val fragmentAdapter: FragmentAdapter by inject { parametersOf(this as ItemClickListener, null) }
@@ -23,15 +23,27 @@ class IconChooseFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTypeTransactionBinding.bind(view)
-        binding.adapterRv.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = fragmentAdapter
-        }
-        binding.categoryCreateButton.visibility = View.GONE
+        initViews()
+        viewModel.getData()
         updateAdapter()
+    }
+
+    private fun initViews(){
+        with(binding){
+            adapterRv.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = fragmentAdapter
+            }
+            categoryCreateButton.visibility = View.GONE
+
+        }
     }
 
     companion object {
         fun newInstance() = IconChooseFragment()
+    }
+
+    override fun onClick(item: Any?) {
+        TODO("Not yet implemented")
     }
 }

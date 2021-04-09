@@ -13,6 +13,7 @@ import by.itacademy.familywallet.data.BANK_PLUS
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.FULL_DATE
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.view.fragment.NewCategoryFragment
 import by.itacademy.familywallet.view.fragment.TransactionFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,8 +37,15 @@ class Dialogs(private val repo: DataRepository) {
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.alert))
             .setMessage(context.getString(R.string.alert_dialog_delete_item_message))
-            .setNegativeButton(context.getString(R.string.no)) { _, _ -> }
-            .setPositiveButton(context.getString(R.string.ok)) { dialog, _ ->
+            .setNeutralButton(context.getString(R.string.cancel)) { _, _ -> }
+            .setNegativeButton(context.getString(R.string.update)) { dialog, _ ->
+                when (item) {
+                    is UIModel.CategoryModel -> fragment.activity?.supportFragmentManager?.beginTransaction()?.add(NewCategoryFragment.newInstance(item),"")?.addToBackStack(null)
+                //    is UIModel.TransactionModel -> fragment.childFragmentManager.beginTransaction().add(TransactionFragment.newInstance(item)).addToBackStack(null)
+                }
+                dialog.cancel()
+            }
+            .setPositiveButton(context.getString(R.string.delete)) { dialog, _ ->
                 CoroutineScope(Dispatchers.IO).launch {
                     repo.deleteItem(item)
                     withContext(Dispatchers.Main) {

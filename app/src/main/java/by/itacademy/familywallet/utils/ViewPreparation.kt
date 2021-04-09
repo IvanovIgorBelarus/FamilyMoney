@@ -33,7 +33,7 @@ class ViewPreparation {
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint("UseCompatLoadingForDrawables", "UseCompatTextViewDrawableApis")
     private fun setColors(view: View, color: Int, drawableBackground: Int, icon: Int) {
         when (view) {
             is Button -> with(view) {

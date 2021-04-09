@@ -51,4 +51,8 @@
     <string name="new_category_tittle">Создание новой категории "%s"</string>
     <string name="change_theme_message">Для смены темы необходимо перезагрузить приложение</string>
     <string name="choose">Выбрать</string>
+    <string name="choose_tittle">Выбор иконки для категории</string>
+    <string name="cancel">Отмена</string>
+    <string name="delete">Удалить</string>
+    <string name="update">Изменить</string>
 </resources>
