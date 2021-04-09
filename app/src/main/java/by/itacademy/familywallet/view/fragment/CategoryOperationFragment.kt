@@ -33,12 +33,12 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
             visibility = View.VISIBLE
             text = String.format(getString(R.string.category_operation_title), category)
         }
-        (activity as FragmentsActivity).supportActionBar?.show()
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
         }
         viewModel.getData()
+        showActionBar(true)
         updateAdapter()
     }
 

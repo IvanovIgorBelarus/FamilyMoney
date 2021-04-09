@@ -24,7 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
+class StartFragmentViewModel(private val repo: DataRepository) : BaseViewModel() {
     private val mutableLiveDataExpenses = MutableLiveData<Double>()
     val liveDataExpenses = mutableLiveDataExpenses
     private val mutableLiveDataIncomes = MutableLiveData<Double>()
@@ -36,7 +36,7 @@ class StartFragmentViewModel(private val repo: DataRepository) : ViewModel() {
     private val mutableLiveDataPie = MutableLiveData<List<PieModel>>()
     val liveDataPie = mutableLiveDataPie
 
-    fun getTransactions() {
+    override fun getData() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
             val partner = repo.getPartner()

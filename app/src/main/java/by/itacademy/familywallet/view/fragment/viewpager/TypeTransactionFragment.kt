@@ -45,7 +45,7 @@ class TypeTransactionFragment : BaseFragment<FragmentAdapter, TypeTransactionVie
         with(binding) {
             with(categoryCreateButton) {
                 setOnClickListener {
-                    (activity as FragmentsActivity).screenManager.startFragment(NewCategoryFragment.newInstance(fragmentType))
+                    addFragment(NewCategoryFragment.newInstance(fragmentType))
                 }
                 App().viewPreparation.prepareView(categoryCreateButton, fragmentType)
             }
@@ -53,7 +53,7 @@ class TypeTransactionFragment : BaseFragment<FragmentAdapter, TypeTransactionVie
     }
 
     override fun onClick(item: Any?) {
-        (activity as FragmentsActivity).screenManager.startFragment(TransactionFragment.newInstance((item as UIModel.CategoryModel)?.type, item?.category))
+        addFragment(TransactionFragment.newInstance((item as UIModel.CategoryModel).type, item.category))
     }
 
     companion object {

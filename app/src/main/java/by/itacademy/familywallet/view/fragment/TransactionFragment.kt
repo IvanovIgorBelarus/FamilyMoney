@@ -26,26 +26,27 @@ import by.itacademy.familywallet.data.USD
 import by.itacademy.familywallet.data.VALUE
 import by.itacademy.familywallet.databinding.FragmentTransactionBinding
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
+import by.itacademy.familywallet.view.BaseFragment
 import by.itacademy.familywallet.view.activity.FragmentsActivity
+import by.itacademy.familywallet.viewmodel.BaseViewModel
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 import java.util.*
 
-class TransactionFragment : Fragment() {
+class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_transaction) {
     private lateinit var binding: FragmentTransactionBinding
     private var item: UIModel.TransactionModel? = null
-    private val dialog by inject<Dialogs>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_transaction, container, false)
+    override val viewModel by inject<BaseViewModel>()
+    override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTransactionBinding.bind(view)
-        (activity as FragmentsActivity).supportActionBar?.hide()
+        showActionBar(false)
         initItem()
         if (item?.type != null) {
             initViews()
@@ -132,7 +133,7 @@ class TransactionFragment : Fragment() {
     }
 
     fun closeFragment() {
-        (activity as FragmentsActivity).onBackPressed()
+        onBack()
     }
 
     companion object {

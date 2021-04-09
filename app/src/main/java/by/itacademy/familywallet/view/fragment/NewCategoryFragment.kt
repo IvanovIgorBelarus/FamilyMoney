@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.CATEGORY
@@ -15,30 +16,32 @@ import by.itacademy.familywallet.data.TRANSACTION_TYPE
 import by.itacademy.familywallet.data.UID
 import by.itacademy.familywallet.databinding.FragmentNewCategoryBinding
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.Icons
 import by.itacademy.familywallet.utils.UserUtils
+import by.itacademy.familywallet.view.BaseFragment
 import by.itacademy.familywallet.view.activity.FragmentsActivity
+import by.itacademy.familywallet.viewmodel.BaseViewModel
+import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
-class NewCategoryFragment : Fragment() {
+class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_new_category) {
     private lateinit var binding: FragmentNewCategoryBinding
     private val repo by inject<DataRepository>()
     private var item: UIModel.CategoryModel? = null
-    private val dialog by inject<Dialogs>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_new_category, container, false)
+    override val viewModel by inject<BaseViewModel>()
+    override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as FragmentsActivity).supportActionBar?.hide()
+        showActionBar(false)
         binding = FragmentNewCategoryBinding.bind(view)
         if (arguments != null) {
             item = UIModel.CategoryModel(
@@ -46,7 +49,7 @@ class NewCategoryFragment : Fragment() {
                 uid = arguments?.getString(UID),
                 category = arguments?.getString(CATEGORY),
                 type = arguments?.getString(TRANSACTION_TYPE),
-                icon = arguments?.getLong(ICON)
+                icon = arguments?.getInt(ICON) ?: 0
             )
             initViews()
         }
@@ -56,18 +59,21 @@ class NewCategoryFragment : Fragment() {
         with(binding) {
             itemName.setText(item?.category ?: "")
             with(saveButton) {
-                if (item?.category.isNullOrEmpty()) {
-                    createNewCategory()
-                } else {
-
+                setOnClickListener {
+                    if (item?.category.isNullOrEmpty()) {
+                        createNewCategory()
+                    } else {
+                        //updateCategory()
+                    }
                 }
             }
             with(iconTextView) {
-                setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(item?.icon?.toInt() ?: Icons.getIcons()[0], context.theme), null, null, null)
+                val icon = if (item!!.icon == 0) Icons.getIcons()[0] else item!!.icon
+                setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(icon, context.theme), null, null, null)
                 compoundDrawableTintList =
-                    android.content.res.ColorStateList.valueOf(androidx.core.content.ContextCompat.getColor(context, R.color.primaryTextColor))
+                    android.content.res.ColorStateList.valueOf(ContextCompat.getColor(context, R.color.primaryTextColor))
             }
-            selectIconButton.setOnClickListener { (activity as FragmentsActivity).screenManager.startFragment(IconChooseFragment.newInstance()) }
+            selectIconButton.setOnClickListener { addFragment(IconChooseFragment.newInstance()) }
             title.text = String.format(getString(R.string.new_category_tittle), if (item?.type!! == INCOMES) getString(R.string.income) else getString(R.string.expenses))
         }
     }
@@ -84,7 +90,7 @@ class NewCategoryFragment : Fragment() {
                     )
                 )
                 withContext(Dispatchers.Main) {
-                    (activity as FragmentsActivity).onBackPressed()
+                    onBack()
                 }
             } else {
                 withContext(Dispatchers.Main) { dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_message_category_create)) }
@@ -92,11 +98,11 @@ class NewCategoryFragment : Fragment() {
         }
     }
 
-    private fun upDateCategory(){
+    private fun upDateCategory() {
         CoroutineScope(Dispatchers.IO).launch {
             repo.upDateItem(item)
             withContext(Dispatchers.Main) {
-                (activity as FragmentsActivity).onBackPressed()
+                onBack()
             }
         }
     }
@@ -115,7 +121,7 @@ class NewCategoryFragment : Fragment() {
                 putString(UID, item.uid)
                 putString(CATEGORY, item.category)
                 putString(TRANSACTION_TYPE, item.type)
-                putLong(ICON, item.icon ?: -1)
+                putInt(ICON, item.icon)
             }
         }
     }

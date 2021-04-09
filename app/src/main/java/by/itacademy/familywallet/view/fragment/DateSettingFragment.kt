@@ -45,7 +45,7 @@ class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDateSettingBinding.bind(view)
-        (activity as FragmentsActivity).supportActionBar?.hide()
+        showActionBar(false)
         enabledButton()
         initViews()
         viewModel.getData()
@@ -56,25 +56,25 @@ class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
         with(binding) {
             noFilterButton.setOnClickListener {
                 dateFilterType = NO_DATE_FILTER
-                (activity as FragmentsActivity).onBackPressed()
+                onBack()
             }
             monthFilterButton.setOnClickListener {
                 dateFilterType = MONTH_FILTER
-                (activity as FragmentsActivity).onBackPressed()
+                onBack()
             }
             weekFilterButton.setOnClickListener {
                 dateFilterType = WEEK_FILTER
-                (activity as FragmentsActivity).onBackPressed()
+                onBack()
             }
             dayFilterButton.setOnClickListener {
                 dateFilterType = DAY_FILTER
-                (activity as FragmentsActivity).onBackPressed()
+                onBack()
             }
 
             rangeFilterButton.setOnClickListener {
                 if (startDate != null && endDate != null && startDate!! < endDate!!) {
                     dateFilterType = RANGE_FILTER
-                    (activity as FragmentsActivity).onBackPressed()
+                    onBack()
                 } else {
                     dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_date_range_message))
                 }
@@ -150,6 +150,6 @@ class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
         startDate = (item as UIModel.MonthModel).startDate
         endDate = item.endDate
         dateFilterType = RANGE_FILTER
-        (activity as FragmentsActivity).onBackPressed()
+        onBack()
     }
 }

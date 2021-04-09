@@ -112,7 +112,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                             uid = doc.getString(UID),
                             category = doc.getString(CATEGORY),
                             type = doc.getString(TRANSACTION_TYPE),
-                            icon = doc.getLong(ICON) ?: Icons.getIcons()[0].toLong()
+                            icon = doc.getLong(ICON)?.toInt() ?: Icons.getIcons()[0]
                         )
                     )
                 }

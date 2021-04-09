@@ -1,7 +1,5 @@
 package by.itacademy.familywallet.data
 
-import java.net.IDN
-
 const val CATEGORIES = "Categories"
 const val EXPENSES = "Expenses"
 const val INCOMES = "Incomes"

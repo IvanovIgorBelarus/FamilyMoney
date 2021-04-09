@@ -13,8 +13,11 @@ import by.itacademy.familywallet.data.BANK_PLUS
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.FULL_DATE
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.presentation.FragmentAdapter
+import by.itacademy.familywallet.view.BaseFragment
 import by.itacademy.familywallet.view.fragment.NewCategoryFragment
 import by.itacademy.familywallet.view.fragment.TransactionFragment
+import by.itacademy.familywallet.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,7 +35,7 @@ class Dialogs(private val repo: DataRepository) {
             ?.setBackgroundDrawableResource(R.color.tabBackgroundColor)
     }
 
-    fun deleteDialog(item: Any?, fragment: Fragment) {
+    fun deleteDialog(item: Any?, fragment: BaseFragment<*, *>) {
         val context = fragment.context!!
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.alert))
@@ -40,8 +43,8 @@ class Dialogs(private val repo: DataRepository) {
             .setNeutralButton(context.getString(R.string.cancel)) { _, _ -> }
             .setNegativeButton(context.getString(R.string.update)) { dialog, _ ->
                 when (item) {
-                    is UIModel.CategoryModel -> fragment.activity?.supportFragmentManager?.beginTransaction()?.add(NewCategoryFragment.newInstance(item),"")?.addToBackStack(null)
-                //    is UIModel.TransactionModel -> fragment.childFragmentManager.beginTransaction().add(TransactionFragment.newInstance(item)).addToBackStack(null)
+                    is UIModel.CategoryModel -> fragment.addFragment(NewCategoryFragment.newInstance(item))
+                    is UIModel.TransactionModel -> fragment.addFragment(TransactionFragment.newInstance(item))
                 }
                 dialog.cancel()
             }
@@ -78,7 +81,7 @@ class Dialogs(private val repo: DataRepository) {
         dialog.show()
     }
 
-    fun createTransactionDialog(fragment: TransactionFragment, transactionModel: UIModel.TransactionModel) {
+    fun createTransactionDialog(fragment: BaseFragment<*, *>, transactionModel: UIModel.TransactionModel) {
         val context = fragment.context!!
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.warning))
@@ -92,7 +95,7 @@ class Dialogs(private val repo: DataRepository) {
                     }
                 }
                 dialog.cancel()
-                fragment.closeFragment()
+                fragment.onBack()
             }
             .setNegativeButton(context.getString(R.string.no)) { dialog, _ ->
                 dialog.cancel()

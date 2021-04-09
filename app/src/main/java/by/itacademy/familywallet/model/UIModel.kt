@@ -12,7 +12,7 @@ sealed class UIModel {
         var uid: String? = null,
         var category: String? = null,
         var type: String? = null,
-        var icon: Long? = null
+        var icon: Int = 0
     )
 
     data class StatisticModel(

@@ -35,7 +35,6 @@ class IconChooseFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
                 adapter = fragmentAdapter
             }
             categoryCreateButton.visibility = View.GONE
-
         }
     }
 

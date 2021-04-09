@@ -9,7 +9,10 @@ import androidx.lifecycle.Observer
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.databinding.FragmentStartBinding
+import by.itacademy.familywallet.presentation.FragmentAdapter
+import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.utils.PiePreparator
+import by.itacademy.familywallet.view.BaseFragment
 import by.itacademy.familywallet.view.activity.FragmentsActivity
 import by.itacademy.familywallet.view.fragment.CategoryOperationFragment
 import by.itacademy.familywallet.view.fragment.TransactionFragment
@@ -19,15 +22,13 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
-class StartFragment : Fragment() {
+class StartFragment : BaseFragment<FragmentAdapter,StartFragmentViewModel>(R.layout.fragment_start) {
     private lateinit var binding: FragmentStartBinding
-    private val startFragmentViewModel by inject<StartFragmentViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.fragment_start, container, false)
+    override val viewModel by inject<StartFragmentViewModel>()
+    override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,7 +38,7 @@ class StartFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        startFragmentViewModel.getTransactions()
+        viewModel.getData()
     }
 
     private fun initViews() {
@@ -53,16 +54,15 @@ class StartFragment : Fragment() {
                 legend.isEnabled = false
                 setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                     override fun onNothingSelected() {}
-
                     override fun onValueSelected(e: Entry?, h: Highlight?) {
-                        (activity as FragmentsActivity).screenManager.startFragment(CategoryOperationFragment.newInstance((e as PieEntry).label))
+                        addFragment(CategoryOperationFragment.newInstance((e as PieEntry).label))
                     }
                 })
             }
             openBank.setOnClickListener {
                 (activity as FragmentsActivity).screenManager.startFragment(TransactionFragment.newInstance(BANK, null))
             }
-            with(startFragmentViewModel) {
+            with(viewModel) {
                 liveDataExpenses.observe(this@StartFragment, Observer { expensesTextView.text = String.format("%s %.2f BYN", getString(R.string.spend), it) })
                 liveDataIncomes.observe(this@StartFragment, Observer { incomeTextView.text = String.format("%s %.2f BYN", getString(R.string.income_text), it) })
                 liveDataBalance.observe(this@StartFragment, Observer { balanceTextView.text = String.format("%s %.2f BYN", getString(R.string.balance), it) })
