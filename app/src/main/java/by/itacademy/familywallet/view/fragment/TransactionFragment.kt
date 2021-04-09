@@ -116,7 +116,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
     }
 
     private fun createDialog(moneyType: String?) {
-        if (item?.moneyType.isNullOrEmpty()) {
+        if (item?.currency.isNullOrEmpty()) {
             val transactionModel = UIModel.TransactionModel(
                 uid = UserUtils.getUsersUid(),
                 type = item?.type,
@@ -124,16 +124,17 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 currency = binding.currencySpinner.selectedItem.toString(),
                 moneyType = moneyType,
                 value = binding.transactionValue.text.toString().toDouble(),
-                date = binding.date.date
-            )
+                date = binding.date.date)
             dialog.createTransactionDialog(this, transactionModel)
         } else {
-            dialog.createTransactionDialog(this, item!!)
+            with(item!!){
+                currency = binding.currencySpinner.selectedItem.toString()
+                this.moneyType = moneyType
+                value = binding.transactionValue.text.toString().toDouble()
+                date = binding.date.date
+            }
+            dialog.createTransactionDialog(this, item!!, true)
         }
-    }
-
-    fun closeFragment() {
-        onBack()
     }
 
     companion object {

@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.common.IconWrapper
 import by.itacademy.familywallet.databinding.FragmentTypeTransactionBinding
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.view.BaseFragment
 import by.itacademy.familywallet.viewmodel.BaseViewModel
 import by.itacademy.familywallet.viewmodel.IconChooseViewModel
+import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -43,6 +45,7 @@ class IconChooseFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
     }
 
     override fun onClick(item: Any?) {
-        TODO("Not yet implemented")
+        EventBus.getDefault().post(IconWrapper(item as Int))
+        onBack()
     }
 }

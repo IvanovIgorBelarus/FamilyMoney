@@ -81,17 +81,19 @@ class Dialogs(private val repo: DataRepository) {
         dialog.show()
     }
 
-    fun createTransactionDialog(fragment: BaseFragment<*, *>, transactionModel: UIModel.TransactionModel) {
+    fun createTransactionDialog(fragment: BaseFragment<*, *>, item: UIModel.TransactionModel, isUpdate: Boolean = false) {
         val context = fragment.context!!
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.warning))
-            .setMessage(message(context, transactionModel))
+            .setMessage(message(context, item))
             .setPositiveButton(context.getString(R.string.ok)) { dialog, _ ->
                 CoroutineScope(Dispatchers.IO).launch {
-                    if (transactionModel.moneyType == BANK_MINUS || transactionModel.moneyType == BANK_PLUS) {
-                        repo.doBakTransactions(transactionModel)
+                    if (isUpdate) {
+                        repo.upDateItem(item)
+                    } else if (item.moneyType == BANK_MINUS || item.moneyType == BANK_PLUS) {
+                        repo.doBakTransactions(item)
                     } else {
-                        repo.doTransaction(transactionModel)
+                        repo.doTransaction(item)
                     }
                 }
                 dialog.cancel()

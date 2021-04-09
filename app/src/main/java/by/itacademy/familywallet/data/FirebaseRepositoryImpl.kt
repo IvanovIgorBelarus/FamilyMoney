@@ -55,8 +55,8 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
             mapOf(
                 UID to categoryItem.uid,
                 CATEGORY to categoryItem.category,
-                ICON to categoryItem.icon,
-                TRANSACTION_TYPE to categoryItem.type
+                TRANSACTION_TYPE to categoryItem.type,
+                ICON to categoryItem.icon
             )
         )
     }
@@ -112,7 +112,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                             uid = doc.getString(UID),
                             category = doc.getString(CATEGORY),
                             type = doc.getString(TRANSACTION_TYPE),
-                            icon = doc.getLong(ICON)?.toInt() ?: Icons.getIcons()[0]
+                            icon = if (doc.getLong(ICON)==null) Icons.getIcons()[0] else doc.getLong(ICON)!!.toInt()
                         )
                     )
                 }
