@@ -52,7 +52,7 @@ class StartFragmentViewModel(private val repo: DataRepository) : BaseViewModel()
             withContext(Dispatchers.Main) {
                 mutableLiveDataExpenses.value = expensesList.sumByDouble { it.value!! }
                 mutableLiveDataIncomes.value = list.currentDateFilter().typeFilter(INCOMES)?.sumByDouble { it.value!! }
-                mutableLiveDataBalance.value = list.currentDateFilter().balanceFilter()
+                mutableLiveDataBalance.value = list.balanceFilter()
                 mutableLiveDataBank.value = getBankString(list.typeFilter(BANK))
                 mutableLiveDataPie.value = PieModelMapper.map(categories, expensesList)
                 isLoading.set(false)
