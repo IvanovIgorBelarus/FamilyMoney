@@ -7,8 +7,18 @@
         android:title="@string/date_filter"
         app:showAsAction="always" />
     <item
+        android:id="@+id/sms"
+        android:icon="@drawable/ic_baseline_sms_24"
+        android:title="@string/theme_icon_title"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/usersSettings"
         android:icon="@drawable/ic_baseline_manage_accounts_24"
         android:title="@string/users_settings"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/theme"
+        android:icon="@drawable/ic_baseline_wb_sunny_24"
+        android:title="@string/theme_icon_title"
         app:showAsAction="always" />
 </menu>

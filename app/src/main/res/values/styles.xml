@@ -5,7 +5,19 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="calendarMonth" parent="AppTheme">
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="colorControlActivated">@color/controlActivated</item>
+    </style>
+
+    <style name="PrimaryTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="drawableTint">@color/primaryTextColor</item>
+    </style>
 </resources>

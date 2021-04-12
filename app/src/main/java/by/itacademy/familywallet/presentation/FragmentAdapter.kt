@@ -7,6 +7,7 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.presentation.viewholders.ArchiveViewHolder
 import by.itacademy.familywallet.presentation.viewholders.CategoryViewHolder
 import by.itacademy.familywallet.presentation.viewholders.OperationsViewHolder
 import by.itacademy.familywallet.presentation.viewholders.StatisticViewHolder
@@ -24,6 +25,7 @@ class FragmentAdapter(
             R.string.income -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener, itemOnLongClickListener)
             R.string.operations -> OperationsViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false), itemOnLongClickListener)
             R.string.statistics -> StatisticViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false))
+            R.string.date_setting_title -> ArchiveViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener)
             else -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), null, null)
         }
     }
@@ -34,6 +36,7 @@ class FragmentAdapter(
             is CategoryViewHolder -> holder.bind(item as UIModel.CategoryModel)
             is OperationsViewHolder -> holder.bind(item as UIModel.TransactionModel)
             is StatisticViewHolder -> holder.bind(item as UIModel.StatisticModel)
+            is ArchiveViewHolder -> holder.bind(item as UIModel.MonthModel)
         }
 
     }
@@ -45,6 +48,7 @@ class FragmentAdapter(
             is UIModel.CategoryModel -> R.string.income
             is UIModel.TransactionModel -> R.string.operations
             is UIModel.StatisticModel -> R.string.statistics
+            is UIModel.MonthModel -> R.string.date_setting_title
             else -> R.layout.type_recycler_item
         }
     }

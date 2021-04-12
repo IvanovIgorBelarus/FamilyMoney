@@ -1,7 +1,8 @@
 package by.itacademy.familywallet
 
 import android.app.Application
-import by.itacademy.familywallet.data.MONTH_FILTER
+import android.content.Context
+import by.itacademy.familywallet.data.DAY_FILTER
 import by.itacademy.familywallet.di.adapterModule
 import by.itacademy.familywallet.di.commonModule
 import by.itacademy.familywallet.di.dataModule
@@ -25,7 +26,7 @@ class App : Application() {
     }
 
     companion object {
-        var dateFilterType = MONTH_FILTER
+        lateinit var dateFilterType: String
         var startDate: Long? = null
         var endDate: Long? = null
     }

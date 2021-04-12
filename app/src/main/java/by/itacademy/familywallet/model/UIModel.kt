@@ -9,9 +9,10 @@ sealed class UIModel {
 
     data class CategoryModel(
         var id: String? = null,
-        val uid: String?,
-        var category: String?,
-        var type: String?
+        var uid: String? = null,
+        var category: String? = null,
+        var type: String? = null,
+        var icon: Int = 0
     )
 
     data class StatisticModel(
@@ -22,12 +23,18 @@ sealed class UIModel {
 
     data class TransactionModel(
         var id: String? = null,
-        val uid: String?,
-        val type: String?,
-        val category: String?,
-        val currency: String?,
-        val moneyType: String?,
-        val date: Long?,
-        var value: Double?
+        var uid: String? = null,
+        var type: String? = null,
+        var category: String? = null,
+        var currency: String? = null,
+        var moneyType: String? = null,
+        var date: Long? = null,
+        var value: Double? = null
+    )
+
+    data class MonthModel(
+        val monthAndYear: String,
+        val startDate: Long,
+        val endDate: Long
     )
 }

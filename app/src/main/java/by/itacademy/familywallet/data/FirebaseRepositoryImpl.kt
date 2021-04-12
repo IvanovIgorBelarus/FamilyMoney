@@ -1,6 +1,7 @@
 package by.itacademy.familywallet.data
 
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.utils.Icons
 import by.itacademy.familywallet.utils.UserUtils
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.coroutines.resume
@@ -54,7 +55,8 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
             mapOf(
                 UID to categoryItem.uid,
                 CATEGORY to categoryItem.category,
-                TRANSACTION_TYPE to categoryItem.type
+                TRANSACTION_TYPE to categoryItem.type,
+                ICON to categoryItem.icon
             )
         )
     }
@@ -109,7 +111,8 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                             id = doc.id,
                             uid = doc.getString(UID),
                             category = doc.getString(CATEGORY),
-                            type = doc.getString(TRANSACTION_TYPE)
+                            type = doc.getString(TRANSACTION_TYPE),
+                            icon = if (doc.getLong(ICON)==null) Icons.getIcons()[0] else doc.getLong(ICON)!!.toInt()
                         )
                     )
                 }
@@ -122,7 +125,36 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
             is UIModel.CategoryModel -> db.collection(CATEGORIES).document("${item.id}").delete()
             is UIModel.AccountModel -> db.collection(USERS).document("${item.id}").delete()
             is UIModel.TransactionModel -> db.collection(TRANSACTIONS).document("${item.id}").delete()
-            is UIModel.AccountModel->db.collection(USERS).document("${item.id}").delete()
+        }
+    }
+
+    override suspend fun upDateItem(item: Any?) {
+        when (item) {
+            is UIModel.CategoryModel -> db.collection(CATEGORIES).document("${item.id}").update(
+                mapOf(
+                    UID to item.uid,
+                    CATEGORY to item.category,
+                    ICON to item.icon,
+                    TRANSACTION_TYPE to item.type
+                )
+            )
+            is UIModel.AccountModel -> db.collection(USERS).document("${item.id}").update(
+                mapOf(
+                    UID to item.uid,
+                    PARTNER_UID to item.partnerUid
+                )
+            )
+            is UIModel.TransactionModel -> db.collection(TRANSACTIONS).document("${item.id}").update(
+                mapOf(
+                    UID to item.uid,
+                    TRANSACTION_TYPE to item.type,
+                    CATEGORY to item.category,
+                    CURRENCY to item.currency,
+                    MONEY_TYPE to item.moneyType,
+                    VALUE to item.value,
+                    DATE to item.date
+                )
+            )
         }
     }
 }

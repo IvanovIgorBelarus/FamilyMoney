@@ -9,6 +9,8 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 
 object PiePreparator {
+    private var otherCategories = mutableListOf<String?>()
+    fun getOtherCategories(): List<String?> = otherCategories
     fun preparePie(pie: PieChart, data: List<PieModel>, context: Context) {
         pie.data = PieData(getDataSet(data, context))
         pie.invalidate()
@@ -20,24 +22,25 @@ object PiePreparator {
         var othersValue = 0.0f
         var count = 0
         for (i in 0..8) {
-            if (prepareList[i].value>2.0f) {  //затраты со значением меньше двух процентов не отображаются на пироге
+            if (prepareList[i].value >= 1.0f) {  //затраты со значением меньше одного процента не отображаются на пироге
                 entrys.add(PieEntry(prepareList[i].value, prepareList[i].category!!))
                 count++
             }
         }
         for (i in 9 until data.size) {
+            otherCategories.add(prepareList[i].category)
             othersValue += prepareList[i].value
         }
-        if (othersValue != 2.0f) { //затраты со значением меньше двух процентов не отображаются на пироге
+        if (othersValue >= 1f) { //затраты со значением меньше одного процента не отображаются на пироге
             entrys.add(PieEntry(othersValue, "остальные"))
             count++
         }
-        val pieDataSet = PieDataSet(entrys, null).apply {
+        return PieDataSet(entrys, null).apply {
+            valueTextColor = context.resources.getColor(R.color.textPieColor, context.theme)
             sliceSpace = 1f
             valueTextSize = 12f
             colors = getPieColors(context, count)
         }
-        return pieDataSet
     }
 
     private fun getPieColors(context: Context, count: Int): List<Int> {

@@ -8,6 +8,21 @@ object DateUtils {
         val dateFormat = SimpleDateFormat(pattern, locale)
         return dateFormat.format(date)
     }
+
+    fun parseDateFirstDayOfMonth(date: Date): Date {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        return calendar.time
+    }
+
+    fun parseDateLastDateOfMonth(date: Date): Date {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
+        return calendar.time
+    }
+
     fun parseDateDown(date: Date): Date {
         val calendar = Calendar.getInstance()
         calendar.time = date
@@ -32,11 +47,46 @@ object DateUtils {
     }
 }
 
+val Date.getYearMonth: String
+    get() {
+        val calendar = Calendar.getInstance()
+        calendar.time = this
+        val month = when (this.getMonth) {
+            0 -> "январь"
+            1 -> "февраль"
+            2 -> "март"
+            3 -> "апрель"
+            4 -> "май"
+            5 -> "июнь"
+            6 -> "июль"
+            7 -> "август"
+            8 -> "сентябрь"
+            9 -> "октябрь"
+            10 -> "ноябрь"
+            11 -> "декабрь"
+            else -> "нэту такова брат"
+        }
+        return String.format("%s %s", month, calendar.get(Calendar.YEAR))
+    }
+
+val Date.getMonth: Int
+    get() {
+        val calendar = Calendar.getInstance()
+        calendar.time = this
+        return calendar.get(Calendar.MONTH)
+    }
+
 val Date.toStartOfDay: Date
     get() = DateUtils.parseDateDown(this)
 
 val Date.toEndOfDay: Date
     get() = DateUtils.parseDateUp(this)
+
+val Date.getFirstDayOfMonth: Date
+    get() = DateUtils.parseDateFirstDayOfMonth(this).toStartOfDay
+
+val Date.getLastDayOfMonth: Date
+    get() = DateUtils.parseDateLastDateOfMonth(this).toEndOfDay
 
 fun Date.formatDate(pattern: String): String {
     return DateUtils.parseDate(this, pattern)

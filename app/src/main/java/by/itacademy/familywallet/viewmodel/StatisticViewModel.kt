@@ -1,7 +1,5 @@
 package by.itacademy.familywallet.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import by.itacademy.familywallet.common.categoryPartnersFilter
 import by.itacademy.familywallet.common.currentDateFilter
 import by.itacademy.familywallet.common.transactionsPartnersFilter
@@ -15,13 +13,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class StatisticViewModel(private val repo: DataRepository) : ViewModel() {
-    private val mutableLiveData = MutableLiveData<List<UIModel.StatisticModel>>()
-    val liveData = mutableLiveData
-    fun getAData() {
+class StatisticViewModel(private val repo: DataRepository) : BaseViewModel() {
+
+    override fun getData() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
-            val resultList = mutableListOf<UIModel.StatisticModel>()
+            val resultList = mutableSetOf<UIModel.StatisticModel>()
             val incomes = mutableListOf<UIModel.StatisticModel>()
             val expenses = mutableListOf<UIModel.StatisticModel>()
             val partner = repo.getPartner()
@@ -44,7 +41,7 @@ class StatisticViewModel(private val repo: DataRepository) : ViewModel() {
                 addAll(expenses.sortedByDescending { it.value })
             }
             withContext(Dispatchers.Main) {
-                mutableLiveData.value = resultList
+                mutableLiveData.value = resultList.toList()
                 isLoading.set(false)
             }
         }

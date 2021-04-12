@@ -16,11 +16,13 @@ const val CARD = "оплата картой"
 const val CURRENCY = "currency"
 const val USERS = "Users"
 const val PARTNER_UID = "partner uid"
+const val ID="ID"
 
 const val DATE = "date"
 const val CATEGORY = "category"
 const val VALUE = "value"
 const val UID = "uid"
+const val ICON="icon"
 
 const val BYN="BYN"
 const val USD="USD"

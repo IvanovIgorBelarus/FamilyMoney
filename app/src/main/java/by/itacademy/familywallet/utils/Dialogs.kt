@@ -13,7 +13,11 @@ import by.itacademy.familywallet.data.BANK_PLUS
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.FULL_DATE
 import by.itacademy.familywallet.model.UIModel
-import by.itacademy.familywallet.view.TransactionFragment
+import by.itacademy.familywallet.presentation.FragmentAdapter
+import by.itacademy.familywallet.view.BaseFragment
+import by.itacademy.familywallet.view.fragment.NewCategoryFragment
+import by.itacademy.familywallet.view.fragment.TransactionFragment
+import by.itacademy.familywallet.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,15 +31,24 @@ class Dialogs(private val repo: DataRepository) {
             .setMessage(message)
             .setPositiveButton(context.getString(R.string.ok)) { dialog, _ -> dialog.cancel() }
             .show()
+            .window
+            ?.setBackgroundDrawableResource(R.color.tabBackgroundColor)
     }
 
-    fun deleteDialog(item: Any?, fragment: Fragment) {
+    fun deleteDialog(item: Any?, fragment: BaseFragment<*, *>) {
         val context = fragment.context!!
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.alert))
             .setMessage(context.getString(R.string.alert_dialog_delete_item_message))
-            .setNegativeButton(context.getString(R.string.no)) { _, _ -> }
-            .setPositiveButton(context.getString(R.string.ok)) { dialog, _ ->
+            .setNeutralButton(context.getString(R.string.cancel)) { _, _ -> }
+            .setNegativeButton(context.getString(R.string.update)) { dialog, _ ->
+                when (item) {
+                    is UIModel.CategoryModel -> fragment.addFragment(NewCategoryFragment.newInstance(item))
+                    is UIModel.TransactionModel -> fragment.addFragment(TransactionFragment.newInstance(item))
+                }
+                dialog.cancel()
+            }
+            .setPositiveButton(context.getString(R.string.delete)) { dialog, _ ->
                 CoroutineScope(Dispatchers.IO).launch {
                     repo.deleteItem(item)
                     withContext(Dispatchers.Main) {
@@ -45,6 +58,8 @@ class Dialogs(private val repo: DataRepository) {
                 }
             }
             .show()
+            .window
+            ?.setBackgroundDrawableResource(R.color.tabBackgroundColor)
     }
 
     fun createDateDialog(context: Context, textDate: TextView) {
@@ -66,26 +81,30 @@ class Dialogs(private val repo: DataRepository) {
         dialog.show()
     }
 
-    fun createTransactionDialog(fragment: TransactionFragment, transactionModel: UIModel.TransactionModel) {
+    fun createTransactionDialog(fragment: BaseFragment<*, *>, item: UIModel.TransactionModel, isUpdate: Boolean = false) {
         val context = fragment.context!!
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.warning))
-            .setMessage(message(context, transactionModel))
+            .setMessage(message(context, item))
             .setPositiveButton(context.getString(R.string.ok)) { dialog, _ ->
                 CoroutineScope(Dispatchers.IO).launch {
-                    if (transactionModel.moneyType == BANK_MINUS || transactionModel.moneyType == BANK_PLUS) {
-                        repo.doBakTransactions(transactionModel)
+                    if (isUpdate) {
+                        repo.upDateItem(item)
+                    } else if (item.moneyType == BANK_MINUS || item.moneyType == BANK_PLUS) {
+                        repo.doBakTransactions(item)
                     } else {
-                        repo.doTransaction(transactionModel)
+                        repo.doTransaction(item)
                     }
                 }
                 dialog.cancel()
-                fragment.closeFragment()
+                fragment.onBack()
             }
             .setNegativeButton(context.getString(R.string.no)) { dialog, _ ->
                 dialog.cancel()
             }
             .show()
+            .window
+            ?.setBackgroundDrawableResource(R.color.tabBackgroundColor)
     }
 
     private fun message(context: Context, transactionModel: UIModel.TransactionModel): String {

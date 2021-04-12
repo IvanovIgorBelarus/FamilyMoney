@@ -38,9 +38,22 @@
     <string name="week">неделя</string>
     <string name="day">день</string>
     <string name="date_filter">выбрать дату</string>
+    <string name="date_setting_title">Выбор периода отображения данных:</string>
+    <string name="date_setting_title2">Архив данных:</string>
     <string name="date_start">выбрать начальную дату</string>
     <string name="date_end">выбрать конечную дату</string>
     <string name="alert_negative_date_range_message">Нельзя использовать выбранный период времени. Пожалуйста, проверьте даты!</string>
     <string name="alert_negative_auth_message">Ошибка! Проверьте интернет-соединение</string>
-
+    <string name="category_edit_hint">имя категории?</string>
+    <string name="theme_icon_title">тема</string>
+    <string name="category_operation_title">Затраны по выбранной категории(%s):</string>
+    <string name="toast_others_title">Остальные затраты смотрите во вкладке "операции"</string>
+    <string name="new_category_tittle">Создание новой категории "%s"</string>
+    <string name="new_category_update_tittle">Изменение категории "%s"</string>
+    <string name="change_theme_message">Для смены темы необходимо перезагрузить приложение</string>
+    <string name="choose">Выбрать</string>
+    <string name="choose_tittle">Выбор иконки для категории</string>
+    <string name="cancel">Отмена</string>
+    <string name="delete">Удалить</string>
+    <string name="update">Изменить</string>
 </resources>
