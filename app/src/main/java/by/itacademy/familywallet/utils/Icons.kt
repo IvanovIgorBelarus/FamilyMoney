@@ -5,6 +5,17 @@ import by.itacademy.familywallet.R
 object Icons {
     fun getIcons(): List<Int> {
         val resultList= mutableListOf<Int>()
+        resultList.add(R.drawable.ic_baseline_medical_services)
+        resultList.add(R.drawable.ic_baseline_clean_hands)
+        resultList.add(R.drawable.ic_baseline_back_hand)
+        resultList.add(R.drawable.ic_baseline_eco)
+        resultList.add(R.drawable.ic_baseline_emergency)
+        resultList.add(R.drawable.ic_baseline_insert_photo)
+        resultList.add(R.drawable.ic_baseline_rss_feed)
+        resultList.add(R.drawable.ic_baseline_sailing)
+        resultList.add(R.drawable.ic_baseline_sports_esports)
+        resultList.add(R.drawable.ic_baseline_storefront)
+        resultList.add(R.drawable.ic_baseline_wifi)
         resultList.add(R.drawable.ic_baseline_account_balance)
         resultList.add(R.drawable.ic_baseline_airplanemode_active)
         resultList.add(R.drawable.ic_baseline_anchor)

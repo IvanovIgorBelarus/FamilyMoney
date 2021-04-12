@@ -1,9 +1,7 @@
 package by.itacademy.familywallet.utils
 
 import android.content.Context
-import android.util.Log
 import by.itacademy.familywallet.R
-import by.itacademy.familywallet.data.TAG
 import by.itacademy.familywallet.model.PieModel
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -12,11 +10,7 @@ import com.github.mikephil.charting.data.PieEntry
 
 object PiePreparator {
     private var otherCategories = mutableListOf<String?>()
-    fun getOtherCategories():List<String?>{
-        otherCategories.forEach {
-        Log.d(TAG,"$it")}
-        Log.d(TAG,"+++++++")
-        return otherCategories}
+    fun getOtherCategories(): List<String?> = otherCategories
     fun preparePie(pie: PieChart, data: List<PieModel>, context: Context) {
         pie.data = PieData(getDataSet(data, context))
         pie.invalidate()
@@ -28,7 +22,7 @@ object PiePreparator {
         var othersValue = 0.0f
         var count = 0
         for (i in 0..8) {
-            if (prepareList[i].value >= 2.0f) {  //затраты со значением меньше двух процентов не отображаются на пироге
+            if (prepareList[i].value >= 1.0f) {  //затраты со значением меньше одного процента не отображаются на пироге
                 entrys.add(PieEntry(prepareList[i].value, prepareList[i].category!!))
                 count++
             }
@@ -37,7 +31,7 @@ object PiePreparator {
             otherCategories.add(prepareList[i].category)
             othersValue += prepareList[i].value
         }
-        if (othersValue >= 2f) { //затраты со значением меньше двух процентов не отображаются на пироге
+        if (othersValue >= 1f) { //затраты со значением меньше одного процента не отображаются на пироге
             entrys.add(PieEntry(othersValue, "остальные"))
             count++
         }

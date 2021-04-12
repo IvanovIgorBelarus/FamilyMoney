@@ -13,9 +13,10 @@
     <color name="incomesColor">@color/white</color>
     <color name="operationColor">#FF6361</color>
     <color name="statisticColor">#FFA600</color>
+    <color name="controlActivated">#4D95B6</color>
 
     <color name="expensesBackgroundColor">#58508d</color>
-    <color name="incomesBackgroundColor">@color/color2</color>
+    <color name="incomesBackgroundColor">#4D95B6</color>
     <color name="tabBackgroundColor">@color/colorPrimary</color>
     <color name="textPieColor">@color/white</color>
 
