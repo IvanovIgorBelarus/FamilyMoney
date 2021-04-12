@@ -1,11 +1,15 @@
 package by.itacademy.familywallet.view.activity
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.databinding.ActivityMainBinding
@@ -46,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         auth = Firebase.auth
         setTheme()
+        checkPermissions()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -93,12 +98,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setTheme(){
-        val isChecked=getSharedPreferences("1", Context.MODE_PRIVATE).getBoolean("1",true)
+    private fun setTheme() {
+        val isChecked = getSharedPreferences("1", Context.MODE_PRIVATE).getBoolean("1", true)
         if (!isChecked) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    private fun checkPermissions() {
+        val appPermission = arrayOf(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
+        appPermission.forEach {
+            if (ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED)
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, it)){}
         }
     }
 

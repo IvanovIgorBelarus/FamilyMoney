@@ -16,6 +16,7 @@
         android:gravity="center"
         android:text="@string/bank"
         android:textAlignment="center"
+        android:textColor="@color/primaryTextColor"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,13 +24,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <CalendarView
-        android:theme="@style/calendarMonth"
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-        android:weekDayTextAppearance="@color/tabBackgroundColor"
         android:firstDayOfWeek="2"
+        android:theme="@style/calendarMonth"
+        android:weekDayTextAppearance="@color/tabBackgroundColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/transactionCategoryTitle" />

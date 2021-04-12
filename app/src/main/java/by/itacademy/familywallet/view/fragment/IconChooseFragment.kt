@@ -26,7 +26,6 @@ class IconChooseFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
         viewModel.createTab(this, binding)
     }
 
-
     companion object {
         fun newInstance() = IconChooseFragment()
     }

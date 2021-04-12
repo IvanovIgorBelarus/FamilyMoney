@@ -15,6 +15,7 @@
     <color name="statisticColor">#FFA600</color>
     <color name="controlActivated">#003F5C</color>
 
+    <color name="spinnerText">#003F5C</color>
     <color name="expensesBackgroundColor">@color/white</color>
     <color name="incomesBackgroundColor">@color/white</color>
     <color name="tabBackgroundColor">@color/white</color>

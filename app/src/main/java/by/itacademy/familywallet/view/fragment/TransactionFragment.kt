@@ -1,11 +1,8 @@
 package by.itacademy.familywallet.view.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.data.BANK_MINUS
@@ -27,10 +24,8 @@ import by.itacademy.familywallet.data.VALUE
 import by.itacademy.familywallet.databinding.FragmentTransactionBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
-import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.UserUtils
 import by.itacademy.familywallet.view.BaseFragment
-import by.itacademy.familywallet.view.activity.FragmentsActivity
 import by.itacademy.familywallet.viewmodel.BaseViewModel
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -73,9 +68,10 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 cashButton.setText(R.string.add)
                 cardButton.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_baseline_arrow_downward_24, context?.theme), null, null, null)
                 cardButton.setText(R.string.out)
+                transactionCategoryTitle.text = getString(R.string.bank)
+            } else {
+                transactionCategoryTitle.text = item?.category
             }
-
-            transactionCategoryTitle.text = item?.category
             if (item?.value != 0.0) {
                 transactionValue.setText(item?.value.toString())
                 date.date = item?.date!!
@@ -124,10 +120,11 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 currency = binding.currencySpinner.selectedItem.toString(),
                 moneyType = moneyType,
                 value = binding.transactionValue.text.toString().toDouble(),
-                date = binding.date.date)
+                date = binding.date.date
+            )
             dialog.createTransactionDialog(this, transactionModel)
         } else {
-            with(item!!){
+            with(item!!) {
                 currency = binding.currencySpinner.selectedItem.toString()
                 this.moneyType = moneyType
                 value = binding.transactionValue.text.toString().toDouble()
