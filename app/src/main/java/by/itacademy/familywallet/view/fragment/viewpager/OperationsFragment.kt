@@ -28,7 +28,6 @@ class OperationsFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
-            layoutAnimation= AnimationUtils.loadLayoutAnimation(context,R.anim.layout_animation)
         }
         updateAdapter()
     }

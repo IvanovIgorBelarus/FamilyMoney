@@ -33,7 +33,6 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
-            layoutAnimation= AnimationUtils.loadLayoutAnimation(context,R.anim.layout_animation)
         }
         viewModel.getData()
         showActionBar(true)

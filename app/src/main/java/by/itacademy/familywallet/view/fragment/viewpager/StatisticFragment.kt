@@ -27,7 +27,6 @@ class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.la
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
-            layoutAnimation= AnimationUtils.loadLayoutAnimation(context,R.anim.layout_animation)
         }
         updateAdapter()
     }

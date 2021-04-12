@@ -2,6 +2,7 @@ package by.itacademy.familywallet.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
@@ -32,6 +33,7 @@ class FragmentAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = list[position]
+        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.context, R.anim.item_animation_fall_down))
         when (holder) {
             is CategoryViewHolder -> holder.bind(item as UIModel.CategoryModel)
             is OperationsViewHolder -> holder.bind(item as UIModel.TransactionModel)

@@ -32,7 +32,6 @@ class TypeTransactionFragment : BaseFragment<FragmentAdapter, TypeTransactionVie
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
-            layoutAnimation= AnimationUtils.loadLayoutAnimation(context,R.anim.layout_animation)
         }
         initCreateButton()
         updateAdapter()
