@@ -19,6 +19,7 @@ class CategoryViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: UIModel.CategoryModel?) {
+
         val icon = if(item?.icon==0) Icons.getIcons()[0] else item?.icon!!
         itemView.setOnClickListener { itemClickListener?.onClick(item) }
         itemView.setOnLongClickListener {

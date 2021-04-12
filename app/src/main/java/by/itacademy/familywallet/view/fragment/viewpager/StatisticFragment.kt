@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
@@ -26,6 +27,7 @@ class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.la
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
+            layoutAnimation= AnimationUtils.loadLayoutAnimation(context,R.anim.layout_animation)
         }
         updateAdapter()
     }

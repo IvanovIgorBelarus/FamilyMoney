@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
@@ -32,6 +33,7 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
+            layoutAnimation= AnimationUtils.loadLayoutAnimation(context,R.anim.layout_animation)
         }
         viewModel.getData()
         showActionBar(true)

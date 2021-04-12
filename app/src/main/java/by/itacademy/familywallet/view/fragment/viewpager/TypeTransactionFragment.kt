@@ -2,6 +2,7 @@ package by.itacademy.familywallet.view.fragment.viewpager
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.App
 import by.itacademy.familywallet.R
@@ -11,7 +12,6 @@ import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 import by.itacademy.familywallet.view.BaseFragment
-import by.itacademy.familywallet.view.activity.FragmentsActivity
 import by.itacademy.familywallet.view.fragment.NewCategoryFragment
 import by.itacademy.familywallet.view.fragment.TransactionFragment
 import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
@@ -32,6 +32,7 @@ class TypeTransactionFragment : BaseFragment<FragmentAdapter, TypeTransactionVie
         binding.adapterRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
+            layoutAnimation= AnimationUtils.loadLayoutAnimation(context,R.anim.layout_animation)
         }
         initCreateButton()
         updateAdapter()

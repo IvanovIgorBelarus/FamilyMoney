@@ -25,10 +25,6 @@ import org.koin.core.parameter.parametersOf
 
 class UsersSettingsFragment : BaseFragment<FragmentAdapter,BaseViewModel>(R.layout.fragment_users_settings) {
     private lateinit var binding: FragmentUsersSettingsBinding
-    private val repo by inject<DataRepository>()
-
-    override val viewModel by inject<BaseViewModel>()
-    override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

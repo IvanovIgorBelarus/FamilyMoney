@@ -38,7 +38,6 @@ class FragmentAdapter(
             is StatisticViewHolder -> holder.bind(item as UIModel.StatisticModel)
             is ArchiveViewHolder -> holder.bind(item as UIModel.MonthModel)
         }
-
     }
 
     override fun getItemCount() = list.size

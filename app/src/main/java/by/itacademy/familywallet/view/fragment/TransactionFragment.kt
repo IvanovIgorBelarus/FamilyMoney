@@ -35,9 +35,6 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
     private lateinit var binding: FragmentTransactionBinding
     private var item: UIModel.TransactionModel? = null
 
-    override val viewModel by inject<BaseViewModel>()
-    override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTransactionBinding.bind(view)
