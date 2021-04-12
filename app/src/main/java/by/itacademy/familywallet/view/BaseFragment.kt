@@ -22,23 +22,25 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
     open val viewModel: VM? = null
     val dialog by inject<Dialogs>()
     val repo by inject<DataRepository>()
+    private lateinit var parentActivity: FragmentsActivity
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+        parentActivity = (activity as FragmentsActivity)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ) = inflater.inflate(layout, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        EventBus.getDefault().register(this)
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
     }
 
-    open fun updateAdapter() {
+    protected fun updateAdapter() {
         viewModel?.liveData?.observe(this, Observer { fragmentAdapter?.update(it) })
     }
 
@@ -48,19 +50,19 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
     }
 
     fun onBack() {
-        (activity as FragmentsActivity).onBackPressed()
+        parentActivity.onBackPressed()
     }
 
     protected fun showActionBar(isShowing: Boolean) {
         if (isShowing) {
-            (activity as FragmentsActivity).supportActionBar?.show()
+            parentActivity.supportActionBar?.show()
         } else {
-            (activity as FragmentsActivity).supportActionBar?.hide()
+            parentActivity.supportActionBar?.hide()
         }
     }
 
     fun addFragment(fragment: Fragment) {
-        (activity as FragmentsActivity).screenManager.startFragment(fragment)
+        parentActivity.screenManager.startFragment(fragment)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

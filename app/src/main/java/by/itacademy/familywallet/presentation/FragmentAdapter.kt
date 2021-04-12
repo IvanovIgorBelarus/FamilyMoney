@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.databinding.IconRecyclerItemBinding
 import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.viewholders.ArchiveViewHolder
 import by.itacademy.familywallet.presentation.viewholders.CategoryViewHolder
+import by.itacademy.familywallet.presentation.viewholders.IconViewHolder
 import by.itacademy.familywallet.presentation.viewholders.OperationsViewHolder
 import by.itacademy.familywallet.presentation.viewholders.StatisticViewHolder
 
@@ -27,6 +29,7 @@ class FragmentAdapter(
             R.string.operations -> OperationsViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false), itemOnLongClickListener)
             R.string.statistics -> StatisticViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false))
             R.string.date_setting_title -> ArchiveViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener)
+            R.string.choose_tittle -> IconViewHolder(IconRecyclerItemBinding.inflate(inflater, parent, false))
             else -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), null, null)
         }
     }
@@ -39,6 +42,7 @@ class FragmentAdapter(
             is OperationsViewHolder -> holder.bind(item as UIModel.TransactionModel)
             is StatisticViewHolder -> holder.bind(item as UIModel.StatisticModel)
             is ArchiveViewHolder -> holder.bind(item as UIModel.MonthModel)
+            is IconViewHolder -> holder.bind(item as Int)
         }
     }
 
@@ -50,6 +54,7 @@ class FragmentAdapter(
             is UIModel.TransactionModel -> R.string.operations
             is UIModel.StatisticModel -> R.string.statistics
             is UIModel.MonthModel -> R.string.date_setting_title
+            is Int -> R.string.choose_tittle
             else -> R.layout.type_recycler_item
         }
     }
