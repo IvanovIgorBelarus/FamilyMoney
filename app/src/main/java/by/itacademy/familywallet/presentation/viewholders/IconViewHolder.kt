@@ -5,7 +5,6 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.IconWrapper
 import by.itacademy.familywallet.databinding.IconRecyclerItemBinding
 import by.itacademy.familywallet.model.IconModel
-import by.itacademy.familywallet.utils.Icons
 import org.greenrobot.eventbus.EventBus
 
 class IconViewHolder(

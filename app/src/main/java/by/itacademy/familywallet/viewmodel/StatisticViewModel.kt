@@ -39,6 +39,14 @@ class StatisticViewModel(private val repo: DataRepository) : BaseViewModel() {
             with(resultList) {
                 addAll(incomes.sortedByDescending { it.value })
                 addAll(expenses.sortedByDescending { it.value })
+                forEach { item ->
+                    categoryList.forEach { category ->
+                        if (item.category == category.category) {
+                            item.icon=category.icon
+                            return@forEach
+                        }
+                    }
+                }
             }
             withContext(Dispatchers.Main) {
                 mutableLiveData.value = resultList.toList()
