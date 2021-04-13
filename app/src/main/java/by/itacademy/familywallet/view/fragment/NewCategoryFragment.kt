@@ -15,7 +15,6 @@ import by.itacademy.familywallet.databinding.FragmentNewCategoryBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.utils.Icons
-import by.itacademy.familywallet.utils.IconsList
 import by.itacademy.familywallet.utils.UserUtils
 import by.itacademy.familywallet.view.BaseFragment
 import by.itacademy.familywallet.viewmodel.BaseViewModel
@@ -36,7 +35,7 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 uid = arguments?.getString(UID),
                 category = arguments?.getString(CATEGORY),
                 type = arguments?.getString(TRANSACTION_TYPE),
-                icon = arguments?.getString(ICON) ?: IconsList.getIcons()[0].name
+                icon = arguments?.getString(ICON) ?: Icons.getIcons()[0].name
             )
         }
     }
@@ -63,7 +62,7 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 }
             }
             with(iconButton) {
-                val icon = item?.icon ?: IconsList.getIcons()[0].name
+                val icon = item?.icon ?: Icons.getIcons()[0].name
                 setImageDrawable(resources.getDrawable(Icons.valueOf(icon).imageRes, context.theme))
                 setColorFilter(resources.getColor(R.color.primaryTextColor, context.theme))
                 setOnClickListener { addFragment(IconChooseFragment.newInstance()) }
@@ -84,7 +83,7 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                     item!!.apply {
                         uid = UserUtils.getUsersUid()
                         this.category = binding.itemName.text.toString()
-                        icon = item?.icon ?: IconsList.getIcons()[0].name
+                        icon = item?.icon ?: Icons.getIcons()[0].name
                     }
                 )
                 withContext(Dispatchers.Main) {

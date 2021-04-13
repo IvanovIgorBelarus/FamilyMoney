@@ -11,7 +11,6 @@ import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 import by.itacademy.familywallet.utils.Icons
-import by.itacademy.familywallet.utils.IconsList
 
 class CategoryViewHolder(
     private val binding: TypeRecyclerItemBinding,
@@ -21,7 +20,7 @@ class CategoryViewHolder(
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: UIModel.CategoryModel?) {
 
-        val icon = item?.icon?: IconsList.getIcons()[0].name
+        val icon = item?.icon?: Icons.getIcons()[0].name
         itemView.setOnClickListener { itemClickListener?.onClick(item) }
         itemView.setOnLongClickListener {
             itemOnLongClickListener?.onLongClick(item)

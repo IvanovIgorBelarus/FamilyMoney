@@ -85,4 +85,12 @@ enum class Icons(val imageRes: Int) {
     VOLUNTEER_ACTIVISM(R.drawable.ic_baseline_volunteer_activism),
     WATCH(R.drawable.ic_baseline_watch),
     VPN_KEY(R.drawable.ic_baseline_vpn_key);
+
+    companion object{
+        fun getIcons(): List<IconModel> {
+            val resultList = mutableListOf<IconModel>()
+            Icons.values().forEach { resultList.add(IconModel(it.name, it.imageRes)) }
+            return resultList
+        }
+    }
 }
