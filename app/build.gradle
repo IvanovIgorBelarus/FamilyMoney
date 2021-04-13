@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 android {
     compileSdkVersion 30
@@ -62,7 +63,7 @@ dependencies {
     implementation "org.koin:koin-android-scope:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:26.3.0')
+    implementation platform('com.google.firebase:firebase-bom:27.0.0')
     implementation 'com.google.firebase:firebase-firestore:22.1.2'
     // Declare the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
@@ -72,6 +73,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     // Add the dependency for the Firebase SDK for Google Analytics
     // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     //MPAndroidChart library
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
