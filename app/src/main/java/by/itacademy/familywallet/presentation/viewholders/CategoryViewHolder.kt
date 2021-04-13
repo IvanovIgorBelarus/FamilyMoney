@@ -11,6 +11,7 @@ import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 import by.itacademy.familywallet.utils.Icons
+import by.itacademy.familywallet.utils.IconsList
 
 class CategoryViewHolder(
     private val binding: TypeRecyclerItemBinding,
@@ -20,7 +21,7 @@ class CategoryViewHolder(
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: UIModel.CategoryModel?) {
 
-        val icon = if(item?.icon==0) Icons.getIcons()[0] else item?.icon!!
+        val icon = item?.icon?: IconsList.getIcons()[0].name
         itemView.setOnClickListener { itemClickListener?.onClick(item) }
         itemView.setOnLongClickListener {
             itemOnLongClickListener?.onLongClick(item)
@@ -29,7 +30,7 @@ class CategoryViewHolder(
         App().viewPreparation.prepareView(itemView, item?.type!!)
         with(binding.textView) {
             text = "${item?.category}"
-            setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(icon, context.theme), null, null, null)
+            setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(Icons.valueOf(icon).imageRes, context.theme), null, null, null)
             compoundDrawableTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(context, if (item!!.type == EXPENSES) R.color.expensesColor else R.color.incomesColor))
             App().viewPreparation.prepareView(this, item?.type!!)

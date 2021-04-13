@@ -1,7 +1,7 @@
 package by.itacademy.familywallet.data
 
 import by.itacademy.familywallet.model.UIModel
-import by.itacademy.familywallet.utils.Icons
+import by.itacademy.familywallet.utils.IconsList
 import by.itacademy.familywallet.utils.UserUtils
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.coroutines.resume
@@ -112,7 +112,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                             uid = doc.getString(UID),
                             category = doc.getString(CATEGORY),
                             type = doc.getString(TRANSACTION_TYPE),
-                            icon = if (doc.getLong(ICON)==null) Icons.getIcons()[0] else doc.getLong(ICON)!!.toInt()
+                            icon = doc.getString(ICON)?: IconsList.getIcons()[0].name
                         )
                     )
                 }

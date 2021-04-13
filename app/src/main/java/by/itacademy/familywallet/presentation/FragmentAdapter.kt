@@ -8,6 +8,7 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.IconRecyclerItemBinding
 import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
+import by.itacademy.familywallet.model.IconModel
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.viewholders.ArchiveViewHolder
 import by.itacademy.familywallet.presentation.viewholders.CategoryViewHolder
@@ -42,7 +43,7 @@ class FragmentAdapter(
             is OperationsViewHolder -> holder.bind(item as UIModel.TransactionModel)
             is StatisticViewHolder -> holder.bind(item as UIModel.StatisticModel)
             is ArchiveViewHolder -> holder.bind(item as UIModel.MonthModel)
-            is IconViewHolder -> holder.bind(item as Int)
+            is IconViewHolder -> holder.bind(item as IconModel)
         }
     }
 
@@ -54,7 +55,7 @@ class FragmentAdapter(
             is UIModel.TransactionModel -> R.string.operations
             is UIModel.StatisticModel -> R.string.statistics
             is UIModel.MonthModel -> R.string.date_setting_title
-            is Int -> R.string.choose_tittle
+            is IconModel -> R.string.choose_tittle
             else -> R.layout.type_recycler_item
         }
     }
