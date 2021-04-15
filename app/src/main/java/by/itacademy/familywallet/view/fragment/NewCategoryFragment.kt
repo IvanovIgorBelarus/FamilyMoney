@@ -6,7 +6,6 @@ import android.view.View
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.IconWrapper
 import by.itacademy.familywallet.data.CATEGORY
-import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.ICON
 import by.itacademy.familywallet.data.ID
 import by.itacademy.familywallet.data.INCOMES
@@ -23,16 +22,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_new_category) {
     private lateinit var binding: FragmentNewCategoryBinding
-    val repo by inject<DataRepository>()
     var item: UIModel.CategoryModel? = null
-
-    override val viewModel by inject<BaseViewModel>()
-    override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,7 +35,7 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 uid = arguments?.getString(UID),
                 category = arguments?.getString(CATEGORY),
                 type = arguments?.getString(TRANSACTION_TYPE),
-                icon = if (arguments?.getInt(ICON) == 0) Icons.getIcons()[0] else arguments?.getInt(ICON)!!
+                icon = arguments?.getString(ICON) ?: Icons.getIcons()[0].name
             )
         }
     }
@@ -69,8 +62,8 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 }
             }
             with(iconButton) {
-                val icon = if (item!!.icon == 0) Icons.getIcons()[0] else item!!.icon
-                setImageDrawable(resources.getDrawable(icon, context.theme))
+                val icon = item?.icon ?: Icons.getIcons()[0].name
+                setImageDrawable(resources.getDrawable(Icons.valueOf(icon).imageRes, context.theme))
                 setColorFilter(resources.getColor(R.color.primaryTextColor, context.theme))
                 setOnClickListener { addFragment(IconChooseFragment.newInstance()) }
             }
@@ -90,7 +83,7 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                     item!!.apply {
                         uid = UserUtils.getUsersUid()
                         this.category = binding.itemName.text.toString()
-                        icon = if (item?.icon == 0) Icons.getIcons()[0] else item?.icon!!
+                        icon = item?.icon ?: Icons.getIcons()[0].name
                     }
                 )
                 withContext(Dispatchers.Main) {
@@ -106,8 +99,8 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
         super.listenBus(wrapper)
         when (wrapper) {
             is IconWrapper -> with(binding.iconButton) {
-                item?.icon = wrapper.iconId
-                setImageDrawable(resources.getDrawable(wrapper.iconId, context.theme))
+                item?.icon = wrapper.icon
+                setImageDrawable(resources.getDrawable(Icons.valueOf(wrapper.icon).imageRes, context.theme))
                 setColorFilter(resources.getColor(R.color.primaryTextColor, context.theme))
             }
         }
@@ -140,7 +133,7 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 putString(UID, item.uid)
                 putString(CATEGORY, item.category)
                 putString(TRANSACTION_TYPE, item.type)
-                putInt(ICON, item.icon)
+                putString(ICON, item.icon)
             }
         }
     }

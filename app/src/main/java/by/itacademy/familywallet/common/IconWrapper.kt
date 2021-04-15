@@ -1,3 +1,3 @@
 package by.itacademy.familywallet.common
 
-data class IconWrapper(val iconId: Int)
+class IconWrapper(val icon: String)

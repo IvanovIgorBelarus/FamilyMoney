@@ -1,9 +1,11 @@
 package by.itacademy.familywallet.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.common.CategoryChangeWrapper
 import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.data.BANK_MINUS
 import by.itacademy.familywallet.data.BANK_PLUS
@@ -26,26 +28,26 @@ import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.utils.UserUtils
 import by.itacademy.familywallet.view.BaseFragment
+import by.itacademy.familywallet.view.fragment.viewpager.TypeTransactionFragment
 import by.itacademy.familywallet.viewmodel.BaseViewModel
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 import java.util.*
 
 class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_transaction) {
     private lateinit var binding: FragmentTransactionBinding
     private var item: UIModel.TransactionModel? = null
 
-    override val viewModel by inject<BaseViewModel>()
-    override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTransactionBinding.bind(view)
         showActionBar(false)
-        initItem()
         if (item?.type != null) {
             initViews()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        initItem()
     }
 
     private fun initItem() {
@@ -70,7 +72,10 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 cardButton.setText(R.string.out)
                 transactionCategoryTitle.text = getString(R.string.bank)
             } else {
-                transactionCategoryTitle.text = item?.category
+                with(transactionCategoryTitle) {
+                    setOnClickListener { addFragment(TypeTransactionFragment.newInstance(item?.type!!, true)) }
+                    text = item?.category
+                }
             }
             if (item?.value != 0.0) {
                 transactionValue.setText(item?.value.toString())
@@ -131,6 +136,16 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 date = binding.date.date
             }
             dialog.createTransactionDialog(this, item!!, true)
+        }
+    }
+
+    override fun listenBus(wrapper: Any) {
+        super.listenBus(wrapper)
+        when (wrapper) {
+            is CategoryChangeWrapper -> {
+                binding.transactionCategoryTitle.text = wrapper.category
+                item?.category = wrapper.category
+            }
         }
     }
 

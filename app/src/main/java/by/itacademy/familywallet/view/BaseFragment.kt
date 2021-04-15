@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 import by.itacademy.familywallet.utils.Dialogs
@@ -17,28 +18,30 @@ import org.greenrobot.eventbus.ThreadMode
 import org.koin.android.ext.android.inject
 
 abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private val layout: Int) : Fragment(), ItemOnLongClickListener {
-    protected abstract val fragmentAdapter: AD
-    protected abstract val viewModel: VM
+    open val fragmentAdapter: AD? = null
+    open val viewModel: VM? = null
     val dialog by inject<Dialogs>()
+    val repo by inject<DataRepository>()
+    private lateinit var parentActivity: FragmentsActivity
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+        parentActivity = (activity as FragmentsActivity)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ) = inflater.inflate(layout, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        EventBus.getDefault().register(this)
-
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
     }
 
-    open fun updateAdapter() {
-        viewModel.liveData.observe(this, Observer { fragmentAdapter.update(it) })
+    protected fun updateAdapter() {
+        viewModel?.liveData?.observe(this, Observer { fragmentAdapter?.update(it) })
     }
 
     override fun onLongClick(item: Any?) {
@@ -47,19 +50,19 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
     }
 
     fun onBack() {
-        (activity as FragmentsActivity).onBackPressed()
+        parentActivity.onBackPressed()
     }
 
     protected fun showActionBar(isShowing: Boolean) {
         if (isShowing) {
-            (activity as FragmentsActivity).supportActionBar?.show()
+            parentActivity.supportActionBar?.show()
         } else {
-            (activity as FragmentsActivity).supportActionBar?.hide()
+            parentActivity.supportActionBar?.hide()
         }
     }
 
     fun addFragment(fragment: Fragment) {
-        (activity as FragmentsActivity).screenManager.startFragment(fragment)
+        parentActivity.screenManager.startFragment(fragment)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

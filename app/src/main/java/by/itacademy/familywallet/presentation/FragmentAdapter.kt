@@ -2,13 +2,17 @@ package by.itacademy.familywallet.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.databinding.IconRecyclerItemBinding
 import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
+import by.itacademy.familywallet.model.IconModel
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.viewholders.ArchiveViewHolder
 import by.itacademy.familywallet.presentation.viewholders.CategoryViewHolder
+import by.itacademy.familywallet.presentation.viewholders.IconViewHolder
 import by.itacademy.familywallet.presentation.viewholders.OperationsViewHolder
 import by.itacademy.familywallet.presentation.viewholders.StatisticViewHolder
 
@@ -26,19 +30,21 @@ class FragmentAdapter(
             R.string.operations -> OperationsViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false), itemOnLongClickListener)
             R.string.statistics -> StatisticViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false))
             R.string.date_setting_title -> ArchiveViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener)
+            R.string.choose_tittle -> IconViewHolder(IconRecyclerItemBinding.inflate(inflater, parent, false))
             else -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), null, null)
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = list[position]
+            holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.context, R.anim.item_animation_fall_down))
         when (holder) {
             is CategoryViewHolder -> holder.bind(item as UIModel.CategoryModel)
             is OperationsViewHolder -> holder.bind(item as UIModel.TransactionModel)
             is StatisticViewHolder -> holder.bind(item as UIModel.StatisticModel)
             is ArchiveViewHolder -> holder.bind(item as UIModel.MonthModel)
+            is IconViewHolder -> holder.bind(item as IconModel)
         }
-
     }
 
     override fun getItemCount() = list.size
@@ -49,6 +55,7 @@ class FragmentAdapter(
             is UIModel.TransactionModel -> R.string.operations
             is UIModel.StatisticModel -> R.string.statistics
             is UIModel.MonthModel -> R.string.date_setting_title
+            is IconModel -> R.string.choose_tittle
             else -> R.layout.type_recycler_item
         }
     }

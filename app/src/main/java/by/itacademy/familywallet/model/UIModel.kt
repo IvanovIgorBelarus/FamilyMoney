@@ -12,13 +12,14 @@ sealed class UIModel {
         var uid: String? = null,
         var category: String? = null,
         var type: String? = null,
-        var icon: Int = 0
+        var icon: String? = null
     )
 
     data class StatisticModel(
         var category: String?,
         var type: String?,
-        val value: Double?
+        val value: Double?,
+        var icon: String? = null
     )
 
     data class TransactionModel(
