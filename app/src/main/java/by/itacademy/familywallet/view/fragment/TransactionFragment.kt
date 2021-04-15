@@ -1,5 +1,6 @@
 package by.itacademy.familywallet.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -39,10 +40,14 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTransactionBinding.bind(view)
         showActionBar(false)
-        initItem()
         if (item?.type != null) {
             initViews()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        initItem()
     }
 
     private fun initItem() {
