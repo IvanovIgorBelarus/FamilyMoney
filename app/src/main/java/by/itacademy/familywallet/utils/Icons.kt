@@ -84,6 +84,23 @@ enum class Icons(val imageRes: Int) {
     THEATER_COMEDY(R.drawable.ic_baseline_theater_comedy),
     VOLUNTEER_ACTIVISM(R.drawable.ic_baseline_volunteer_activism),
     WATCH(R.drawable.ic_baseline_watch),
+    DEVICES_OTHER(R.drawable.ic_baseline_devices_other),
+    ENGINEERING(R.drawable.ic_baseline_engineering),
+    EQUALIZER(R.drawable.ic_baseline_equalizer),
+    YARD(R.drawable.ic_baseline_yard),
+    MDI_CAR_ARROW(R.drawable.ic_mdi_car_arrow_right),
+    MDI_CAR_COG(R.drawable.ic_mdi_car_cog),
+    MDI_CASH(R.drawable.ic_mdi_cash),
+    MDI_CAT(R.drawable.ic_mdi_cat),
+    MDI_DANCE_BALLROOM(R.drawable.ic_mdi_dance_ballroom),
+    MDI_DOG(R.drawable.ic_mdi_dog),
+    MDI_FACE_WOMAN_SHIMMER(R.drawable.ic_mdi_face_woman_shimmer),
+    MDI_FLOOR_LAMP(R.drawable.ic_mdi_floor_lamp),
+    MDI_FOOT_PRINT(R.drawable.ic_mdi_foot_print),
+    MDI_FORMAT_PAINT(R.drawable.ic_mdi_format_paint),
+    MDI_LIPSTICK(R.drawable.ic_mdi_lipstick),
+    MDI_TIE(R.drawable.ic_mdi_tie),
+    MDI_WEIGHT_LIFTER(R.drawable.ic_mdi_weight_lifter),
     VPN_KEY(R.drawable.ic_baseline_vpn_key);
 
     companion object{
