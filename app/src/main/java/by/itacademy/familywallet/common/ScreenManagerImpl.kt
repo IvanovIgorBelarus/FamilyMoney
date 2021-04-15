@@ -7,11 +7,12 @@ class ScreenManagerImpl(
     private val container: Int,
     private val activity: AppCompatActivity
 ) : ScreenManager {
+
     override fun startFragment(fragment: Fragment) {
-        activity.supportFragmentManager
-            .beginTransaction()
-            .replace(container, fragment)
-            .addToBackStack(null)
-            .commit()
+            activity.supportFragmentManager
+                .beginTransaction()
+                .replace(container, fragment)
+                .addToBackStack(null)
+                .commit()
     }
 }

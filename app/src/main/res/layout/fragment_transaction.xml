@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
         android:gravity="center"
+        android:clickable="true"
         android:text="@string/bank"
         android:textAlignment="center"
         android:textColor="@color/primaryTextColor"
