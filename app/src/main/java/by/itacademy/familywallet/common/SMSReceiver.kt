@@ -18,7 +18,7 @@ class SMSReceiver : BroadcastReceiver() {
             val sms = Telephony.Sms.Intents.getMessagesFromIntent(intent)
             sms.forEach {
                 if (it.messageBody.contains("OPLATA")) {
-                    val sms = SmsUtils.getSmsModel(it.messageBody)
+                    val sms = SmsUtils.getSmsModelFromMTBank(it.messageBody)
                     context!!.getSharedPreferences(NEW_SMS, Context.MODE_PRIVATE).edit().putString(NEW_SMS, NEW_SMS).apply()
                     EventBus.getDefault().post(SmsWrapper())
                     FirebaseDataBase.instance.collection(NEW_SMS).add(
