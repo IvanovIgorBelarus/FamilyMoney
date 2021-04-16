@@ -1,10 +1,7 @@
 package by.itacademy.familywallet.view.fragment.viewpager
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
@@ -24,16 +21,26 @@ class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.la
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStatisticsBinding.bind(view)
-        binding.adapterRv.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = fragmentAdapter
-        }
         updateAdapter()
+        initViews()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getData()
+    private fun initViews() {
+        with(binding) {
+            adapterRv.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = fragmentAdapter
+            }
+            titleEmptyAdapter.text = getString(R.string.statistic_title_empty)
+        }
+    }
+
+    override fun checkDescribeVisibility(isShowing: Boolean) {
+        if (isShowing) {
+            binding.titleEmptyAdapter.visibility = View.VISIBLE
+        } else {
+            binding.titleEmptyAdapter.visibility = View.GONE
+        }
     }
 
     companion object {

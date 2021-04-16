@@ -6,6 +6,7 @@ import by.itacademy.familywallet.App
 import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
+import by.itacademy.familywallet.utils.toStringFormat
 
 class OperationsViewHolder(
     private val binding: StatisticRecyclerItemBinding,
@@ -33,7 +34,7 @@ class OperationsViewHolder(
                 preparation.prepareView(this, item.type.toString())
             }
             with(date) {
-                text = String.format("дата операции: %s", SimpleDateFormat("dd.MM.yyyy").format(item.date))
+                text = String.format("дата операции: %s", item.date?.toStringFormat)
                 preparation.prepareView(this, item.type.toString())
             }
         }

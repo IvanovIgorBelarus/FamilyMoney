@@ -28,8 +28,6 @@ class IconChooseFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
             layoutManager = GridLayoutManager(context, 5)
             adapter = fragmentAdapter
         }
-        viewModel.getData()
-        updateAdapter()
     }
 
     companion object {

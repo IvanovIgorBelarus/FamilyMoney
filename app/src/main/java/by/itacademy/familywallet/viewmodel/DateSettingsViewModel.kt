@@ -29,13 +29,13 @@ class DateSettingsViewModel(private val repo: DataRepository) : BaseViewModel() 
         }
     }
 
-    private fun map(list: List<UIModel.TransactionModel>): Set<UIModel.MonthModel> {
-        val resultSet = mutableSetOf<UIModel.MonthModel>()
+    private fun map(list: List<UIModel.TransactionModel>): Set<UIModel.ArchiveMonthModel> {
+        val resultSet = mutableSetOf<UIModel.ArchiveMonthModel>()
         val startDate = UserUtils.getUserCreateDate()
         val endDate = Calendar.getInstance().time.toEndOfDay.time
         list.filter { it.date!! in startDate!!..endDate!! }.forEach { item ->
             resultSet.add(
-                UIModel.MonthModel(
+                UIModel.ArchiveMonthModel(
                     monthAndYear = Date(item.date!!).getYearMonth,
                     startDate = Date(item.date!!).getFirstDayOfMonth.time,
                     endDate = Date(item.date!!).getLastDayOfMonth.time

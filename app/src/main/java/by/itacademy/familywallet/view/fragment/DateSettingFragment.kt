@@ -1,9 +1,7 @@
 package by.itacademy.familywallet.view.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.App
 import by.itacademy.familywallet.App.Companion.dateFilterType
@@ -43,8 +41,6 @@ class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
         showActionBar(false)
         enabledButton()
         initViews()
-        viewModel.getData()
-        updateAdapter()
     }
 
     private fun initViews() {
@@ -142,7 +138,7 @@ class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
     }
 
     override fun onClick(item: Any?) {
-        startDate = (item as UIModel.MonthModel).startDate
+        startDate = (item as UIModel.ArchiveMonthModel).startDate
         endDate = item.endDate
         dateFilterType = RANGE_FILTER
         onBack()

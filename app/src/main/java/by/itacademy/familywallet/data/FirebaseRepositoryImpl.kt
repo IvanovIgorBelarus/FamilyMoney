@@ -1,5 +1,6 @@
 package by.itacademy.familywallet.data
 
+import android.util.Log
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Icons
 import by.itacademy.familywallet.utils.UserUtils
@@ -48,6 +49,8 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 DATE to transactionModel.date
             )
         )
+            .addOnFailureListener { error -> Log.e(ERROR, "$error") }
+            .addOnSuccessListener { result -> Log.d(TAG, "${result.id}") }
     }
 
     override suspend fun addNewCategory(categoryItem: UIModel.CategoryModel) {
@@ -60,6 +63,24 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
             )
         )
     }
+
+    override suspend fun getSmsList(): List<UIModel.SmsModel> = suspendCoroutine { continuation ->
+        val list = mutableListOf<UIModel.SmsModel>()
+        db.collection(NEW_SMS).get().addOnSuccessListener { result ->
+            result.forEach { doc ->
+                list.add(
+                    UIModel.SmsModel(
+                        id = doc.id,
+                        date = doc.getLong(DATE),
+                        value = doc.getDouble(VALUE),
+                        currency = doc.getString(CURRENCY),
+                    )
+                )
+            }
+            continuation.resume(list)
+        }
+    }
+
 
     override suspend fun getPartner(): UIModel.AccountModel = suspendCoroutine { continuation ->
         var partner = UIModel.AccountModel()
@@ -112,7 +133,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                             uid = doc.getString(UID),
                             category = doc.getString(CATEGORY),
                             type = doc.getString(TRANSACTION_TYPE),
-                            icon = doc.getString(ICON)?: Icons.getIcons()[0].name
+                            icon = doc.getString(ICON) ?: Icons.getIcons()[0].name
                         )
                     )
                 }
@@ -125,6 +146,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
             is UIModel.CategoryModel -> db.collection(CATEGORIES).document("${item.id}").delete()
             is UIModel.AccountModel -> db.collection(USERS).document("${item.id}").delete()
             is UIModel.TransactionModel -> db.collection(TRANSACTIONS).document("${item.id}").delete()
+            is UIModel.SmsModel -> db.collection(NEW_SMS).document("${item.id}").delete()
         }
     }
 

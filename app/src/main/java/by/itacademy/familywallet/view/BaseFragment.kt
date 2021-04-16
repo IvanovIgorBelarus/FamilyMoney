@@ -3,9 +3,10 @@ package by.itacademy.familywallet.view
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import by.itacademy.familywallet.R
+import by.itacademy.familywallet.common.SmsWrapper
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
@@ -28,6 +29,8 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         super.onCreate(savedInstanceState)
         EventBus.getDefault().register(this)
         parentActivity = (activity as FragmentsActivity)
+        viewModel?.getData()
+        updateAdapter()
     }
 
     override fun onCreateView(
@@ -35,13 +38,21 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         savedInstanceState: Bundle?
     ) = inflater.inflate(layout, container, false)
 
+    override fun onResume() {
+        super.onResume()
+        viewModel?.getData()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
     }
 
     protected fun updateAdapter() {
-        viewModel?.liveData?.observe(this, Observer { fragmentAdapter?.update(it) })
+        viewModel?.liveData?.observe(this, Observer {
+            fragmentAdapter?.update(it)
+            checkDescribeVisibility(it.isEmpty())
+        })
     }
 
     override fun onLongClick(item: Any?) {
@@ -65,7 +76,14 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         parentActivity.screenManager.startFragment(fragment)
     }
 
+    open fun checkDescribeVisibility(isShowing: Boolean) {
+
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun listenBus(wrapper: Any) {
+        when (wrapper) {
+            is SmsWrapper -> parentActivity.opMenu?.getItem(1)?.setIcon(R.drawable.ic_baseline_sms_failed)
+        }
     }
 }

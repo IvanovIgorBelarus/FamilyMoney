@@ -31,11 +31,6 @@ class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.la
         initViews()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getData()
-    }
-
     private fun initViews() {
         with(binding) {
             with(diagram) {

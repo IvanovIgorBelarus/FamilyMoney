@@ -35,6 +35,7 @@ import java.util.*
 class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_transaction) {
     private lateinit var binding: FragmentTransactionBinding
     private var item: UIModel.TransactionModel? = null
+    private var isUpdate = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,7 +75,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
             } else {
                 with(transactionCategoryTitle) {
                     setOnClickListener { addFragment(TypeTransactionFragment.newInstance(item?.type!!, true)) }
-                    text = item?.category
+                    text = if (!item?.category.isNullOrEmpty()) item?.category else getString(R.string.category_empty_title)
                 }
             }
             if (item?.value != 0.0) {
@@ -129,13 +130,17 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
             )
             dialog.createTransactionDialog(this, transactionModel)
         } else {
-            with(item!!) {
-                currency = binding.currencySpinner.selectedItem.toString()
-                this.moneyType = moneyType
-                value = binding.transactionValue.text.toString().toDouble()
+            val transactionModel = UIModel.TransactionModel(
+                id = item?.id,
+                uid = UserUtils.getUsersUid(),
+                type = item?.type,
+                category = item?.category,
+                currency = binding.currencySpinner.selectedItem.toString(),
+                moneyType = moneyType,
+                value = binding.transactionValue.text.toString().toDouble(),
                 date = binding.date.date
-            }
-            dialog.createTransactionDialog(this, item!!, true)
+            )
+            dialog.createTransactionDialog(this, transactionModel, isUpdate)
         }
     }
 
@@ -157,7 +162,8 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
             }
         }
 
-        fun newInstance(item: UIModel.TransactionModel) = TransactionFragment().apply {
+        fun newInstance(item: UIModel.TransactionModel, isUpdate: Boolean = true) = TransactionFragment().apply {
+            this.isUpdate=isUpdate
             arguments = Bundle().apply {
                 with(item) {
                     putString(ID, id)

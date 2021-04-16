@@ -15,6 +15,7 @@ import by.itacademy.familywallet.viewmodel.CategoryOperationViewModel
 import by.itacademy.familywallet.viewmodel.DateSettingsViewModel
 import by.itacademy.familywallet.viewmodel.IconChooseViewModel
 import by.itacademy.familywallet.viewmodel.OperationsViewModel
+import by.itacademy.familywallet.viewmodel.SmsViewModel
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
 import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
@@ -45,6 +46,7 @@ val viewModelModule = module {
     viewModel { DateSettingsViewModel(get()) }
     viewModel { (category: String) -> CategoryOperationViewModel(get(), category) }
     viewModel { IconChooseViewModel() }
+    viewModel { SmsViewModel(get()) }
 }
 
 

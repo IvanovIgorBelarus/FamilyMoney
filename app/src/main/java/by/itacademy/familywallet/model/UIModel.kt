@@ -33,9 +33,16 @@ sealed class UIModel {
         var value: Double? = null
     )
 
-    data class MonthModel(
+    data class ArchiveMonthModel(
         val monthAndYear: String,
         val startDate: Long,
         val endDate: Long
+    )
+
+    data class SmsModel(
+        var id: String? = null,
+        var date: Long? = null,
+        var value: Double?=null,
+        var currency: String? = null
     )
 }

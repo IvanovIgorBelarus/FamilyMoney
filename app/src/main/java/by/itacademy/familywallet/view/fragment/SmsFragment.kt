@@ -1,31 +1,48 @@
-package by.itacademy.familywallet.view.fragment.viewpager
+package by.itacademy.familywallet.view.fragment
 
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.data.CARD
+import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
+import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
+import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 import by.itacademy.familywallet.view.BaseFragment
-import by.itacademy.familywallet.viewmodel.BaseViewModel
-import by.itacademy.familywallet.viewmodel.OperationsViewModel
+import by.itacademy.familywallet.viewmodel.SmsViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class OperationsFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_statistics) {
-
+class SmsFragment : BaseFragment<FragmentAdapter, SmsViewModel>(R.layout.fragment_statistics), ItemClickListener {
     private lateinit var binding: FragmentStatisticsBinding
 
-    override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, this as ItemOnLongClickListener) }
-    override val viewModel by viewModel<OperationsViewModel>()
+    override val fragmentAdapter: FragmentAdapter by inject { parametersOf(this as ItemClickListener, this as ItemOnLongClickListener) }
+    override val viewModel by viewModel<SmsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStatisticsBinding.bind(view)
-        updateAdapter()
+        showActionBar(false)
         initViews()
+    }
+
+    override fun onClick(item: Any?) {
+        addFragment(
+            TransactionFragment.newInstance(
+                UIModel.TransactionModel(
+                    type = EXPENSES,
+                    category = "",
+                    currency = (item as UIModel.SmsModel).currency,
+                    moneyType = CARD,
+                    date = item.date,
+                    value = item.value
+                ), false
+            )
+        )
     }
 
     private fun initViews() {
@@ -34,7 +51,10 @@ class OperationsFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
                 layoutManager = LinearLayoutManager(context)
                 adapter = fragmentAdapter
             }
-            titleEmptyAdapter.text = getString(R.string.operation_title_empty)
+            with(titleTextView) {
+                visibility = View.VISIBLE
+                text = getString(R.string.sms_title)
+            }
         }
     }
 
@@ -47,7 +67,6 @@ class OperationsFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
     }
 
     companion object {
-        @JvmStatic
-        fun newInstance() = OperationsFragment()
+        fun newInstance() = SmsFragment()
     }
 }

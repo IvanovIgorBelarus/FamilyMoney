@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import by.itacademy.familywallet.App.Companion.endDate
 import by.itacademy.familywallet.App.Companion.startDate
 import by.itacademy.familywallet.R
@@ -13,11 +12,9 @@ import by.itacademy.familywallet.data.BANK_PLUS
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.FULL_DATE
 import by.itacademy.familywallet.model.UIModel
-import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.view.BaseFragment
 import by.itacademy.familywallet.view.fragment.NewCategoryFragment
 import by.itacademy.familywallet.view.fragment.TransactionFragment
-import by.itacademy.familywallet.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -34,9 +34,7 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
             layoutManager = LinearLayoutManager(context)
             adapter = fragmentAdapter
         }
-        viewModel.getData()
         showActionBar(true)
-        updateAdapter()
     }
 
     companion object {
