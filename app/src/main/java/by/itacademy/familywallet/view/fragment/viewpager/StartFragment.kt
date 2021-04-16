@@ -34,6 +34,7 @@ class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.la
     private fun initViews() {
         with(binding) {
             with(diagram) {
+                setNoDataText("")
                 description.isEnabled = false
                 isRotationEnabled = false
                 isClickable = false
