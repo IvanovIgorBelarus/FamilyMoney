@@ -42,7 +42,7 @@ class StatisticViewModel(private val repo: DataRepository) : BaseViewModel() {
                 forEach { item ->
                     categoryList.forEach { category ->
                         if (item.category == category.category) {
-                            item.icon=category.icon
+                            item.icon = category.icon
                             return@forEach
                         }
                     }

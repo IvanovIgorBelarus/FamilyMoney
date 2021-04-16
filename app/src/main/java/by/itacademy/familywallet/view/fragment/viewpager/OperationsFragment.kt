@@ -24,7 +24,6 @@ class OperationsFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentStatisticsBinding.bind(view)
-        updateAdapter()
         initViews()
     }
 

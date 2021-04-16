@@ -30,8 +30,7 @@ class TypeTransactionFragment : BaseFragment<FragmentAdapter, TypeTransactionVie
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding= FragmentTypeTransactionBinding.bind(view)
-        updateAdapter()
+        binding = FragmentTypeTransactionBinding.bind(view)
         initViews()
     }
 

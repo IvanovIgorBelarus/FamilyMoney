@@ -21,7 +21,6 @@ import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.utils.formatDate
 import by.itacademy.familywallet.view.BaseFragment
-import by.itacademy.familywallet.view.activity.FragmentsActivity
 import by.itacademy.familywallet.viewmodel.BaseViewModel
 import by.itacademy.familywallet.viewmodel.DateSettingsViewModel
 import org.koin.android.ext.android.inject

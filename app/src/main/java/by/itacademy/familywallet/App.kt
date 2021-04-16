@@ -1,8 +1,6 @@
 package by.itacademy.familywallet
 
 import android.app.Application
-import android.content.Context
-import by.itacademy.familywallet.data.DAY_FILTER
 import by.itacademy.familywallet.di.adapterModule
 import by.itacademy.familywallet.di.commonModule
 import by.itacademy.familywallet.di.dataModule
