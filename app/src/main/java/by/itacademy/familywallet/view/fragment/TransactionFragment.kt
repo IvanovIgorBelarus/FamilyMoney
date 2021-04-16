@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.CategoryChangeWrapper
 import by.itacademy.familywallet.data.BANK
@@ -75,7 +76,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
             } else {
                 with(transactionCategoryTitle) {
                     setOnClickListener { addFragment(TypeTransactionFragment.newInstance(item?.type!!, true)) }
-                    text = if (!item?.category.isNullOrEmpty()) item?.category else getString(R.string.category_empty_title)
+                    text = if (!item?.category.isNullOrEmpty()) item?.category else getString(R.string.category_null_title)
                 }
             }
             if (item?.value != 0.0) {
@@ -118,29 +119,24 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
     }
 
     private fun createDialog(moneyType: String?) {
-        if (item?.currency.isNullOrEmpty()) {
-            val transactionModel = UIModel.TransactionModel(
-                uid = UserUtils.getUsersUid(),
-                type = item?.type,
-                category = item?.category,
-                currency = binding.currencySpinner.selectedItem.toString(),
-                moneyType = moneyType,
-                value = binding.transactionValue.text.toString().toDouble(),
-                date = binding.date.date
-            )
-            dialog.createTransactionDialog(this, transactionModel)
+        val transactionModel = UIModel.TransactionModel(
+            uid = UserUtils.getUsersUid(),
+            type = item?.type,
+            category = binding.transactionCategoryTitle.text.toString(),
+            currency = binding.currencySpinner.selectedItem.toString(),
+            moneyType = moneyType,
+            value = binding.transactionValue.text.toString().toDouble(),
+            date = binding.date.date
+        )
+        if (transactionModel.category == getString(R.string.category_null_title)) {
+            Toast.makeText(context, "Выберите категорию!!!", Toast.LENGTH_SHORT).show()
         } else {
-            val transactionModel = UIModel.TransactionModel(
-                id = item?.id,
-                uid = UserUtils.getUsersUid(),
-                type = item?.type,
-                category = item?.category,
-                currency = binding.currencySpinner.selectedItem.toString(),
-                moneyType = moneyType,
-                value = binding.transactionValue.text.toString().toDouble(),
-                date = binding.date.date
-            )
-            dialog.createTransactionDialog(this, transactionModel, isUpdate)
+            if (item?.currency.isNullOrEmpty()) {
+                dialog.createTransactionDialog(this, transactionModel)
+            } else {
+                transactionModel.id = item?.id
+                dialog.createTransactionDialog(this, transactionModel, isUpdate)
+            }
         }
     }
 
@@ -163,7 +159,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
         }
 
         fun newInstance(item: UIModel.TransactionModel, isUpdate: Boolean = true) = TransactionFragment().apply {
-            this.isUpdate=isUpdate
+            this.isUpdate = isUpdate
             arguments = Bundle().apply {
                 with(item) {
                     putString(ID, id)

@@ -62,5 +62,5 @@
     <string name="operation_title_empty">Пока что у вас нет внесенных операций</string>
     <string name="statistic_title_empty">Статистика пуста, внесите Доходы или Расходы</string>
     <string name="category_title_empty">Добавьте категорию</string>
-    <string name="category_empty_title">Выберите категорию</string>
+    <string name="category_null_title">Выберите категорию</string>
 </resources>
