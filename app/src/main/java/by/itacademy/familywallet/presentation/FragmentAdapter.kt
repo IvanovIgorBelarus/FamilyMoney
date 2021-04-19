@@ -64,15 +64,14 @@ class FragmentAdapter(
     }
 
     fun update(list: List<Any?>) {
-//        with(this.list) {
-//            clear()
-//            addAll(list)
-//        }
-//        notifyDataSetChanged()
         list.forEach {
             if (!this.list.contains(it)) {
                 this.list.add(it)
-                notifyItemInserted(itemCount)
+                if (it is UIModel.TransactionModel) {
+                    notifyDataSetChanged()
+                } else {
+                    notifyItemInserted(itemCount)
+                }
             }
         }
         if (this.list.size > list.size) {
