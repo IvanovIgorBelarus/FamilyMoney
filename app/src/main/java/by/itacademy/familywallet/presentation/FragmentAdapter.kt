@@ -64,10 +64,23 @@ class FragmentAdapter(
     }
 
     fun update(list: List<Any?>) {
-        with(this.list) {
-            clear()
-            addAll(list)
+//        with(this.list) {
+//            clear()
+//            addAll(list)
+//        }
+//        notifyDataSetChanged()
+        list.forEach {
+            if (!this.list.contains(it)) {
+                this.list.add(it)
+                notifyItemInserted(itemCount)
+            }
         }
-        notifyDataSetChanged()
+        if (this.list.size > list.size) {
+            with(this.list) {
+                clear()
+                addAll(list)
+            }
+            notifyDataSetChanged()
+        }
     }
 }
