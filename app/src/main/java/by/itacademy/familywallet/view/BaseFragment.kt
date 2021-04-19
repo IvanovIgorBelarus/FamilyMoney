@@ -48,7 +48,7 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         EventBus.getDefault().unregister(this)
     }
 
-    protected fun updateAdapter() {
+    private fun updateAdapter() {
         viewModel?.liveData?.observe(this, Observer {
             fragmentAdapter?.update(it)
             checkDescribeVisibility(it.isEmpty())

@@ -3,6 +3,7 @@ package by.itacademy.familywallet.view.activity
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
@@ -40,6 +41,7 @@ class FragmentsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         binding = ActivityFragmentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         dateFilterType = getSharedPreferences(DAY_FILTER, Context.MODE_PRIVATE).getString(DAY_FILTER, MONTH_FILTER)!!
