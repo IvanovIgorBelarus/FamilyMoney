@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.familywallet.App
 import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.data.CARD
-import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.ItemClickListener

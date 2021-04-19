@@ -19,7 +19,7 @@ class SMSReceiver : BroadcastReceiver() {
         if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION == intent?.action) {
             val sms = Telephony.Sms.Intents.getMessagesFromIntent(intent)
             sms.forEach {
-                if (it.messageBody.contains("OPLATA")) {
+                if (it.messageBody.contains("Spr.:5099999")) {
                     val sms = SmsUtils.getSmsModelFromMTBank(it.messageBody)
                     context!!.getSharedPreferences(NEW_SMS, Context.MODE_PRIVATE).edit().putString(NEW_SMS, NEW_SMS).apply()
                     EventBus.getDefault().post(SmsWrapper())
@@ -32,7 +32,6 @@ class SMSReceiver : BroadcastReceiver() {
                     )
                 }
             }
-            Log.d(TAG,"onReceive")
         }
     }
 }
