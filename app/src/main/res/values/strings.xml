@@ -15,7 +15,8 @@
     <string name="cash">наличные</string>
     <string name="card">карта</string>
     <string name="warning">Подтвердите операцию</string>
-    <string name="message">Вы согласны внести следующие</string>
+    <string name="message">Вы согласны внести следующие затраты в категорию: %s? </string>
+    <string name="message1">Вы согласны внести следующие данные? </string>
     <string name="ok">Да</string>
     <string name="no">Нет</string>
     <string name="save">Сохранить</string>

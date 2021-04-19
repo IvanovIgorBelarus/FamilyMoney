@@ -106,9 +106,9 @@ class Dialogs(private val repo: DataRepository) {
 
     private fun message(context: Context, transactionModel: UIModel.TransactionModel): String {
         return if (transactionModel.moneyType == BANK_MINUS || transactionModel.moneyType == BANK_PLUS) {
-            "${context.getString(R.string.message)} данные?"
+            context.getString(R.string.message1)
         } else {
-            "${context.getString(R.string.message)} ${transactionModel.category}?"
+            String.format(context.getString(R.string.message),transactionModel.category)
         }
     }
 }
