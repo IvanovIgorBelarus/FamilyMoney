@@ -4,10 +4,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.provider.Telephony
+import android.util.Log
 import by.itacademy.familywallet.data.CURRENCY
 import by.itacademy.familywallet.data.DATE
 import by.itacademy.familywallet.data.FirebaseDataBase
 import by.itacademy.familywallet.data.NEW_SMS
+import by.itacademy.familywallet.data.TAG
 import by.itacademy.familywallet.data.VALUE
 import by.itacademy.familywallet.utils.SmsUtils
 import org.greenrobot.eventbus.EventBus
@@ -30,6 +32,7 @@ class SMSReceiver : BroadcastReceiver() {
                     )
                 }
             }
+            Log.d(TAG,"onReceive")
         }
     }
 }

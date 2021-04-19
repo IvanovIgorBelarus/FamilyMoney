@@ -2,6 +2,7 @@ package by.itacademy.familywallet.view.activity
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
@@ -14,6 +15,7 @@ import by.itacademy.familywallet.App.Companion.endDate
 import by.itacademy.familywallet.App.Companion.startDate
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.ScreenManager
+import by.itacademy.familywallet.common.SmsService
 import by.itacademy.familywallet.data.DAY_FILTER
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
@@ -65,6 +67,7 @@ class FragmentsActivity : AppCompatActivity() {
         getSharedPreferences(DAY_FILTER, Context.MODE_PRIVATE).edit().putString(DAY_FILTER, dateFilterType).apply() // сохраняем фильтр при закрытии приложения
         getSharedPreferences(INCOMES, Context.MODE_PRIVATE).edit().putLong(INCOMES, startDate ?: 0).apply()
         getSharedPreferences(EXPENSES, Context.MODE_PRIVATE).edit().putLong(EXPENSES, endDate ?: 0).apply()
+        startService(Intent(this, SmsService::class.java))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

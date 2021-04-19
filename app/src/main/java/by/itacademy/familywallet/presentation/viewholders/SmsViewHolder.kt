@@ -2,6 +2,7 @@ package by.itacademy.familywallet.presentation.viewholders
 
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.familywallet.App
+import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.data.CARD
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
@@ -23,7 +24,7 @@ class SmsViewHolder(
             true
         }
 
-        App().viewPreparation.prepareView(itemView, EXPENSES)
+        App().viewPreparation.prepareView(itemView, BANK)
         with(binding) {
             value.text = String.format("%s %s", item.value.toString(), item.currency)
             moneyType.text = CARD
