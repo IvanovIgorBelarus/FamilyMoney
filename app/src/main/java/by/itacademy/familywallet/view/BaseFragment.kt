@@ -57,7 +57,6 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
 
     override fun onLongClick(item: Any?) {
         dialog.deleteDialog(item, this)
-        this.onResume()
     }
 
     fun onBack() {
