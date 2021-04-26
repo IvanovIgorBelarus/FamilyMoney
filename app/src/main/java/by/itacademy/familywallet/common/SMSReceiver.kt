@@ -19,8 +19,8 @@ class SMSReceiver : BroadcastReceiver() {
         if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION == intent?.action) {
             val sms = Telephony.Sms.Intents.getMessagesFromIntent(intent)
             sms.forEach {
-                if (SmsUtils.getValueFromSms(it.messageBody).value!=0.0) {
-                    val sms = SmsUtils.getValueFromSms(it.messageBody)
+                val sms = SmsUtils.getValueFromSms(it.messageBody)
+                if (sms.value != null && sms.value != 0.0) {
                     context!!.getSharedPreferences(NEW_SMS, Context.MODE_PRIVATE).edit().putString(NEW_SMS, NEW_SMS).apply()
                     EventBus.getDefault().post(SmsWrapper())
                     FirebaseDataBase.instance.collection(NEW_SMS).add(

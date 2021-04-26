@@ -19,22 +19,19 @@ object SmsUtils {
 
     private fun getSmsModelFromMTBank(message: String): UIModel.SmsModel {
         val list = message.replace("\n", " ").split(" ")
-        var date: Long? = 0
-        var value: Double? = 0.0
-        var currency: String? = null
-        date = try {
+        var date: Long? = try {
             list[2].formatToDate?.time
         } catch (e: Exception) {
             Firebase.crashlytics.log("getSmsModelFromAlphaBank date")
             Calendar.getInstance().time.time
         }
-        value = try {
+        var value: Double? = try {
             list[5].toDouble()
         } catch (e: Exception) {
             Firebase.crashlytics.log("getSmsModelFromAlphaBank value")
-            0.0
+            null
         }
-        currency = try {
+        var currency: String? = try {
             list[6]
         } catch (e: Exception) {
             Firebase.crashlytics.log("getSmsModelFromAlphaBank currency")
@@ -49,22 +46,19 @@ object SmsUtils {
 
     private fun getSmsModelFromAlphaBank(message: String): UIModel.SmsModel {
         val list = message.replace("\n", " ").split(" ")
-        var date: Long? = 0
-        var value: Double? = 0.0
-        var currency: String? = null
-        date = try {
+        var date: Long? = try {
             list[16].formatToDate?.time
         } catch (e: Exception) {
             Firebase.crashlytics.log("getSmsModelFromAlphaBank date")
             Calendar.getInstance().time.time
         }
-        value = try {
+        var value: Double? = try {
             list[5].substring(6).toDouble()
         } catch (e: Exception) {
             Firebase.crashlytics.log("getSmsModelFromAlphaBank value")
             0.0
         }
-        currency = try {
+        var currency: String? = try {
             list[6]
         } catch (e: Exception) {
             Firebase.crashlytics.log("getSmsModelFromAlphaBank currency")
