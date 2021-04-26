@@ -1,6 +1,9 @@
 package by.itacademy.familywallet.utils
 
 import by.itacademy.familywallet.model.UIModel
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
+import java.util.*
 
 object SmsUtils {
 
@@ -16,9 +19,27 @@ object SmsUtils {
 
     private fun getSmsModelFromMTBank(message: String): UIModel.SmsModel {
         val list = message.replace("\n", " ").split(" ")
-        val date = list[2].formatToDate?.time
-        val value = list[5].toDouble()
-        val currency = list[6]
+        var date: Long? = 0
+        var value: Double? = 0.0
+        var currency: String? = null
+        date = try {
+            list[2].formatToDate?.time
+        } catch (e: Exception) {
+            Firebase.crashlytics.log("getSmsModelFromAlphaBank date")
+            Calendar.getInstance().time.time
+        }
+        value = try {
+            list[5].toDouble()
+        } catch (e: Exception) {
+            Firebase.crashlytics.log("getSmsModelFromAlphaBank value")
+            0.0
+        }
+        currency = try {
+            list[6]
+        } catch (e: Exception) {
+            Firebase.crashlytics.log("getSmsModelFromAlphaBank currency")
+            null
+        }
         return UIModel.SmsModel(
             date = date,
             value = value,
@@ -28,9 +49,27 @@ object SmsUtils {
 
     private fun getSmsModelFromAlphaBank(message: String): UIModel.SmsModel {
         val list = message.replace("\n", " ").split(" ")
-        val date = list[16].formatToDate?.time
-        val value = list[5].substring(6).toDouble()
-        val currency = list[6]
+        var date: Long? = 0
+        var value: Double? = 0.0
+        var currency: String? = null
+        date = try {
+            list[16].formatToDate?.time
+        } catch (e: Exception) {
+            Firebase.crashlytics.log("getSmsModelFromAlphaBank date")
+            Calendar.getInstance().time.time
+        }
+        value = try {
+            list[5].substring(6).toDouble()
+        } catch (e: Exception) {
+            Firebase.crashlytics.log("getSmsModelFromAlphaBank value")
+            0.0
+        }
+        currency = try {
+            list[6]
+        } catch (e: Exception) {
+            Firebase.crashlytics.log("getSmsModelFromAlphaBank currency")
+            null
+        }
         return UIModel.SmsModel(
             date = date,
             value = value,
