@@ -28,7 +28,7 @@ class FragmentAdapter(
         return when (viewType) {
             R.string.income -> CategoryViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener, itemOnLongClickListener)
             R.string.operations -> OperationsViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false), itemOnLongClickListener)
-            R.string.statistics -> StatisticViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false))
+            R.string.statistics -> StatisticViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false),itemClickListener)
             R.string.date_setting_title -> ArchiveViewHolder(TypeRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener)
             R.string.choose_tittle -> IconViewHolder(IconRecyclerItemBinding.inflate(inflater, parent, false))
             R.string.sms -> SmsViewHolder(StatisticRecyclerItemBinding.inflate(inflater, parent, false), itemClickListener, itemOnLongClickListener)

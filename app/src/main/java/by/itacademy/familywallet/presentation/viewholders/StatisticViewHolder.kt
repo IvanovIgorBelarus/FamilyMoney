@@ -8,14 +8,17 @@ import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.utils.Icons
 
 class StatisticViewHolder(
-    private val binding: TypeRecyclerItemBinding
+    private val binding: TypeRecyclerItemBinding,
+    private val itemClickListener: ItemClickListener?
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: UIModel.StatisticModel?) {
         App().viewPreparation.prepareView(itemView, item?.type!!)
+        itemView.setOnClickListener { itemClickListener?.onClick(item) }
         val icon = item.icon ?: Icons.getIcons()[0].name
         with(binding.textView) {
             setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(Icons.valueOf(icon).imageRes, context.theme), null, null, null)
