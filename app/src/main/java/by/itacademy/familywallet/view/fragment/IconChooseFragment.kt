@@ -30,14 +30,14 @@ class IconChooseFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
         }
     }
 
-    companion object {
-        fun newInstance() = IconChooseFragment()
-    }
-
     override fun listenBus(wrapper: Any) {
         super.listenBus(wrapper)
         when (wrapper) {
             is IconWrapper -> onBack()
         }
+    }
+
+    companion object {
+        fun newInstance() = IconChooseFragment()
     }
 }

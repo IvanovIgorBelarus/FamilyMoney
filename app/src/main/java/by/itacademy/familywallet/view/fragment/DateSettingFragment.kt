@@ -132,14 +132,14 @@ class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
         }
     }
 
-    companion object {
-        fun newInstance() = DateSettingFragment()
-    }
-
     override fun onClick(item: Any?) {
         startDate = (item as UIModel.ArchiveMonthModel).startDate
         endDate = item.endDate
         dateFilterType = RANGE_FILTER
         onBack()
+    }
+
+    companion object {
+        fun newInstance() = DateSettingFragment()
     }
 }
