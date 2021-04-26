@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class DateSettingsViewModel(private val repo: DataRepository) : BaseViewModel() {
+class DateSettingsViewModel() : BaseViewModel() {
 
     override fun getData() {
         isLoading.set(true)

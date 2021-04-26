@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TypeTransactionViewModel(private val repo: DataRepository, private val fragmentType: String) : BaseViewModel() {
+class TypeTransactionViewModel(private val fragmentType: String) : BaseViewModel() {
     override fun getData() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {

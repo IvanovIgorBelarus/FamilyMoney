@@ -15,17 +15,19 @@ import by.itacademy.familywallet.databinding.FragmentNewCategoryBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.utils.Icons
-import by.itacademy.familywallet.utils.UserUtils
 import by.itacademy.familywallet.view.BaseFragment
-import by.itacademy.familywallet.viewmodel.BaseViewModel
+import by.itacademy.familywallet.viewmodel.NewCategoryViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_new_category) {
+class NewCategoryFragment : BaseFragment<FragmentAdapter, NewCategoryViewModel>(R.layout.fragment_new_category) {
     private lateinit var binding: FragmentNewCategoryBinding
     var item: UIModel.CategoryModel? = null
+
+    override val viewModel by viewModel<NewCategoryViewModel>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -76,22 +78,12 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
     }
 
     private fun createNewCategory() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val category = binding.itemName.text.toString()
-            if (!category.isNullOrEmpty()) {
-                repo.addNewCategory(
-                    item!!.apply {
-                        uid = UserUtils.getUsersUid()
-                        this.category = binding.itemName.text.toString()
-                        icon = item?.icon ?: Icons.getIcons()[0].name
-                    }
-                )
-                withContext(Dispatchers.Main) {
-                    onBack()
-                }
-            } else {
-                withContext(Dispatchers.Main) { dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_message_category_create)) }
-            }
+        item?.category = binding.itemName.text.toString()
+        if (!item?.category.isNullOrEmpty()) {
+            viewModel.createNewCategory(item!!)
+            onBack()
+        } else {
+            dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_message_category_create))
         }
     }
 
@@ -111,12 +103,8 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
             category = binding.itemName.text.toString()
             type = item?.type!!
         }
-        CoroutineScope(Dispatchers.IO).launch {
-            repo.upDateItem(item)
-            withContext(Dispatchers.Main) {
-                onBack()
-            }
-        }
+        viewModel.updateCategory(item!!)
+        onBack()
     }
 
 

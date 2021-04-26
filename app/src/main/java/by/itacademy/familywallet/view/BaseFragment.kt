@@ -22,7 +22,6 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
     open val fragmentAdapter: AD? = null
     open val viewModel: VM? = null
     val dialog by inject<Dialogs>()
-    val repo by inject<DataRepository>()
     private lateinit var parentActivity: FragmentsActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {

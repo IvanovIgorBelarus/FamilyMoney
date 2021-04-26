@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SmsViewModel(private val repo: DataRepository) : BaseViewModel() {
+class SmsViewModel() : BaseViewModel() {
     override fun getData() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {

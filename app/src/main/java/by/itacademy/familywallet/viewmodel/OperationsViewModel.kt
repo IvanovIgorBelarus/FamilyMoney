@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class OperationsViewModel(private val repo: DataRepository) : BaseViewModel() {
+class OperationsViewModel() : BaseViewModel() {
     override fun getData() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {

@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import by.itacademy.familywallet.R
-import by.itacademy.familywallet.data.DataRepository
+import by.itacademy.familywallet.data.FirebaseDataBase
+import by.itacademy.familywallet.data.FirebaseRepositoryImpl
 import by.itacademy.familywallet.databinding.ActivityMainBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Dialogs
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-    private val repo: DataRepository by inject()
+    private val repo = FirebaseRepositoryImpl(FirebaseDataBase.instance)
     private val dialog by inject<Dialogs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,7 +112,8 @@ class MainActivity : AppCompatActivity() {
         val appPermission = arrayOf(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
         appPermission.forEach {
             if (ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED)
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, it)){}
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, it)) {
+                }
         }
     }
 

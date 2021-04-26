@@ -4,19 +4,17 @@ import android.os.Bundle
 import android.view.View
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentUsersSettingsBinding
-import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.utils.UserUtils
 import by.itacademy.familywallet.view.BaseFragment
-import by.itacademy.familywallet.viewmodel.BaseViewModel
+import by.itacademy.familywallet.viewmodel.UserSettingsViewModel
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class UsersSettingsFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_users_settings) {
+class UsersSettingsFragment : BaseFragment<FragmentAdapter, UserSettingsViewModel>(R.layout.fragment_users_settings) {
     private lateinit var binding: FragmentUsersSettingsBinding
+
+    override val viewModel by viewModel<UserSettingsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,20 +39,11 @@ class UsersSettingsFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.lay
 
     private fun createPartner() {
         val text = binding.itemName.text.toString()
-        CoroutineScope(Dispatchers.IO).launch {
-            if (!text.isNullOrEmpty() && text != UserUtils.getUsersUid()) {
-                val nullPartner = repo.getPartner()
-                repo.deleteItem(nullPartner)
-                repo.addPartner(
-                    UIModel.AccountModel(
-                        uid = UserUtils.getUsersUid(),
-                        partnerUid = text
-                    )
-                )
-                withContext(Dispatchers.Main) { onBack() }
-            } else {
-                withContext(Dispatchers.Main) { dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_message_category_create)) }
-            }
+        if (!text.isNullOrEmpty() && text != UserUtils.getUsersUid()) {
+            viewModel.createPartner(text)
+            onBack()
+        } else {
+            dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_message_category_create))
         }
     }
 

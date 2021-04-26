@@ -14,11 +14,13 @@ import by.itacademy.familywallet.utils.ViewPreparation
 import by.itacademy.familywallet.viewmodel.CategoryOperationViewModel
 import by.itacademy.familywallet.viewmodel.DateSettingsViewModel
 import by.itacademy.familywallet.viewmodel.IconChooseViewModel
+import by.itacademy.familywallet.viewmodel.NewCategoryViewModel
 import by.itacademy.familywallet.viewmodel.OperationsViewModel
 import by.itacademy.familywallet.viewmodel.SmsViewModel
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
 import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
+import by.itacademy.familywallet.viewmodel.UserSettingsViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -39,14 +41,16 @@ val dataModule = module {
     single<DataRepository> { FirebaseRepositoryImpl(FirebaseDataBase.instance) }
 }
 val viewModelModule = module {
-    viewModel { (fragmentType: String) -> TypeTransactionViewModel(get(), fragmentType) }
-    viewModel { OperationsViewModel(get()) }
-    viewModel { StartFragmentViewModel(get()) }
-    viewModel { StatisticViewModel(get()) }
-    viewModel { DateSettingsViewModel(get()) }
-    viewModel { (category: String) -> CategoryOperationViewModel(get(), category) }
+    viewModel { (fragmentType: String) -> TypeTransactionViewModel(fragmentType) }
+    viewModel { OperationsViewModel() }
+    viewModel { StartFragmentViewModel() }
+    viewModel { StatisticViewModel() }
+    viewModel { DateSettingsViewModel() }
+    viewModel { (category: String) -> CategoryOperationViewModel(category) }
     viewModel { IconChooseViewModel() }
-    viewModel { SmsViewModel(get()) }
+    viewModel { SmsViewModel() }
+    viewModel { NewCategoryViewModel() }
+    viewModel { UserSettingsViewModel() }
 }
 
 

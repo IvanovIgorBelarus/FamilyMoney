@@ -28,7 +28,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.util.*
 
-class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_date_setting), ItemClickListener {
+class DateSettingFragment : BaseFragment<FragmentAdapter, DateSettingsViewModel>(R.layout.fragment_date_setting), ItemClickListener {
     private lateinit var binding: FragmentDateSettingBinding
 
     override val viewModel by viewModel<DateSettingsViewModel>()

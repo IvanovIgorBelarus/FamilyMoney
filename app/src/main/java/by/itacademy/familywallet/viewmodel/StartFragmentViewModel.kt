@@ -23,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class StartFragmentViewModel(private val repo: DataRepository) : BaseViewModel() {
+class StartFragmentViewModel() : BaseViewModel() {
     private val mutableLiveDataExpenses = MutableLiveData<Double>()
     val liveDataExpenses = mutableLiveDataExpenses
     private val mutableLiveDataIncomes = MutableLiveData<Double>()
