@@ -59,6 +59,7 @@ class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.la
                 liveDataBalance.observe(this@StartFragment, Observer { balanceTextView.text = String.format("%s %.2f BYN", getString(R.string.balance), it) })
                 liveDataDataBank.observe(this@StartFragment, Observer { bankTextView.text = it })
                 liveDataPie.observe(this@StartFragment, Observer { PiePreparator.preparePie(diagram, it, context!!) })
+                liveDataCurrency.observe(this@StartFragment, Observer { currencyTitle.text=it })
             }
         }
     }

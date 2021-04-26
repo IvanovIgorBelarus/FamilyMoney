@@ -37,3 +37,5 @@ const val NO_DATE_FILTER="no_filter"
 const val NEW_SMS="sms"
 
 const val FULL_DATE="dd.MM.yyyy"
+
+const val BASE_CURRENCY_URL="https://www.nbrb.by/api/exrates/"

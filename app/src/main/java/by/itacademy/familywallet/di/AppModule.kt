@@ -3,6 +3,8 @@ package by.itacademy.familywallet.di
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.familywallet.common.ScreenManager
 import by.itacademy.familywallet.common.ScreenManagerImpl
+import by.itacademy.familywallet.data.BASE_CURRENCY_URL
+import by.itacademy.familywallet.data.CurrencyApi
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.FirebaseDataBase
 import by.itacademy.familywallet.data.FirebaseRepositoryImpl
@@ -23,7 +25,8 @@ import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
 import by.itacademy.familywallet.viewmodel.UserSettingsViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 val adapterModule = module {
     factory { (itemClickListener: ItemClickListener?, itemOnLongClickListener: ItemOnLongClickListener) ->
@@ -40,10 +43,19 @@ val commonModule = module {
 val dataModule = module {
     single<DataRepository> { FirebaseRepositoryImpl(FirebaseDataBase.instance) }
 }
+val retrofitModule = module {
+    val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_CURRENCY_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    fun getCurrencyApi(): CurrencyApi = retrofit.create(CurrencyApi::class.java)
+    single { getCurrencyApi() }
+}
 val viewModelModule = module {
     viewModel { (fragmentType: String) -> TypeTransactionViewModel(fragmentType) }
     viewModel { OperationsViewModel() }
-    viewModel { StartFragmentViewModel() }
+    viewModel { StartFragmentViewModel(get()) }
     viewModel { StatisticViewModel() }
     viewModel { DateSettingsViewModel() }
     viewModel { (category: String) -> CategoryOperationViewModel(category) }

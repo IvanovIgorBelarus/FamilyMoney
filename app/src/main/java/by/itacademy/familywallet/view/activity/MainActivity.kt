@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkPermissions() {
-        val appPermission = arrayOf(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
+        val appPermission = arrayOf(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.INTERNET)
         appPermission.forEach {
             if (ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED)
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, it)) {

@@ -4,6 +4,7 @@ import android.app.Application
 import by.itacademy.familywallet.di.adapterModule
 import by.itacademy.familywallet.di.commonModule
 import by.itacademy.familywallet.di.dataModule
+import by.itacademy.familywallet.di.retrofitModule
 import by.itacademy.familywallet.di.utilsModule
 import by.itacademy.familywallet.di.viewModelModule
 import by.itacademy.familywallet.utils.ViewPreparation
@@ -19,7 +20,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(adapterModule, utilsModule, dataModule, viewModelModule, commonModule)
+            modules(adapterModule, utilsModule, dataModule, viewModelModule, commonModule, retrofitModule)
         }
     }
 
