@@ -5,8 +5,8 @@
     <string name="login_in">Войти</string>
 
     <string name="main">Главная</string>
-    <string name="spend">Потрачено за месяц:</string>
-    <string name="income_text">Доход за месяц:</string>
+    <string name="spend">Потрачено за период:</string>
+    <string name="income_text">Доход за период:</string>
     <string name="balance">Текущий баланс:</string>
     <string name="expenses">Расходы</string>
     <string name="income">Доходы</string>
