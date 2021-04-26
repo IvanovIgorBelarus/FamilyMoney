@@ -65,4 +65,6 @@
     <string name="statistic_title_empty">Статистика пуста, внесите Доходы или Расходы</string>
     <string name="category_title_empty">Добавьте категорию</string>
     <string name="category_null_title">Выберите категорию</string>
+    <string name="bank_transaction_overview">Перевести деньги в доходы в BYN?</string>
+    <string name="currency_title_value">Курс обмена валюты:</string>
 </resources>

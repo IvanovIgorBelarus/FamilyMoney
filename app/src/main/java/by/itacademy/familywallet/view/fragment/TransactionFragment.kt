@@ -18,6 +18,7 @@ import by.itacademy.familywallet.data.CURRENCY
 import by.itacademy.familywallet.data.DATE
 import by.itacademy.familywallet.data.EUR
 import by.itacademy.familywallet.data.ID
+import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.MONEY_TYPE
 import by.itacademy.familywallet.data.RUB
 import by.itacademy.familywallet.data.TRANSACTION_TYPE
@@ -30,13 +31,16 @@ import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.utils.UserUtils
 import by.itacademy.familywallet.view.BaseFragment
 import by.itacademy.familywallet.view.fragment.viewpager.TypeTransactionFragment
-import by.itacademy.familywallet.viewmodel.BaseViewModel
+import by.itacademy.familywallet.viewmodel.TransactionViewModel
+import org.koin.android.ext.android.inject
 import java.util.*
 
-class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_transaction) {
+class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(R.layout.fragment_transaction) {
     private lateinit var binding: FragmentTransactionBinding
     private var item: UIModel.TransactionModel? = null
     private var isUpdate = false
+
+    override val viewModel by inject<TransactionViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -107,12 +111,25 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
             cardButton.setOnClickListener {
                 if (item?.type != null && !binding.transactionValue.text.isNullOrEmpty()) {
                     if (item?.type == BANK) {
-                        createDialog(BANK_MINUS)
+                        binding.currencyLayout.visibility = View.VISIBLE
+                        viewModel.getCurrency(binding.currencySpinner.selectedItem.toString())
+                        viewModel.liveDataCurrency.observe(this@TransactionFragment, { transactionCurrency.setText(it.toString()) })
                     } else {
                         createDialog(CARD)
                     }
                 } else {
                     dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_message_transaction))
+                }
+            }
+
+            cancelButton.setOnClickListener { createDialog(BANK_MINUS) }
+
+            confirmButton.setOnClickListener {
+                if (currency.text.isNotEmpty()) {
+                    doBankTransaction()
+                    onBack()
+                } else {
+                    Toast.makeText(context, "Введите курс обмена валют!!!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -138,6 +155,21 @@ class TransactionFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
                 dialog.createTransactionDialog(this, transactionModel, isUpdate)
             }
         }
+    }
+
+    private fun doBankTransaction() {
+        val transactionValue = binding.transactionValue.text.toString().toDouble()
+        val currency=binding.transactionCurrency.text.toString().toDouble()
+        val transactionModel = UIModel.TransactionModel(
+            uid = UserUtils.getUsersUid(),
+            type = INCOMES,
+            category = INCOMES,
+            currency = binding.currencySpinner.selectedItem.toString(),
+            moneyType = CASH,
+            value = transactionValue,
+            date = binding.date.date
+        )
+        viewModel.doTransaction(transactionModel,currency)
     }
 
     override fun listenBus(wrapper: Any) {

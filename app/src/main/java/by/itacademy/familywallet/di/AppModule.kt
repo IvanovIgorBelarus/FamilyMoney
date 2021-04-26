@@ -21,6 +21,7 @@ import by.itacademy.familywallet.viewmodel.OperationsViewModel
 import by.itacademy.familywallet.viewmodel.SmsViewModel
 import by.itacademy.familywallet.viewmodel.StartFragmentViewModel
 import by.itacademy.familywallet.viewmodel.StatisticViewModel
+import by.itacademy.familywallet.viewmodel.TransactionViewModel
 import by.itacademy.familywallet.viewmodel.TypeTransactionViewModel
 import by.itacademy.familywallet.viewmodel.UserSettingsViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -63,6 +64,7 @@ val viewModelModule = module {
     viewModel { SmsViewModel() }
     viewModel { NewCategoryViewModel() }
     viewModel { UserSettingsViewModel() }
+    viewModel { TransactionViewModel(get()) }
 }
 
 
