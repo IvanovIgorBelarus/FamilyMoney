@@ -31,6 +31,7 @@
     <string name="hint_edit_user_partner">введите uid партнера</string>
     <string name="settings_user_description">Для ведения общего бюджета вам необходимо обменяться uid-номерами с вашим партнером. Номер uid должен добавить каждый участик. Проект расчитан на 1-2 человек</string>
     <string name="bank">Копилка:</string>
+    <string name="currency_title">Курсы валют(НБРБ), на %s:</string>
     <string name="open">Открыть</string>
     <string name="start_description">Пожалуйста, войдите в приложение с помощью вашего google-аккаунта</string>
     <string name="pie_description">Диаграмма затрат</string>

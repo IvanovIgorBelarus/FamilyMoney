@@ -19,12 +19,10 @@ import by.itacademy.familywallet.model.PieModel
 import by.itacademy.familywallet.model.PieModelMapper
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
-import by.itacademy.familywallet.utils.toStringFormat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class StartFragmentViewModel(private val currencyApi: CurrencyApi) : BaseViewModel() {
     private val mutableLiveDataExpenses = MutableLiveData<Double>()
@@ -81,7 +79,6 @@ class StartFragmentViewModel(private val currencyApi: CurrencyApi) : BaseViewMod
         var usd = 0.0
         var eur = 0.0
         var rub = 0.0
-        val date = Calendar.getInstance().timeInMillis.toStringFormat
         list?.forEach {
             when (it.currency) {
                 USD -> usd = it.rate / it.scale
@@ -89,6 +86,6 @@ class StartFragmentViewModel(private val currencyApi: CurrencyApi) : BaseViewMod
                 RUB -> rub = it.rate
             }
         }
-        return String.format("Курсы НБРБ на %s:\nUSD: %.2f\nEUR: %.2f\nRUB: %.2f\n\n", date, usd, eur, rub)
+        return String.format("USD: %.2f\nEUR: %.2f\nRUB: %.2f\n\n", usd, eur, rub)
     }
 }
