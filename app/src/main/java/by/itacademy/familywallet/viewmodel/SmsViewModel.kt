@@ -1,6 +1,5 @@
 package by.itacademy.familywallet.viewmodel
 
-import by.itacademy.familywallet.common.categoryPartnersFilter
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
 import kotlinx.coroutines.CoroutineScope
@@ -8,14 +7,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TypeTransactionViewModel(private val fragmentType: String) : BaseViewModel() {
+class SmsViewModel() : BaseViewModel() {
     override fun getData() {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
-            val list = repo.getCategoriesList()
-            val partner = repo.getPartner()
+            val list = repo.getSmsList().sortedByDescending { it.date }
             withContext(Dispatchers.Main) {
-                mutableLiveData.value = list.categoryPartnersFilter(partner).filter { item -> (item.type == fragmentType) }
+                mutableLiveData.value = list
                 isLoading.set(false)
             }
         }

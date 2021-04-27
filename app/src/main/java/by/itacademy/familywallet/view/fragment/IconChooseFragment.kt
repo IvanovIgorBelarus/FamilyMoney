@@ -28,12 +28,6 @@ class IconChooseFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
             layoutManager = GridLayoutManager(context, 5)
             adapter = fragmentAdapter
         }
-        viewModel.getData()
-        updateAdapter()
-    }
-
-    companion object {
-        fun newInstance() = IconChooseFragment()
     }
 
     override fun listenBus(wrapper: Any) {
@@ -41,5 +35,9 @@ class IconChooseFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
         when (wrapper) {
             is IconWrapper -> onBack()
         }
+    }
+
+    companion object {
+        fun newInstance() = IconChooseFragment()
     }
 }

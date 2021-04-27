@@ -13,6 +13,7 @@ import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.toEndOfDay
 import by.itacademy.familywallet.utils.toStartOfDay
 import java.util.*
+import kotlin.math.roundToInt
 
 fun List<UIModel.TransactionModel>.typeFilter(type: String): List<UIModel.TransactionModel> =
     this.filter { item -> item.type == type }
@@ -62,8 +63,11 @@ fun List<UIModel.TransactionModel>.currentDateFilter(): List<UIModel.Transaction
 fun List<UIModel.CategoryModel>.categoryPartnersFilter(partner: UIModel.AccountModel): List<UIModel.CategoryModel> =
     this.filter { (it.uid == partner.uid) || (it.uid == partner.partnerUid) }
 
-fun List<UIModel.CategoryModel>.categoryTypeFilter(type: String): List<UIModel.CategoryModel> = this.filter { it.type==type }
+fun List<UIModel.CategoryModel>.categoryTypeFilter(type: String): List<UIModel.CategoryModel> = this.filter { it.type == type }
 
 fun List<UIModel.TransactionModel>.userFilter(uid: String): List<UIModel.TransactionModel> = this.filter { it.uid == uid }.sortedByDescending { it.date }
 
 fun List<UIModel.TransactionModel>.categoryFilter(category: String): List<UIModel.TransactionModel> = this.filter { it.category == category }.sortedByDescending { it.date }
+
+val Double.round: Double
+    get() = (this * 100).roundToInt().toDouble()/100

@@ -1,12 +1,15 @@
 package by.itacademy.familywallet.view
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import by.itacademy.familywallet.data.DataRepository
+import by.itacademy.familywallet.R
+import by.itacademy.familywallet.common.SmsWrapper
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 import by.itacademy.familywallet.utils.Dialogs
@@ -21,13 +24,14 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
     open val fragmentAdapter: AD? = null
     open val viewModel: VM? = null
     val dialog by inject<Dialogs>()
-    val repo by inject<DataRepository>()
     private lateinit var parentActivity: FragmentsActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         EventBus.getDefault().register(this)
         parentActivity = (activity as FragmentsActivity)
+        viewModel?.getData()
+        updateAdapter()
     }
 
     override fun onCreateView(
@@ -35,22 +39,18 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         savedInstanceState: Bundle?
     ) = inflater.inflate(layout, container, false)
 
+    override fun onResume() {
+        super.onResume()
+        viewModel?.getData()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
     }
 
-    protected fun updateAdapter() {
-        viewModel?.liveData?.observe(this, Observer { fragmentAdapter?.update(it) })
-    }
-
     override fun onLongClick(item: Any?) {
         dialog.deleteDialog(item, this)
-        this.onResume()
-    }
-
-    fun onBack() {
-        parentActivity.onBackPressed()
     }
 
     protected fun showActionBar(isShowing: Boolean) {
@@ -61,11 +61,38 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         }
     }
 
+    protected fun hideKeyBoard() {
+        val inputMethodManager: InputMethodManager = this.context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = parentActivity.currentFocus
+        if (view == null) {
+            view = View(parentActivity)
+        }
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun onBack() {
+        parentActivity.onBackPressed()
+    }
+
     fun addFragment(fragment: Fragment) {
         parentActivity.screenManager.startFragment(fragment)
     }
 
+    private fun updateAdapter() {
+        viewModel?.liveData?.observe(this, Observer {
+            fragmentAdapter?.update(it)
+            checkDescribeVisibility(it.isEmpty())
+        })
+    }
+
+    open fun checkDescribeVisibility(isShowing: Boolean) {
+
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun listenBus(wrapper: Any) {
+        when (wrapper) {
+            is SmsWrapper -> parentActivity.opMenu?.getItem(1)?.setIcon(R.drawable.ic_baseline_sms_failed)
+        }
     }
 }

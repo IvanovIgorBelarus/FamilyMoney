@@ -5,8 +5,8 @@
     <string name="login_in">Войти</string>
 
     <string name="main">Главная</string>
-    <string name="spend">Потрачено за месяц:</string>
-    <string name="income_text">Доход за месяц:</string>
+    <string name="spend">Потрачено за период:</string>
+    <string name="income_text">Доход за период:</string>
     <string name="balance">Текущий баланс:</string>
     <string name="expenses">Расходы</string>
     <string name="income">Доходы</string>
@@ -15,7 +15,8 @@
     <string name="cash">наличные</string>
     <string name="card">карта</string>
     <string name="warning">Подтвердите операцию</string>
-    <string name="message">Вы согласны внести следующие</string>
+    <string name="message">Вы согласны внести следующие затраты в категорию: %s? </string>
+    <string name="message1">Вы согласны внести следующие данные? </string>
     <string name="ok">Да</string>
     <string name="no">Нет</string>
     <string name="save">Сохранить</string>
@@ -30,6 +31,7 @@
     <string name="hint_edit_user_partner">введите uid партнера</string>
     <string name="settings_user_description">Для ведения общего бюджета вам необходимо обменяться uid-номерами с вашим партнером. Номер uid должен добавить каждый участик. Проект расчитан на 1-2 человек</string>
     <string name="bank">Копилка:</string>
+    <string name="currency_title">Курсы валют(НБРБ), на %s:</string>
     <string name="open">Открыть</string>
     <string name="start_description">Пожалуйста, войдите в приложение с помощью вашего google-аккаунта</string>
     <string name="pie_description">Диаграмма затрат</string>
@@ -46,7 +48,7 @@
     <string name="alert_negative_auth_message">Ошибка! Проверьте интернет-соединение</string>
     <string name="category_edit_hint">имя категории?</string>
     <string name="theme_icon_title">тема</string>
-    <string name="category_operation_title">Затраны по выбранной категории(%s):</string>
+    <string name="category_operation_title">Затраны по категории - %s</string>
     <string name="toast_others_title">Остальные затраты смотрите во вкладке "операции"</string>
     <string name="new_category_tittle">Создание новой категории "%s"</string>
     <string name="new_category_update_tittle">Изменение категории "%s"</string>
@@ -56,4 +58,13 @@
     <string name="cancel">Отмена</string>
     <string name="delete">Удалить</string>
     <string name="update">Изменить</string>
+    <string name="sms">sms</string>
+    <string name="sms_title">Входящие sms:</string>
+    <string name="sms_title_empty">нет sms</string>
+    <string name="operation_title_empty">Пока что у вас нет внесенных операций</string>
+    <string name="statistic_title_empty">Статистика пуста, внесите Доходы или Расходы</string>
+    <string name="category_title_empty">Добавьте категорию</string>
+    <string name="category_null_title">Выберите категорию</string>
+    <string name="bank_transaction_overview">Перевести деньги в доходы в BYN?</string>
+    <string name="currency_title_value">Курс обмена валюты:</string>
 </resources>

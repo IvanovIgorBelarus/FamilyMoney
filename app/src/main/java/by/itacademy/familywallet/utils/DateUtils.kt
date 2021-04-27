@@ -91,3 +91,14 @@ val Date.getLastDayOfMonth: Date
 fun Date.formatDate(pattern: String): String {
     return DateUtils.parseDate(this, pattern)
 }
+
+val String.formatToDate: Date?
+    get() {
+        if (this.contains("-")) {
+            return SimpleDateFormat("yyyy-MM-dd").parse(this).toStartOfDay
+        }
+        return SimpleDateFormat("dd.MM.yyyy").parse(this).toStartOfDay
+    }
+
+val Long.toStringFormat: String
+    get() = SimpleDateFormat("dd.MM.yyyy").format(this)

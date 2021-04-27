@@ -31,27 +31,30 @@ class TypeTransactionFragment : BaseFragment<FragmentAdapter, TypeTransactionVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTypeTransactionBinding.bind(view)
-        binding.adapterRv.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = fragmentAdapter
+        initViews()
+    }
+
+    override fun checkDescribeVisibility(isShowing: Boolean) {
+        if (isShowing) {
+            binding.titleEmptyAdapter.visibility = View.VISIBLE
+        } else {
+            binding.titleEmptyAdapter.visibility = View.GONE
         }
-        initCreateButton()
-        updateAdapter()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getData()
-    }
-
-    private fun initCreateButton() {
+    private fun initViews() {
         with(binding) {
+            adapterRv.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = fragmentAdapter
+            }
             with(categoryCreateButton) {
                 setOnClickListener {
                     addFragment(NewCategoryFragment.newInstance(fragmentType))
                 }
                 App().viewPreparation.prepareView(categoryCreateButton, fragmentType)
             }
+            titleEmptyAdapter.text = getString(R.string.category_title_empty)
         }
     }
 

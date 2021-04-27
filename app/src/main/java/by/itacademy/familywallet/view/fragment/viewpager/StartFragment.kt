@@ -8,6 +8,7 @@ import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.databinding.FragmentStartBinding
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.utils.PiePreparator
+import by.itacademy.familywallet.utils.toStringFormat
 import by.itacademy.familywallet.view.BaseFragment
 import by.itacademy.familywallet.view.fragment.CategoryOperationFragment
 import by.itacademy.familywallet.view.fragment.TransactionFragment
@@ -18,6 +19,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+import java.util.*
 
 class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.layout.fragment_start) {
     private lateinit var binding: FragmentStartBinding
@@ -31,14 +33,10 @@ class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.la
         initViews()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getData()
-    }
-
     private fun initViews() {
         with(binding) {
             with(diagram) {
+                setNoDataText("")
                 description.isEnabled = false
                 isRotationEnabled = false
                 isClickable = false
@@ -63,7 +61,9 @@ class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.la
                 liveDataBalance.observe(this@StartFragment, Observer { balanceTextView.text = String.format("%s %.2f BYN", getString(R.string.balance), it) })
                 liveDataDataBank.observe(this@StartFragment, Observer { bankTextView.text = it })
                 liveDataPie.observe(this@StartFragment, Observer { PiePreparator.preparePie(diagram, it, context!!) })
+                liveDataCurrency.observe(this@StartFragment, Observer { currencyView.text=it })
             }
+            currencyTitle.text= String.format(getString(R.string.currency_title, Calendar.getInstance().timeInMillis.toStringFormat))
         }
     }
 

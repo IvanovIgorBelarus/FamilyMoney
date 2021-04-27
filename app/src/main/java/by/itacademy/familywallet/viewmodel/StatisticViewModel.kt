@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class StatisticViewModel(private val repo: DataRepository) : BaseViewModel() {
+class StatisticViewModel() : BaseViewModel() {
 
     override fun getData() {
         isLoading.set(true)
@@ -42,7 +42,7 @@ class StatisticViewModel(private val repo: DataRepository) : BaseViewModel() {
                 forEach { item ->
                     categoryList.forEach { category ->
                         if (item.category == category.category) {
-                            item.icon=category.icon
+                            item.icon = category.icon
                             return@forEach
                         }
                     }

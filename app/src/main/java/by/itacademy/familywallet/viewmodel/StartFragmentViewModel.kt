@@ -8,12 +8,13 @@ import by.itacademy.familywallet.common.transactionsPartnersFilter
 import by.itacademy.familywallet.common.typeFilter
 import by.itacademy.familywallet.data.BANK
 import by.itacademy.familywallet.data.BYN
-import by.itacademy.familywallet.data.DataRepository
+import by.itacademy.familywallet.data.CurrencyApi
 import by.itacademy.familywallet.data.EUR
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.RUB
 import by.itacademy.familywallet.data.USD
+import by.itacademy.familywallet.model.CurrencyResponseDTO
 import by.itacademy.familywallet.model.PieModel
 import by.itacademy.familywallet.model.PieModelMapper
 import by.itacademy.familywallet.model.UIModel
@@ -23,7 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class StartFragmentViewModel(private val repo: DataRepository) : BaseViewModel() {
+class StartFragmentViewModel(private val currencyApi: CurrencyApi) : BaseViewModel() {
     private val mutableLiveDataExpenses = MutableLiveData<Double>()
     val liveDataExpenses = mutableLiveDataExpenses
     private val mutableLiveDataIncomes = MutableLiveData<Double>()
@@ -34,6 +35,8 @@ class StartFragmentViewModel(private val repo: DataRepository) : BaseViewModel()
     val liveDataDataBank = mutableLiveDataBank
     private val mutableLiveDataPie = MutableLiveData<List<PieModel>>()
     val liveDataPie = mutableLiveDataPie
+    private val mutableLiveDataCurrency = MutableLiveData<String>()
+    val liveDataCurrency = mutableLiveDataCurrency
 
     override fun getData() {
         isLoading.set(true)
@@ -42,12 +45,15 @@ class StartFragmentViewModel(private val repo: DataRepository) : BaseViewModel()
             val list = repo.getTransactionsList().transactionsPartnersFilter(partner)
             val expensesList = list.currentDateFilter().typeFilter(EXPENSES)
             val categories = repo.getCategoriesList().categoryTypeFilter(EXPENSES)
+
+            val currencyList = currencyApi.getCurrencyList().execute().body()
             withContext(Dispatchers.Main) {
                 mutableLiveDataExpenses.value = expensesList.sumByDouble { it.value!! }
                 mutableLiveDataIncomes.value = list.currentDateFilter().typeFilter(INCOMES)?.sumByDouble { it.value!! }
                 mutableLiveDataBalance.value = list.balanceFilter()
                 mutableLiveDataBank.value = getBankString(list.typeFilter(BANK))
                 mutableLiveDataPie.value = PieModelMapper.map(categories, expensesList)
+                mutableLiveDataCurrency.value = getCurrencyString(currencyList)
                 isLoading.set(false)
             }
         }
@@ -67,5 +73,19 @@ class StartFragmentViewModel(private val repo: DataRepository) : BaseViewModel()
             }
         }
         return String.format("USD: %.2f\nEUR: %.2f\nRUB: %.2f\nBYN: %.2f", usd, eur, rub, byn)
+    }
+
+    private fun getCurrencyString(list: List<CurrencyResponseDTO>?): String {
+        var usd = 0.0
+        var eur = 0.0
+        var rub = 0.0
+        list?.forEach {
+            when (it.currency) {
+                USD -> usd = it.rate / it.scale
+                EUR -> eur = it.rate / it.scale
+                RUB -> rub = it.rate
+            }
+        }
+        return String.format("USD: %.2f\nEUR: %.2f\nRUB: %.2f\n\n", usd, eur, rub)
     }
 }

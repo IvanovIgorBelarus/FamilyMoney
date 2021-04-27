@@ -1,95 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tabBackgroundColor"
-    android:padding="10dp"
     tools:context=".view.fragment.TransactionFragment">
 
-    <TextView
-        android:id="@+id/transactionCategoryTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:gravity="center"
-        android:clickable="true"
-        android:text="@string/bank"
-        android:textAlignment="center"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CalendarView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:firstDayOfWeek="2"
-        android:theme="@style/calendarMonth"
-        android:weekDayTextAppearance="@color/tabBackgroundColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transactionCategoryTitle" />
-
-    <EditText
-        android:id="@+id/transactionValue"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/primary_rectangle_button_background"
-        android:inputType="numberDecimal"
+        android:layout_height="match_parent"
+        android:background="@color/tabBackgroundColor"
         android:padding="10dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/date" />
+        tools:context=".view.fragment.TransactionFragment">
 
-    <Spinner
-        android:id="@+id/currencySpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/transactionValue"
-        app:layout_constraintEnd_toEndOf="@+id/transactionValue"
-        app:layout_constraintTop_toTopOf="@id/transactionValue" />
+        <TextView
+            android:id="@+id/transactionCategoryTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/bank"
+            android:textAlignment="center"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/cashButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/primary_rectangle_button_background"
-        android:drawableStart="@drawable/ic_baseline_monetization_on_24"
-        android:drawableTint="@color/primaryTextColor"
-        android:paddingStart="10dp"
-        android:text="@string/cash"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/cardButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transactionValue"
-        tools:ignore="RtlSymmetry" />
+        <CalendarView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:firstDayOfWeek="2"
+            android:theme="@style/calendarMonth"
+            android:weekDayTextAppearance="@color/tabBackgroundColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionCategoryTitle" />
 
-    <Button
-        android:id="@+id/cardButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/primary_rectangle_button_background"
-        android:drawableStart="@drawable/ic_baseline_credit_card_24"
-        android:drawableTint="@color/primaryTextColor"
-        android:paddingStart="10dp"
-        android:text="@string/card"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cashButton"
-        app:layout_constraintTop_toBottomOf="@id/transactionValue"
-        tools:ignore="RtlSymmetry" />
+        <EditText
+            android:id="@+id/transactionValue"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/primary_rectangle_button_background"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/date" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Spinner
+            android:id="@+id/currencySpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/transactionValue"
+            app:layout_constraintEnd_toEndOf="@+id/transactionValue"
+            app:layout_constraintTop_toTopOf="@id/transactionValue" />
+
+        <Button
+            android:id="@+id/cashButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/primary_rectangle_button_background"
+            android:drawableStart="@drawable/ic_baseline_monetization_on_24"
+            android:drawableTint="@color/primaryTextColor"
+            android:paddingStart="10dp"
+            android:text="@string/cash"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/cardButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionValue"
+            tools:ignore="RtlSymmetry" />
+
+        <Button
+            android:id="@+id/cardButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/primary_rectangle_button_background"
+            android:drawableStart="@drawable/ic_baseline_credit_card_24"
+            android:drawableTint="@color/primaryTextColor"
+            android:paddingStart="10dp"
+            android:text="@string/card"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cashButton"
+            app:layout_constraintTop_toBottomOf="@id/transactionValue"
+            tools:ignore="RtlSymmetry" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/currencyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/primary_rectangle_button_background"
+            android:visibility="gone"
+            android:paddingBottom="20dp"
+            app:layout_constraintTop_toBottomOf="@id/cardButton">
+
+            <TextView
+                android:id="@+id/currencyTitle"
+                style="@style/PrimaryTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/bank_transaction_overview"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/currency"
+                style="@style/PrimaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/currency_title_value"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/currencyTitle" />
+
+            <EditText
+                android:id="@+id/transactionCurrency"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/primary_rectangle_button_background"
+                android:inputType="numberDecimal"
+                android:padding="10dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/currency"
+                app:layout_constraintTop_toBottomOf="@id/currencyTitle" />
+
+            <Button
+                android:id="@+id/confirmButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/primary_rectangle_button_background"
+                android:drawableTint="@color/primaryTextColor"
+                android:paddingStart="10dp"
+                android:text="@string/ok"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/cancelButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/transactionCurrency"
+                tools:ignore="RtlSymmetry" />
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/primary_rectangle_button_background"
+                android:drawableTint="@color/primaryTextColor"
+                android:paddingStart="10dp"
+                android:text="@string/no"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/confirmButton"
+                app:layout_constraintTop_toBottomOf="@id/transactionCurrency"
+                tools:ignore="RtlSymmetry" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CategoryOperationViewModel(private val repo: DataRepository, private val category: String) : BaseViewModel() {
+class CategoryOperationViewModel(private val category: String) : BaseViewModel() {
     override fun getData() {
         ProgressBarUtils.isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {

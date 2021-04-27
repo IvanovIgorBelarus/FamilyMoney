@@ -1,9 +1,7 @@
 package by.itacademy.familywallet.view.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.App
 import by.itacademy.familywallet.App.Companion.dateFilterType
@@ -23,7 +21,6 @@ import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.utils.formatDate
 import by.itacademy.familywallet.view.BaseFragment
-import by.itacademy.familywallet.view.activity.FragmentsActivity
 import by.itacademy.familywallet.viewmodel.BaseViewModel
 import by.itacademy.familywallet.viewmodel.DateSettingsViewModel
 import org.koin.android.ext.android.inject
@@ -31,7 +28,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.util.*
 
-class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout.fragment_date_setting), ItemClickListener {
+class DateSettingFragment : BaseFragment<FragmentAdapter, DateSettingsViewModel>(R.layout.fragment_date_setting), ItemClickListener {
     private lateinit var binding: FragmentDateSettingBinding
 
     override val viewModel by viewModel<DateSettingsViewModel>()
@@ -43,8 +40,6 @@ class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
         showActionBar(false)
         enabledButton()
         initViews()
-        viewModel.getData()
-        updateAdapter()
     }
 
     private fun initViews() {
@@ -137,14 +132,14 @@ class DateSettingFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layou
         }
     }
 
-    companion object {
-        fun newInstance() = DateSettingFragment()
-    }
-
     override fun onClick(item: Any?) {
-        startDate = (item as UIModel.MonthModel).startDate
+        startDate = (item as UIModel.ArchiveMonthModel).startDate
         endDate = item.endDate
         dateFilterType = RANGE_FILTER
         onBack()
+    }
+
+    companion object {
+        fun newInstance() = DateSettingFragment()
     }
 }
