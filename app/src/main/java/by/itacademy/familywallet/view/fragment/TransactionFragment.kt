@@ -3,6 +3,7 @@ package by.itacademy.familywallet.view.fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import by.itacademy.familywallet.R
@@ -113,6 +114,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(
                     if (item?.type == BANK) {
                         hideKeyBoard()
                         binding.currencyLayout.visibility = View.VISIBLE
+                        binding.currencyLayout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_animation_fall_down))
                         viewModel.getCurrency(binding.currencySpinner.selectedItem.toString())
                         viewModel.liveDataCurrency.observe(this@TransactionFragment, { transactionCurrency.setText(it.toString()) })
                     } else {
