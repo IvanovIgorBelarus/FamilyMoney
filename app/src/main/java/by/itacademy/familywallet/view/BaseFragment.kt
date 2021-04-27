@@ -30,7 +30,6 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         super.onCreate(savedInstanceState)
         EventBus.getDefault().register(this)
         parentActivity = (activity as FragmentsActivity)
-        viewModel?.getData()
         updateAdapter()
     }
 

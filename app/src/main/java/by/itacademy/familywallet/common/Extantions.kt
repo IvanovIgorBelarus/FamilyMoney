@@ -60,8 +60,8 @@ fun List<UIModel.TransactionModel>.currentDateFilter(): List<UIModel.Transaction
     }
 }
 
-fun List<UIModel.CategoryModel>.categoryPartnersFilter(partner: UIModel.AccountModel): List<UIModel.CategoryModel> =
-    this.filter { (it.uid == partner.uid) || (it.uid == partner.partnerUid) }
+fun List<UIModel.CategoryModel>.categoryPartnersFilter(partner: UIModel.AccountModel?): List<UIModel.CategoryModel> =
+    this.filter { (it.uid == partner?.uid) || (it.uid == partner?.partnerUid) }
 
 fun List<UIModel.CategoryModel>.categoryTypeFilter(type: String): List<UIModel.CategoryModel> = this.filter { it.type == type }
 
