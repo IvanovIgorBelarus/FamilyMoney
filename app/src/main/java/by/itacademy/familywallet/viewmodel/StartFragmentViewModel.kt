@@ -86,6 +86,6 @@ class StartFragmentViewModel(private val currencyApi: CurrencyApi) : BaseViewMod
                 RUB -> rub = it.rate
             }
         }
-        return String.format("USD: %.2f\nEUR: %.2f\nRUB: %.2f\n\n", usd, eur, rub)
+        return String.format("USD: %.4f\nEUR: %.4f\nRUB: %.4f\n\n", usd, eur, rub)
     }
 }
