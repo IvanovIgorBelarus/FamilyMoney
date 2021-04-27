@@ -1,13 +1,15 @@
 package by.itacademy.familywallet.view
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.SmsWrapper
-import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
 import by.itacademy.familywallet.utils.Dialogs
@@ -47,19 +49,8 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         EventBus.getDefault().unregister(this)
     }
 
-    private fun updateAdapter() {
-        viewModel?.liveData?.observe(this, Observer {
-            fragmentAdapter?.update(it)
-            checkDescribeVisibility(it.isEmpty())
-        })
-    }
-
     override fun onLongClick(item: Any?) {
         dialog.deleteDialog(item, this)
-    }
-
-    fun onBack() {
-        parentActivity.onBackPressed()
     }
 
     protected fun showActionBar(isShowing: Boolean) {
@@ -70,8 +61,28 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         }
     }
 
+    protected fun hideKeyBoard() {
+        val inputMethodManager: InputMethodManager = this.context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = parentActivity.currentFocus
+        if (view == null) {
+            view = View(parentActivity)
+        }
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun onBack() {
+        parentActivity.onBackPressed()
+    }
+
     fun addFragment(fragment: Fragment) {
         parentActivity.screenManager.startFragment(fragment)
+    }
+
+    private fun updateAdapter() {
+        viewModel?.liveData?.observe(this, Observer {
+            fragmentAdapter?.update(it)
+            checkDescribeVisibility(it.isEmpty())
+        })
     }
 
     open fun checkDescribeVisibility(isShowing: Boolean) {

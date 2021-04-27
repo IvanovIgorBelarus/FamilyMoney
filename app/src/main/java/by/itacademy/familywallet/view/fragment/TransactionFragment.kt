@@ -111,6 +111,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(
             cardButton.setOnClickListener {
                 if (item?.type != null && !binding.transactionValue.text.isNullOrEmpty()) {
                     if (item?.type == BANK) {
+                        hideKeyBoard()
                         binding.currencyLayout.visibility = View.VISIBLE
                         viewModel.getCurrency(binding.currencySpinner.selectedItem.toString())
                         viewModel.liveDataCurrency.observe(this@TransactionFragment, { transactionCurrency.setText(it.toString()) })
