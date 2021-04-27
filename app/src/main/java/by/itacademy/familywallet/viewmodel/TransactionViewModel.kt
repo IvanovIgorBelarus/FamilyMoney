@@ -7,6 +7,7 @@ import by.itacademy.familywallet.data.BANK_MINUS
 import by.itacademy.familywallet.data.BYN
 import by.itacademy.familywallet.data.CurrencyApi
 import by.itacademy.familywallet.data.INCOMES
+import by.itacademy.familywallet.data.INCOMES_TITLE
 import by.itacademy.familywallet.data.RUB
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.UserUtils
@@ -36,7 +37,7 @@ class TransactionViewModel(private val currencyApi: CurrencyApi) : BaseViewModel
                 } else {
                     (value!! * currencyValue).round
                 }
-                category = "Доходы"
+                category = INCOMES_TITLE
                 currency = BYN
             })
             var count = 0
@@ -49,7 +50,7 @@ class TransactionViewModel(private val currencyApi: CurrencyApi) : BaseViewModel
                 repo.addNewCategory(
                     UIModel.CategoryModel(
                         uid = UserUtils.getUsersUid(),
-                        category = "Доходы",
+                        category = INCOMES_TITLE,
                         type = INCOMES,
                         icon = null
                     )
