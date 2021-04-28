@@ -1,22 +1,19 @@
 package by.itacademy.familywallet.viewmodel
 
+import androidx.lifecycle.viewModelScope
 import by.itacademy.familywallet.common.categoryFilter
 import by.itacademy.familywallet.common.currentDateFilter
 import by.itacademy.familywallet.common.transactionsPartnersFilter
 import by.itacademy.familywallet.common.typeFilter
-import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.utils.PiePreparator
-import by.itacademy.familywallet.utils.ProgressBarUtils
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class CategoryOperationViewModel(private val category: String) : BaseViewModel() {
     override fun getData() {
-        ProgressBarUtils.isLoading.set(true)
-        CoroutineScope(Dispatchers.IO).launch {
+        isLoading.set(true)
+        viewModelScope.launch {
             val partner = repo.getPartner()
             val list = repo.getTransactionsList().transactionsPartnersFilter(partner)
                 .currentDateFilter()
@@ -27,10 +24,8 @@ class CategoryOperationViewModel(private val category: String) : BaseViewModel()
             } else {
                 list.filter { PiePreparator.getOtherCategories().contains(it.category) }.toMutableList()
             }
-            withContext(Dispatchers.Main) {
-                mutableLiveData.value = result
-                ProgressBarUtils.isLoading.set(false)
-            }
+            mutableLiveData.value = result
+            isLoading.set(false)
         }
     }
 }

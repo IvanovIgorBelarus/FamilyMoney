@@ -70,6 +70,7 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
     }
 
     fun onBack() {
+        hideKeyBoard()
         parentActivity.onBackPressed()
     }
 
