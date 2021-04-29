@@ -1,12 +1,10 @@
 package by.itacademy.familywallet.presentation
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.familywallet.R
-import by.itacademy.familywallet.data.TAG
 import by.itacademy.familywallet.databinding.IconRecyclerItemBinding
 import by.itacademy.familywallet.databinding.StatisticRecyclerItemBinding
 import by.itacademy.familywallet.databinding.TypeRecyclerItemBinding
@@ -18,7 +16,6 @@ import by.itacademy.familywallet.presentation.viewholders.IconViewHolder
 import by.itacademy.familywallet.presentation.viewholders.OperationsViewHolder
 import by.itacademy.familywallet.presentation.viewholders.SmsViewHolder
 import by.itacademy.familywallet.presentation.viewholders.StatisticViewHolder
-import by.itacademy.familywallet.utils.toStringFormat
 
 class FragmentAdapter(
     private val itemClickListener: ItemClickListener? = null,
@@ -71,7 +68,7 @@ class FragmentAdapter(
             if (!this.list.contains(it)) {
                 this.list.add(it)
                 if (it is UIModel.TransactionModel) {
-                    this.list.sortByDescending { item->(item as UIModel.TransactionModel).date }
+                    this.list.sortByDescending { item -> (item as UIModel.TransactionModel).date }
                     notifyDataSetChanged()
                 } else {
                     notifyItemInserted(itemCount)
@@ -84,9 +81,6 @@ class FragmentAdapter(
                 addAll(list)
             }
             notifyDataSetChanged()
-        }
-        if (list[0] is UIModel.TransactionModel) {
-            list.forEach { Log.d(TAG, "${(it as UIModel.TransactionModel).category}= ${it.value}    :${it.date?.toStringFormat}") }
         }
     }
 }
