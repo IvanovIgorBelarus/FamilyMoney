@@ -51,6 +51,6 @@ class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.la
     }
 
     override fun onClick(item: Any?) {
-        addFragment(CategoryOperationFragment.newInstance((item as UIModel.StatisticModel).category!!))
+        addFragment(CategoryOperationFragment.newInstance((item as UIModel.StatisticModel).category!!, item.type!!))
     }
 }

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
+import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.view.BaseFragment
 import by.itacademy.familywallet.viewmodel.CategoryOperationViewModel
@@ -15,9 +16,9 @@ import org.koin.core.parameter.parametersOf
 class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperationViewModel>(R.layout.fragment_statistics) {
     private lateinit var binding: FragmentStatisticsBinding
 
-    override val viewModel by viewModel<CategoryOperationViewModel>() { parametersOf(category) }
+    override val viewModel by viewModel<CategoryOperationViewModel>() { parametersOf(item) }
     override val fragmentAdapter: FragmentAdapter by inject { parametersOf(null, null) }
-    private lateinit var category: String
+    private var item = UIModel.CategoryModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,7 +31,7 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
         with(binding) {
             with(titleTextView) {
                 visibility = View.VISIBLE
-                text = String.format(getString(R.string.category_operation_title), category)
+                text = String.format(getString(R.string.category_operation_title), item.category)
             }
             adapterRv.apply {
                 layoutManager = LinearLayoutManager(context)
@@ -40,8 +41,9 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
     }
 
     companion object {
-        fun newInstance(category: String) = CategoryOperationFragment().apply {
-            this.category = category
+        fun newInstance(category: String, type: String) = CategoryOperationFragment().apply {
+            item.category = category
+            item.type = type
         }
     }
 }

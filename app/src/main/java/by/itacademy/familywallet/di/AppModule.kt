@@ -8,6 +8,7 @@ import by.itacademy.familywallet.data.CurrencyApi
 import by.itacademy.familywallet.data.DataRepository
 import by.itacademy.familywallet.data.FirebaseDataBase
 import by.itacademy.familywallet.data.FirebaseRepositoryImpl
+import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.presentation.ItemClickListener
 import by.itacademy.familywallet.presentation.ItemOnLongClickListener
@@ -59,7 +60,7 @@ val viewModelModule = module {
     viewModel { StartFragmentViewModel(get()) }
     viewModel { StatisticViewModel() }
     viewModel { DateSettingsViewModel() }
-    viewModel { (category: String) -> CategoryOperationViewModel(category) }
+    viewModel { (item: UIModel.CategoryModel) -> CategoryOperationViewModel(item) }
     viewModel { IconChooseViewModel() }
     viewModel { SmsViewModel() }
     viewModel { NewCategoryViewModel() }

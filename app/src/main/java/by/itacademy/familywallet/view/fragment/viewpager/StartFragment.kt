@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.data.BANK
+import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.databinding.FragmentStartBinding
 import by.itacademy.familywallet.presentation.FragmentAdapter
 import by.itacademy.familywallet.utils.PiePreparator
@@ -48,7 +49,7 @@ class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.la
                 setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                     override fun onNothingSelected() {}
                     override fun onValueSelected(e: Entry?, h: Highlight?) {
-                        addFragment(CategoryOperationFragment.newInstance((e as PieEntry).label))
+                        addFragment(CategoryOperationFragment.newInstance((e as PieEntry).label, EXPENSES))
                     }
                 })
             }
