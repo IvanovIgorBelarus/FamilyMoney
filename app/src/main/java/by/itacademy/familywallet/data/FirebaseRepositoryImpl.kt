@@ -5,6 +5,9 @@ import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Icons
 import by.itacademy.familywallet.utils.UserUtils
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -19,7 +22,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
-    override suspend fun doTransaction(transactionModel: UIModel.TransactionModel) {
+    override suspend fun doTransaction(transactionModel: UIModel.TransactionModel, isSms: Boolean) {
         db.collection(TRANSACTIONS).add(
             mapOf(
                 UID to transactionModel.uid,
@@ -30,7 +33,11 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 VALUE to transactionModel.value,
                 DATE to transactionModel.date
             )
-        )
+        ).addOnSuccessListener {
+            if (isSms) {
+                CoroutineScope(Dispatchers.IO).launch { deleteItem(UIModel.SmsModel(id = transactionModel.id)) }
+            }
+        }
     }
 
     override suspend fun doBakTransactions(transactionModel: UIModel.TransactionModel) {

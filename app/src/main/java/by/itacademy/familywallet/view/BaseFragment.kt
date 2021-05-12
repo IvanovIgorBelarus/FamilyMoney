@@ -30,7 +30,6 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         super.onCreate(savedInstanceState)
         EventBus.getDefault().register(this)
         parentActivity = (activity as FragmentsActivity)
-        updateAdapter()
     }
 
     override fun onCreateView(
@@ -41,6 +40,7 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
     override fun onResume() {
         super.onResume()
         viewModel?.getData()
+        updateAdapter()
     }
 
     override fun onDestroy() {

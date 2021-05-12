@@ -39,8 +39,11 @@ class SmsFragment : BaseFragment<FragmentAdapter, SmsViewModel>(R.layout.fragmen
                     currency = (item as UIModel.SmsModel).currency,
                     moneyType = CARD,
                     date = item.date,
-                    value = item.value
-                ), false
+                    value = item.value,
+                    id = item.id
+                ),
+                isUpdate = false,
+                isSms = true
             )
         )
     }
