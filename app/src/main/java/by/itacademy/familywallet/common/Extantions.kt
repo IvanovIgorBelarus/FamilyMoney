@@ -1,5 +1,6 @@
 package by.itacademy.familywallet.common
 
+import android.util.Log
 import by.itacademy.familywallet.App.Companion.dateFilterType
 import by.itacademy.familywallet.App.Companion.endDate
 import by.itacademy.familywallet.App.Companion.startDate
@@ -8,10 +9,12 @@ import by.itacademy.familywallet.data.EXPENSES
 import by.itacademy.familywallet.data.INCOMES
 import by.itacademy.familywallet.data.MONTH_FILTER
 import by.itacademy.familywallet.data.RANGE_FILTER
+import by.itacademy.familywallet.data.TAG
 import by.itacademy.familywallet.data.WEEK_FILTER
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.toEndOfDay
 import by.itacademy.familywallet.utils.toStartOfDay
+import by.itacademy.familywallet.utils.toStringFormat
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -36,7 +39,7 @@ fun List<UIModel.TransactionModel>.currentDayFilter(): List<UIModel.TransactionM
 }
 
 fun List<UIModel.TransactionModel>.currentWeekFilter(): List<UIModel.TransactionModel> {
-    val firstDay = Calendar.getInstance().apply { add(Calendar.HOUR_OF_DAY, -7) }.time.toStartOfDay.time
+    val firstDay = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -6) }.time.toStartOfDay.time
     val lastDay = Calendar.getInstance().time.toEndOfDay.time
     return this.filter { it.date!! in firstDay..lastDay }
 }
@@ -47,7 +50,8 @@ fun List<UIModel.TransactionModel>.currentMonthFilter(): List<UIModel.Transactio
     return this.filter { it.date!! in firstDayOfMonth..lastDayOfMonth }
 }
 
-fun List<UIModel.TransactionModel>.currentRangeFilter(): List<UIModel.TransactionModel> = this.filter { it.date!! in startDate!!..endDate!! }
+fun List<UIModel.TransactionModel>.currentRangeFilter(): List<UIModel.TransactionModel> {
+    return this.filter { it.date!! in startDate!!..endDate!! }}
 
 
 fun List<UIModel.TransactionModel>.currentDateFilter(): List<UIModel.TransactionModel> {
@@ -60,8 +64,8 @@ fun List<UIModel.TransactionModel>.currentDateFilter(): List<UIModel.Transaction
     }
 }
 
-fun List<UIModel.CategoryModel>.categoryPartnersFilter(partner: UIModel.AccountModel): List<UIModel.CategoryModel> =
-    this.filter { (it.uid == partner.uid) || (it.uid == partner.partnerUid) }
+fun List<UIModel.CategoryModel>.categoryPartnersFilter(partner: UIModel.AccountModel?): List<UIModel.CategoryModel> =
+    this.filter { (it.uid == partner?.uid) || (it.uid == partner?.partnerUid) }
 
 fun List<UIModel.CategoryModel>.categoryTypeFilter(type: String): List<UIModel.CategoryModel> = this.filter { it.type == type }
 

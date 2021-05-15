@@ -3,6 +3,7 @@ package by.itacademy.familywallet.view.fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import by.itacademy.familywallet.R
@@ -39,6 +40,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(
     private lateinit var binding: FragmentTransactionBinding
     private var item: UIModel.TransactionModel? = null
     private var isUpdate = false
+    private var isSms = false
 
     override val viewModel by inject<TransactionViewModel>()
 
@@ -113,6 +115,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(
                     if (item?.type == BANK) {
                         hideKeyBoard()
                         binding.currencyLayout.visibility = View.VISIBLE
+                        binding.currencyLayout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_animation_fall_down))
                         viewModel.getCurrency(binding.currencySpinner.selectedItem.toString())
                         viewModel.liveDataCurrency.observe(this@TransactionFragment, { transactionCurrency.setText(it.toString()) })
                     } else {
@@ -144,7 +147,8 @@ class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(
             currency = binding.currencySpinner.selectedItem.toString(),
             moneyType = moneyType,
             value = binding.transactionValue.text.toString().toDouble(),
-            date = binding.date.date
+            date = binding.date.date,
+            id = item?.id
         )
         if (transactionModel.category == getString(R.string.category_null_title)) {
             Toast.makeText(context, "Выберите категорию!!!", Toast.LENGTH_SHORT).show()
@@ -152,15 +156,14 @@ class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(
             if (item?.currency.isNullOrEmpty()) {
                 dialog.createTransactionDialog(this, transactionModel)
             } else {
-                transactionModel.id = item?.id
-                dialog.createTransactionDialog(this, transactionModel, isUpdate)
+                dialog.createTransactionDialog(this, transactionModel, isUpdate, isSms)
             }
         }
     }
 
     private fun doBankTransaction() {
         val transactionValue = binding.transactionValue.text.toString().toDouble()
-        val currency=binding.transactionCurrency.text.toString().toDouble()
+        val currency = binding.transactionCurrency.text.toString().toDouble()
         val transactionModel = UIModel.TransactionModel(
             uid = UserUtils.getUsersUid(),
             type = INCOMES,
@@ -170,7 +173,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(
             value = transactionValue,
             date = binding.date.date
         )
-        viewModel.doTransaction(transactionModel,currency)
+        viewModel.doTransaction(transactionModel, currency)
     }
 
     override fun listenBus(wrapper: Any) {
@@ -191,8 +194,9 @@ class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(
             }
         }
 
-        fun newInstance(item: UIModel.TransactionModel, isUpdate: Boolean = true) = TransactionFragment().apply {
+        fun newInstance(item: UIModel.TransactionModel, isUpdate: Boolean = true, isSms: Boolean = false) = TransactionFragment().apply {
             this.isUpdate = isUpdate
+            this.isSms = isSms
             arguments = Bundle().apply {
                 with(item) {
                     putString(ID, id)

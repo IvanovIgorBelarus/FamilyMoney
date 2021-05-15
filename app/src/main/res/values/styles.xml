@@ -19,6 +19,7 @@
     <style name="datePicker" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:colorAccent">@color/controlActivated</item>
         <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColor">@color/controlActivated</item>
     </style>
 
     <style name="PrimaryTextView" parent="Widget.AppCompat.TextView">

@@ -1,10 +1,14 @@
 package by.itacademy.familywallet.data
 
-import android.util.Log
+import by.itacademy.familywallet.common.DeleteSmsWrapper
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Icons
 import by.itacademy.familywallet.utils.UserUtils
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -19,7 +23,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
-    override suspend fun doTransaction(transactionModel: UIModel.TransactionModel) {
+    override suspend fun doTransaction(transactionModel: UIModel.TransactionModel, isSms: Boolean) {
         db.collection(TRANSACTIONS).add(
             mapOf(
                 UID to transactionModel.uid,
@@ -30,7 +34,14 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 VALUE to transactionModel.value,
                 DATE to transactionModel.date
             )
-        )
+        ).addOnSuccessListener {
+            if (isSms) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    deleteItem(UIModel.SmsModel(id = transactionModel.id))
+                    EventBus.getDefault().post(DeleteSmsWrapper())
+                }
+            }
+        }
     }
 
     override suspend fun doBakTransactions(transactionModel: UIModel.TransactionModel) {
@@ -49,8 +60,6 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 DATE to transactionModel.date
             )
         )
-            .addOnFailureListener { error -> Log.e(ERROR, "$error") }
-            .addOnSuccessListener { result -> Log.d(TAG, "${result.id}") }
     }
 
     override suspend fun addNewCategory(categoryItem: UIModel.CategoryModel) {

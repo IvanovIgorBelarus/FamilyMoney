@@ -17,7 +17,7 @@ const val CURRENCY = "currency"
 const val USERS = "Users"
 const val PARTNER_UID = "partner uid"
 const val ID="ID"
-const val INCOMES_TITLE="Доходы"
+const val INCOMES_TITLE="Обмен валюты"
 
 const val DATE = "date"
 const val CATEGORY = "category"

@@ -78,7 +78,7 @@ class Dialogs(private val repo: DataRepository) {
         dialog.show()
     }
 
-    fun createTransactionDialog(fragment: BaseFragment<*, *>, item: UIModel.TransactionModel, isUpdate: Boolean = false) {
+    fun createTransactionDialog(fragment: BaseFragment<*, *>, item: UIModel.TransactionModel, isUpdate: Boolean = false, isSms: Boolean = false) {
         val context = fragment.context!!
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.warning))
@@ -90,7 +90,7 @@ class Dialogs(private val repo: DataRepository) {
                     } else if (item.moneyType == BANK_MINUS || item.moneyType == BANK_PLUS) {
                         repo.doBakTransactions(item)
                     } else {
-                        repo.doTransaction(item)
+                        repo.doTransaction(item, isSms)
                     }
                 }
                 dialog.cancel()
@@ -108,7 +108,7 @@ class Dialogs(private val repo: DataRepository) {
         return if (transactionModel.moneyType == BANK_MINUS || transactionModel.moneyType == BANK_PLUS) {
             context.getString(R.string.message1)
         } else {
-            String.format(context.getString(R.string.message),transactionModel.category)
+            String.format(context.getString(R.string.message), transactionModel.category)
         }
     }
 }
