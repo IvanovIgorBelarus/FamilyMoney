@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.viewpager.OperationsFragment">
+    tools:context=".features.history.presentation.OperationsFragment">
 
     <TextView
         android:id="@+id/titleTextView"

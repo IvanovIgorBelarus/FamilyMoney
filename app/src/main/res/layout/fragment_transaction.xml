@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.TransactionFragment">
+    tools:context=".features.transaction.presentation.TransactionFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/tabBackgroundColor"
         android:padding="10dp"
-        tools:context=".view.fragment.TransactionFragment">
+        tools:context=".features.transaction.presentation.TransactionFragment">
 
         <TextView
             android:id="@+id/transactionCategoryTitle"

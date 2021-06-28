@@ -7,7 +7,7 @@
     android:background="@color/tabBackgroundColor"
     android:orientation="vertical"
     android:layout_marginTop="?attr/actionBarSize"
-    tools:context=".view.fragment.DateSettingFragment">
+    tools:context=".features.settings.presentation.DateSettingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/primary_rectangle_button_background"

@@ -9,7 +9,7 @@
     android:focusable="true"
     android:orientation="horizontal"
     android:padding="10dp"
-    tools:context=".view.fragment.NewCategoryFragment">
+    tools:context=".features.new_category.presentation.NewCategoryFragment">
 
     <TextView
         android:id="@+id/title"
