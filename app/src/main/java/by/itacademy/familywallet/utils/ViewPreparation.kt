@@ -10,9 +10,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import by.itacademy.familywallet.R
-import by.itacademy.familywallet.data.BANK
-import by.itacademy.familywallet.data.EXPENSES
-import by.itacademy.familywallet.data.INCOMES
+import by.itacademy.familywallet.core.others.BANK
+import by.itacademy.familywallet.core.others.EXPENSES
+import by.itacademy.familywallet.core.others.INCOMES
 
 class ViewPreparation {
     fun prepareView(view: View, type: String) {

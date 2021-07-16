@@ -1,6 +1,6 @@
 package by.itacademy.familywallet.model
 
-import by.itacademy.familywallet.data.EXPENSES
+import by.itacademy.familywallet.core.others.EXPENSES
 
 object PieModelMapper {
     fun map(categories: List<UIModel.CategoryModel>, expenses: List<UIModel.TransactionModel>): List<PieModel> {
