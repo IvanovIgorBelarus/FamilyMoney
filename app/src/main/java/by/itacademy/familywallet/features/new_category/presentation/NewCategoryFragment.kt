@@ -49,22 +49,17 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, NewCategoryViewModel>(
 
     private fun initViews() {
         with(binding) {
-            itemName.setText(item?.category ?: "")
-            with(saveButton) {
-                setOnClickListener {
-                    if (item?.category.isNullOrEmpty()) {
-                        createNewCategory()
-                    } else {
-                        updateCategory()
-                    }
+            itemName.text = item?.category ?: ""
+            itemName.saveClickListener = {
+                if (item?.category.isNullOrEmpty()) {
+                    createNewCategory()
+                } else {
+                    updateCategory()
                 }
             }
-            with(iconButton) {
-                val icon = item?.icon ?: Icons.getIcons()[0].name
-                setImageDrawable(resources.getDrawable(Icons.valueOf(icon).imageRes, context.theme))
-                setColorFilter(resources.getColor(R.color.primaryTextColor, context.theme))
-                setOnClickListener { addFragment(IconChooseFragment.newInstance()) }
-            }
+            itemName.imageClickListener = { addFragment(IconChooseFragment.newInstance()) }
+            val icon = item?.icon ?: Icons.getIcons()[0].name
+            itemName.categoryImage = Icons.valueOf(icon).imageRes
             if (item?.id.isNullOrEmpty()) {
                 title.text = String.format(getString(R.string.new_category_tittle), if (item?.type!! == INCOMES) getString(R.string.income) else getString(R.string.expenses))
             } else {
@@ -86,17 +81,17 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, NewCategoryViewModel>(
     override fun listenBus(wrapper: Any) {
         super.listenBus(wrapper)
         when (wrapper) {
-            is IconWrapper -> with(binding.iconButton) {
+            is IconWrapper -> {
                 item?.icon = wrapper.icon
-                setImageDrawable(resources.getDrawable(Icons.valueOf(wrapper.icon).imageRes, context.theme))
-                setColorFilter(resources.getColor(R.color.primaryTextColor, context.theme))
+                Icons.valueOf(wrapper.icon)
+                binding.itemName.categoryImage = Icons.valueOf(wrapper.icon).imageRes
             }
         }
     }
 
     private fun updateCategory() {
         with(item!!) {
-            category = binding.itemName.text.toString()
+            category = binding.itemName.text
             type = item?.type!!
         }
         viewModel.updateCategory(item!!)

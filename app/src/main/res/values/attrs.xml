@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomEditText">
+        <attr name="editBackground" format="reference|color" />
+        <attr name="categoryImage" format="reference|color" />
+        <attr name="saveImage" format="reference|color"/>
+        <attr name="text" format="reference|string" />
+        <attr name="hint" format="reference|string"/>
+    </declare-styleable>
+</resources>
