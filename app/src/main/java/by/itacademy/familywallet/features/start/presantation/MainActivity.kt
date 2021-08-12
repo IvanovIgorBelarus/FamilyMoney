@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
@@ -43,7 +44,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.loginIn.setOnClickListener {
             signIn()
-            binding.loginIn.isEnabled = false
+            binding.progressBar.visibility= View.VISIBLE
+            binding.loginIn.visibility = View.INVISIBLE
         }
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -65,7 +67,8 @@ class MainActivity : AppCompatActivity() {
             } catch (e: ApiException) {
                 dialog.createNegativeDialog(this, getString(R.string.alert_negative_auth_message2))
                 Log.w(by.itacademy.familywallet.core.others.TAG, "Google signin failed", e)
-                binding.loginIn.isEnabled = true
+                binding.progressBar.visibility= View.GONE
+                binding.loginIn.visibility = View.VISIBLE
             }
         }
     }
@@ -83,7 +86,8 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     Log.w(by.itacademy.familywallet.core.others.TAG, "signInWithCredential:failure", task.exception)
                     dialog.createNegativeDialog(this, getString(R.string.alert_negative_auth_message))
-                    binding.loginIn.isEnabled = false
+                    binding.progressBar.visibility= View.INVISIBLE
+                    binding.loginIn.visibility = View.VISIBLE
                     //updateUI(null)
                 }
             }
