@@ -88,7 +88,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
-    override suspend fun getSmsList(): List<UIModel.SmsModel> = suspendCoroutine { continuation ->
+    override suspend fun getSmsList(forceLoad: Boolean): List<UIModel.SmsModel> = suspendCoroutine { continuation ->
         val list = mutableListOf<UIModel.SmsModel>()
         db.collection(NEW_SMS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
@@ -106,7 +106,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
     }
 
 
-    override suspend fun getPartner(): UIModel.AccountModel = suspendCoroutine { continuation ->
+    override suspend fun getPartner(forceLoad: Boolean): UIModel.AccountModel = suspendCoroutine { continuation ->
         var partner = UIModel.AccountModel()
         db.collection(USERS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
@@ -125,7 +125,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         }
     }
 
-    override suspend fun getTransactionsList(): List<UIModel.TransactionModel> = suspendCoroutine { continuation ->
+    override suspend fun getTransactionsList(forceLoad: Boolean): List<UIModel.TransactionModel> = suspendCoroutine { continuation ->
         val list = mutableListOf<UIModel.TransactionModel>()
         db.collection(TRANSACTIONS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
@@ -146,7 +146,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         }
     }
 
-    override suspend fun getCategoriesList(): List<UIModel.CategoryModel> = suspendCoroutine { continuation ->
+    override suspend fun getCategoriesList(forceLoad: Boolean): List<UIModel.CategoryModel> = suspendCoroutine { continuation ->
         val list = mutableListOf<UIModel.CategoryModel>()
         db.collection(CATEGORIES).get()
             .addOnSuccessListener { result ->
