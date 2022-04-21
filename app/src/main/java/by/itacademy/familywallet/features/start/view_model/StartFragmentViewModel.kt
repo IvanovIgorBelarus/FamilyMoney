@@ -18,6 +18,7 @@ import by.itacademy.familywallet.core.others.typeFilter
 import by.itacademy.familywallet.model.CurrencyResponseDTO
 import by.itacademy.familywallet.model.PieModel
 import by.itacademy.familywallet.model.PieModelMapper
+import by.itacademy.familywallet.model.StartModel
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
 import kotlinx.coroutines.CoroutineScope
@@ -26,18 +27,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class StartFragmentViewModel(private val currencyApi: CurrencyApi) : BaseViewModel() {
-    private val mutableLiveDataExpenses = MutableLiveData<Double>()
-    val liveDataExpenses = mutableLiveDataExpenses
-    private val mutableLiveDataIncomes = MutableLiveData<Double>()
-    val liveDataIncomes = mutableLiveDataIncomes
-    private val mutableLiveDataBalance = MutableLiveData<Double>()
-    val liveDataBalance = mutableLiveDataBalance
-    private val mutableLiveDataBank = MutableLiveData<String>()
-    val liveDataDataBank = mutableLiveDataBank
-    private val mutableLiveDataPie = MutableLiveData<List<PieModel>>()
-    val liveDataPie = mutableLiveDataPie
-    private val mutableLiveDataCurrency = MutableLiveData<String>()
-    val liveDataCurrency = mutableLiveDataCurrency
+
+    private val mutableLiveDataStart = MutableLiveData<StartModel>()
+    val liveDataStart = mutableLiveDataStart
 
     override fun getData(forceLoad: Boolean) {
         isLoading.set(true)
@@ -49,14 +41,17 @@ class StartFragmentViewModel(private val currencyApi: CurrencyApi) : BaseViewMod
 
             val currencyList = currencyApi.getCurrencyList().execute().body()
             withContext(Dispatchers.Main) {
-                mutableLiveDataExpenses.value = expensesList.sumByDouble { it.value!! }
-                mutableLiveDataIncomes.value = list.currentDateFilter().typeFilter(INCOMES)?.sumByDouble { it.value!! }
-                mutableLiveDataBalance.value = list.balanceFilter()
-                mutableLiveDataBank.value = getBankString(list.typeFilter(BANK))
-                mutableLiveDataPie.value = PieModelMapper.map(categories, expensesList)
-                mutableLiveDataCurrency.value = getCurrencyString(currencyList)
-                isLoading.set(false)
+
+                mutableLiveDataStart.value = StartModel(
+                    expenses = expensesList.sumByDouble { it.value!! },
+                    incomes = list.currentDateFilter().typeFilter(INCOMES).sumByDouble { it.value!! },
+                    balance = list.balanceFilter(),
+                    bankString = getBankString(list.typeFilter(BANK)),
+                    pieData = PieModelMapper.map(categories, expensesList),
+                    currencyString = getCurrencyString(currencyList)
+                )
             }
+
         }
     }
 

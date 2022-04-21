@@ -29,7 +29,6 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         EventBus.getDefault().register(this)
         parentActivity = (activity as FragmentsActivity)
         updateAdapter()
-        viewModel?.getData()
     }
 
     override fun onCreateView(
