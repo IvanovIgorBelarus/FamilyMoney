@@ -2,7 +2,9 @@ package by.itacademy.familywallet.core.repository.domain
 
 import by.itacademy.familywallet.core.repository.CacheRepository
 import by.itacademy.familywallet.model.UIModel
+import javax.inject.Singleton
 
+@Singleton
 class SmsCache : CacheRepository<List<UIModel.SmsModel>> {
 
     private var smsList: List<UIModel.SmsModel>? = null

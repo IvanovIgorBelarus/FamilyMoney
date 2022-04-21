@@ -2,7 +2,9 @@ package by.itacademy.familywallet.core.repository.domain
 
 import by.itacademy.familywallet.core.repository.CacheRepository
 import by.itacademy.familywallet.model.UIModel
+import javax.inject.Singleton
 
+@Singleton
 class TransactionsCache: CacheRepository<List<UIModel.TransactionModel>> {
 
     private var transactionsList: List<UIModel.TransactionModel>? = null

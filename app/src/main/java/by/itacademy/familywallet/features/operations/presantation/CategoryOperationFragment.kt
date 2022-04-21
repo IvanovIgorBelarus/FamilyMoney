@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.common.wrappers.SettingsChangeWrapper
+import by.itacademy.familywallet.common.wrappers.TransactionWrapper
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.core.adapter.FragmentAdapter
@@ -37,6 +39,13 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
                 layoutManager = LinearLayoutManager(context)
                 adapter = fragmentAdapter
             }
+        }
+    }
+
+    override fun listenBus(wrapper: Any) {
+        when (wrapper) {
+            is TransactionWrapper -> viewModel.getData(true)
+            is SettingsChangeWrapper -> viewModel.getData()
         }
     }
 

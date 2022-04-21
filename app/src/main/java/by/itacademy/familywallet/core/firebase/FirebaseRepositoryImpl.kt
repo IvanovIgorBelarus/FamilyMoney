@@ -1,7 +1,9 @@
 package by.itacademy.familywallet.core.firebase
 
+import by.itacademy.familywallet.common.wrappers.AddOrDeleteCategoryWrapper
+import by.itacademy.familywallet.common.wrappers.DeleteOperationWrapper
 import by.itacademy.familywallet.common.wrappers.DeleteSmsWrapper
-import by.itacademy.familywallet.core.api.DataRepository
+import by.itacademy.familywallet.common.wrappers.TransactionWrapper
 import by.itacademy.familywallet.core.others.BANK_MINUS
 import by.itacademy.familywallet.core.others.CATEGORIES
 import by.itacademy.familywallet.core.others.CATEGORY
@@ -27,9 +29,9 @@ import org.greenrobot.eventbus.EventBus
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository {
+class FirebaseRepositoryImpl(private val db: FirebaseFirestore) {
 
-    override suspend fun addPartner(accountModel: UIModel.AccountModel) {
+    fun addPartner(accountModel: UIModel.AccountModel) {
         db.collection(USERS).add(
             mapOf(
                 UID to accountModel.uid,
@@ -38,7 +40,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
-    override suspend fun doTransaction(transactionModel: UIModel.TransactionModel, isSms: Boolean) {
+    fun doTransaction(transactionModel: UIModel.TransactionModel, isSms: Boolean) {
         db.collection(TRANSACTIONS).add(
             mapOf(
                 UID to transactionModel.uid,
@@ -50,16 +52,20 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 DATE to transactionModel.date
             )
         ).addOnSuccessListener {
-            if (isSms) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    deleteItem(UIModel.SmsModel(id = transactionModel.id))
-                    EventBus.getDefault().post(DeleteSmsWrapper())
-                }
+            val wrapper = if (isSms) {
+                DeleteSmsWrapper()
+            } else {
+                TransactionWrapper()
             }
+            CoroutineScope(Dispatchers.IO).launch {
+                deleteItem(UIModel.SmsModel(id = transactionModel.id))
+                EventBus.getDefault().post(wrapper)
+            }
+
         }
     }
 
-    override suspend fun doBakTransactions(transactionModel: UIModel.TransactionModel) {
+    fun doBakTransactions(transactionModel: UIModel.TransactionModel) {
         var value = if (transactionModel.moneyType == BANK_MINUS) {
             -transactionModel.value!!
         } else {
@@ -77,7 +83,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         )
     }
 
-    override suspend fun addNewCategory(categoryItem: UIModel.CategoryModel) {
+    fun addNewCategory(categoryItem: UIModel.CategoryModel) {
         db.collection(CATEGORIES).add(
             mapOf(
                 UID to categoryItem.uid,
@@ -85,10 +91,10 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
                 TRANSACTION_TYPE to categoryItem.type,
                 ICON to categoryItem.icon
             )
-        )
+        ).addOnSuccessListener { EventBus.getDefault().post(AddOrDeleteCategoryWrapper()) }
     }
 
-    override suspend fun getSmsList(forceLoad: Boolean): List<UIModel.SmsModel> = suspendCoroutine { continuation ->
+    suspend fun getSmsList(): List<UIModel.SmsModel> = suspendCoroutine { continuation ->
         val list = mutableListOf<UIModel.SmsModel>()
         db.collection(NEW_SMS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
@@ -106,7 +112,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
     }
 
 
-    override suspend fun getPartner(forceLoad: Boolean): UIModel.AccountModel = suspendCoroutine { continuation ->
+    suspend fun getPartner(): UIModel.AccountModel = suspendCoroutine { continuation ->
         var partner = UIModel.AccountModel()
         db.collection(USERS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
@@ -125,7 +131,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         }
     }
 
-    override suspend fun getTransactionsList(forceLoad: Boolean): List<UIModel.TransactionModel> = suspendCoroutine { continuation ->
+    suspend fun getTransactionsList(): List<UIModel.TransactionModel> = suspendCoroutine { continuation ->
         val list = mutableListOf<UIModel.TransactionModel>()
         db.collection(TRANSACTIONS).get().addOnSuccessListener { result ->
             result.forEach { doc ->
@@ -146,7 +152,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
         }
     }
 
-    override suspend fun getCategoriesList(forceLoad: Boolean): List<UIModel.CategoryModel> = suspendCoroutine { continuation ->
+    suspend fun getCategoriesList(): List<UIModel.CategoryModel> = suspendCoroutine { continuation ->
         val list = mutableListOf<UIModel.CategoryModel>()
         db.collection(CATEGORIES).get()
             .addOnSuccessListener { result ->
@@ -165,16 +171,21 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) : DataRepository
             }
     }
 
-    override suspend fun deleteItem(item: Any?) {
-        when (item) {
-            is UIModel.CategoryModel -> db.collection(CATEGORIES).document("${item.id}").delete()
-            is UIModel.AccountModel -> db.collection(USERS).document("${item.id}").delete()
-            is UIModel.TransactionModel -> db.collection(TRANSACTIONS).document("${item.id}").delete()
-            is UIModel.SmsModel -> db.collection(NEW_SMS).document("${item.id}").delete()
+    fun deleteItem(item: Any?) {
+        var category = when (item) {
+            is UIModel.CategoryModel -> CATEGORIES
+            is UIModel.AccountModel -> USERS
+            is UIModel.TransactionModel -> TRANSACTIONS
+            is UIModel.SmsModel -> NEW_SMS
+            else -> ""
         }
+        db.collection(category)
+            .document("${(item as UIModel.BaseModel).itemId}")
+            .delete()
+            .addOnSuccessListener { EventBus.getDefault().post(DeleteOperationWrapper()) }
     }
 
-    override suspend fun upDateItem(item: Any?) {
+    fun upDateItem(item: Any?) {
         when (item) {
             is UIModel.CategoryModel -> db.collection(CATEGORIES).document("${item.id}").update(
                 mapOf(

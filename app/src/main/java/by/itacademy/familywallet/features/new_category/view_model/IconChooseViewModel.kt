@@ -6,7 +6,7 @@ import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
 
 class IconChooseViewModel : BaseViewModel() {
 
-    override fun getData() {
+    override fun getData(forceLoad: Boolean) {
         isLoading.set(true)
         mutableLiveData.value = Icons.getIcons()
         isLoading.set(false)

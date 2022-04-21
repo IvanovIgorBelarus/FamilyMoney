@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.common.wrappers.DeleteOperationWrapper
+import by.itacademy.familywallet.common.wrappers.SettingsChangeWrapper
+import by.itacademy.familywallet.core.adapter.FragmentAdapter
 import by.itacademy.familywallet.core.others.BANK
+import by.itacademy.familywallet.core.others.BaseFragment
 import by.itacademy.familywallet.core.others.EXPENSES
 import by.itacademy.familywallet.databinding.FragmentStartBinding
-import by.itacademy.familywallet.core.adapter.FragmentAdapter
+import by.itacademy.familywallet.features.operations.presantation.CategoryOperationFragment
+import by.itacademy.familywallet.features.start.view_model.StartFragmentViewModel
+import by.itacademy.familywallet.features.transaction.presentation.TransactionFragment
 import by.itacademy.familywallet.utils.PiePreparator
 import by.itacademy.familywallet.utils.toStringFormat
-import by.itacademy.familywallet.core.others.BaseFragment
-import by.itacademy.familywallet.features.operations.presantation.CategoryOperationFragment
-import by.itacademy.familywallet.features.transaction.presentation.TransactionFragment
-import by.itacademy.familywallet.features.start.view_model.StartFragmentViewModel
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
@@ -65,6 +67,12 @@ class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.la
                 liveDataCurrency.observe(this@StartFragment, Observer { currencyView.text=it })
             }
             currencyTitle.text= String.format(getString(R.string.currency_title, Calendar.getInstance().timeInMillis.toStringFormat))
+        }
+    }
+
+    override fun listenBus(wrapper: Any) {
+        if (wrapper is SettingsChangeWrapper || wrapper is DeleteOperationWrapper){
+            viewModel.getData()
         }
     }
 

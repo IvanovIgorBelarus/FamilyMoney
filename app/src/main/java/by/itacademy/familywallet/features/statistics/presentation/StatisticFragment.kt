@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
-import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
-import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.common.wrappers.DeleteOperationWrapper
+import by.itacademy.familywallet.common.wrappers.SettingsChangeWrapper
+import by.itacademy.familywallet.common.wrappers.TransactionWrapper
 import by.itacademy.familywallet.core.adapter.FragmentAdapter
-import by.itacademy.familywallet.core.others.ItemClickListener
 import by.itacademy.familywallet.core.others.BaseFragment
+import by.itacademy.familywallet.core.others.ItemClickListener
+import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
 import by.itacademy.familywallet.features.operations.presantation.CategoryOperationFragment
 import by.itacademy.familywallet.features.statistics.view_model.StatisticViewModel
+import by.itacademy.familywallet.model.UIModel
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -42,6 +45,14 @@ class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.la
             binding.titleEmptyAdapter.visibility = View.VISIBLE
         } else {
             binding.titleEmptyAdapter.visibility = View.GONE
+        }
+    }
+
+    override fun listenBus(wrapper: Any) {
+        when (wrapper) {
+            is TransactionWrapper,
+            is DeleteOperationWrapper -> viewModel.getData(true)
+            is SettingsChangeWrapper -> viewModel.getData()
         }
     }
 

@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserSettingsViewModel : BaseViewModel() {
-    override fun getData() {
+    override fun getData(forceLoad: Boolean) {
     }
 
     fun createPartner(text: String) {

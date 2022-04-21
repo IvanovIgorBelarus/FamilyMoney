@@ -13,15 +13,15 @@ import kotlinx.coroutines.launch
 
 class StatisticViewModel : BaseViewModel() {
 
-    override fun getData() {
+    override fun getData(forceLoad: Boolean) {
         isLoading.set(true)
         viewModelScope.launch {
             val resultList = mutableSetOf<UIModel.StatisticModel>()
             val incomes = mutableListOf<UIModel.StatisticModel>()
             val expenses = mutableListOf<UIModel.StatisticModel>()
             val partner = repo.getPartner()
-            val transactionsList = repo.getTransactionsList().transactionsPartnersFilter(partner).currentDateFilter()
-            val categoryList = repo.getCategoriesList().categoryPartnersFilter(partner)
+            val transactionsList = repo.getTransactionsList(forceLoad).transactionsPartnersFilter(partner).currentDateFilter()
+            val categoryList = repo.getCategoriesList(forceLoad).categoryPartnersFilter(partner)
             categoryList.forEach {
                 val item = filterForResult(transactionsList, it.category, INCOMES)
                 if (item.value != 0.0 && !resultList.contains(item)) {

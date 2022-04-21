@@ -31,8 +31,8 @@
             android:visibility="@{progress.isLoading ? View.VISIBLE :View.GONE}">
 
             <ProgressBar
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center" />
         </FrameLayout>
 

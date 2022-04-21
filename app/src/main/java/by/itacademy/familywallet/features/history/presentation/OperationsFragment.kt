@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.common.wrappers.SettingsChangeWrapper
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
 import by.itacademy.familywallet.core.adapter.FragmentAdapter
 import by.itacademy.familywallet.core.others.ItemOnLongClickListener
@@ -42,6 +43,12 @@ class OperationsFragment : BaseFragment<FragmentAdapter, BaseViewModel>(R.layout
             binding.titleEmptyAdapter.visibility = View.VISIBLE
         } else {
             binding.titleEmptyAdapter.visibility = View.GONE
+        }
+    }
+
+    override fun listenBus(wrapper: Any) {
+        if (wrapper is SettingsChangeWrapper){
+            viewModel.getData()
         }
     }
 

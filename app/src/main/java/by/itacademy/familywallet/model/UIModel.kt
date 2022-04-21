@@ -5,7 +5,7 @@ sealed class UIModel {
         var id: String? = null,
         var uid: String? = null,
         var partnerUid: String? = null
-    )
+    ):BaseModel(id)
 
     data class CategoryModel(
         var id: String? = null,
@@ -13,7 +13,7 @@ sealed class UIModel {
         var category: String? = null,
         var type: String? = null,
         var icon: String? = null
-    )
+    ):BaseModel(id)
 
     data class StatisticModel(
         var category: String?,
@@ -31,7 +31,7 @@ sealed class UIModel {
         var moneyType: String? = null,
         var date: Long? = null,
         var value: Double? = null
-    )
+    ):BaseModel(id)
 
     data class ArchiveMonthModel(
         val monthAndYear: String,
@@ -44,5 +44,9 @@ sealed class UIModel {
         var date: Long? = null,
         var value: Double?=null,
         var currency: String? = null
+    ):BaseModel(id)
+
+    open class BaseModel(
+        var itemId: String? = null
     )
 }

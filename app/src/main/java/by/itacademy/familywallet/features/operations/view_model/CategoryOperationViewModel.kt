@@ -12,11 +12,11 @@ import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
 import kotlinx.coroutines.launch
 
 class CategoryOperationViewModel(private val item: UIModel.CategoryModel) : BaseViewModel() {
-    override fun getData() {
+    override fun getData(forceLoad: Boolean) {
         isLoading.set(true)
         viewModelScope.launch {
             val partner = repo.getPartner()
-            val list = repo.getTransactionsList().transactionsPartnersFilter(partner)
+            val list = repo.getTransactionsList(forceLoad).transactionsPartnersFilter(partner)
                 .currentDateFilter()
                 .typeFilter(item.type!!)
                 .sortedByDescending { it.date }

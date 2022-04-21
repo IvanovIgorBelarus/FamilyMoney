@@ -39,13 +39,13 @@ class StartFragmentViewModel(private val currencyApi: CurrencyApi) : BaseViewMod
     private val mutableLiveDataCurrency = MutableLiveData<String>()
     val liveDataCurrency = mutableLiveDataCurrency
 
-    override fun getData() {
+    override fun getData(forceLoad: Boolean) {
         isLoading.set(true)
         CoroutineScope(Dispatchers.IO).launch {
             val partner = repo.getPartner()
-            val list = repo.getTransactionsList().transactionsPartnersFilter(partner)
+            val list = repo.getTransactionsList(forceLoad).transactionsPartnersFilter(partner)
             val expensesList = list.currentDateFilter().typeFilter(EXPENSES)
-            val categories = repo.getCategoriesList().categoryTypeFilter(EXPENSES)
+            val categories = repo.getCategoriesList(forceLoad).categoryTypeFilter(EXPENSES)
 
             val currencyList = currencyApi.getCurrencyList().execute().body()
             withContext(Dispatchers.Main) {
