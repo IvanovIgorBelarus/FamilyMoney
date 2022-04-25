@@ -80,7 +80,9 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) {
                 VALUE to value,
                 DATE to transactionModel.date
             )
-        )
+        ).addOnSuccessListener {
+            EventBus.getDefault().post(TransactionWrapper())
+        }
     }
 
     fun addNewCategory(categoryItem: UIModel.CategoryModel) {

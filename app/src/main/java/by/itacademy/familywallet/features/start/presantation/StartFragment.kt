@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import by.itacademy.familywallet.R
-import by.itacademy.familywallet.common.wrappers.DeleteOperationWrapper
-import by.itacademy.familywallet.common.wrappers.SettingsChangeWrapper
+import by.itacademy.familywallet.common.wrappers.TransactionWrapper
 import by.itacademy.familywallet.core.adapter.FragmentAdapter
 import by.itacademy.familywallet.core.others.BANK
 import by.itacademy.familywallet.core.others.BaseFragment
@@ -74,9 +73,7 @@ class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.la
     }
 
     override fun listenBus(wrapper: Any) {
-        if (wrapper is SettingsChangeWrapper || wrapper is DeleteOperationWrapper) {
-            viewModel.getData()
-        }
+        viewModel.getData(wrapper is TransactionWrapper)
     }
 
     companion object {
