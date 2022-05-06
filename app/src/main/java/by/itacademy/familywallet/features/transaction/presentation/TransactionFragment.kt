@@ -116,7 +116,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(
                         hideKeyBoard()
                         binding.currencyLayout.visibility = View.VISIBLE
                         binding.currencyLayout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_animation_fall_down))
-                        viewModel.getCurrency(binding.currencySpinner.selectedItem.toString())
+//                        viewModel.getCurrency(binding.currencySpinner.selectedItem.toString())
                         viewModel.liveDataCurrency.observe(this@TransactionFragment, { transactionCurrency.setText(it.toString()) })
                     } else {
                         createDialog(CARD)

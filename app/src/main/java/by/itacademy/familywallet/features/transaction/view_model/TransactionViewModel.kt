@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 class TransactionViewModel(private val currencyApi: CurrencyApi) : BaseViewModel() {
     private val mutableLiveDataCurrency = MutableLiveData<Double>()
     val liveDataCurrency = mutableLiveDataCurrency
-    override fun getData() {
+    override fun getData(forceLoad: Boolean) {
     }
 
     fun doTransaction(item: UIModel.TransactionModel, currencyValue: Double) {
@@ -63,8 +63,8 @@ class TransactionViewModel(private val currencyApi: CurrencyApi) : BaseViewModel
     fun getCurrency(currency: String) {
         CoroutineScope(Dispatchers.IO).launch {
             var result = 0.0
-            val currencyList = currencyApi.getCurrencyList().execute().body()
-            currencyList?.forEach {
+            val currencyList = currencyApi.getCurrencyList()
+            currencyList.forEach {
                 if (it.currency == currency) {
                     result = it.rate
                     return@forEach

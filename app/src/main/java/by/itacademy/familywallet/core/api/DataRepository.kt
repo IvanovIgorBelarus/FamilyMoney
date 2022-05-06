@@ -7,10 +7,10 @@ interface DataRepository {
     suspend fun doTransaction(transactionModel: UIModel.TransactionModel, isSms: Boolean = false)
     suspend fun doBakTransactions(transactionModel: UIModel.TransactionModel)
     suspend fun addNewCategory(categoryItem: UIModel.CategoryModel)
-    suspend fun getSmsList(): List<UIModel.SmsModel>
-    suspend fun getPartner(): UIModel.AccountModel
-    suspend fun getTransactionsList(): List<UIModel.TransactionModel>
-    suspend fun getCategoriesList(): List<UIModel.CategoryModel>
+    suspend fun getSmsList(forceLoad: Boolean = false): List<UIModel.SmsModel>
+    suspend fun getPartner(forceLoad: Boolean = false): UIModel.AccountModel
+    suspend fun getTransactionsList(forceLoad: Boolean = false): List<UIModel.TransactionModel>
+    suspend fun getCategoriesList(forceLoad: Boolean = false): List<UIModel.CategoryModel>
     suspend fun deleteItem(item: Any?)
     suspend fun upDateItem(item: Any?)
 }

@@ -15,11 +15,11 @@ import java.util.*
 
 class DateSettingsViewModel : BaseViewModel() {
 
-    override fun getData() {
+    override fun getData(forceLoad: Boolean) {
         isLoading.set(true)
         viewModelScope.launch {
             val partner = repo.getPartner()
-            val list = repo.getTransactionsList().transactionsPartnersFilter(partner)
+            val list = repo.getTransactionsList(forceLoad).transactionsPartnersFilter(partner)
             mutableLiveData.value = map(list).toList()
             isLoading.set(false)
         }

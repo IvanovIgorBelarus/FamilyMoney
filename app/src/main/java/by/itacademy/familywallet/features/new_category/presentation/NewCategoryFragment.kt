@@ -17,6 +17,9 @@ import by.itacademy.familywallet.core.adapter.FragmentAdapter
 import by.itacademy.familywallet.utils.Icons
 import by.itacademy.familywallet.core.others.BaseFragment
 import by.itacademy.familywallet.features.new_category.view_model.NewCategoryViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class NewCategoryFragment : BaseFragment<FragmentAdapter, NewCategoryViewModel>(R.layout.fragment_new_category) {
@@ -69,10 +72,12 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, NewCategoryViewModel>(
     }
 
     private fun createNewCategory() {
-        item?.category = binding.itemName.text.toString()
+        item?.category = binding.itemName.text
         if (!item?.category.isNullOrEmpty()) {
-            viewModel.createNewCategory(item!!)
-            onBack()
+            CoroutineScope(Dispatchers.Main).launch {
+                viewModel.createNewCategory(item!!)
+                onBack()
+            }
         } else {
             dialog.createNegativeDialog(context!!, getString(R.string.alert_negative_message_category_create))
         }

@@ -3,12 +3,17 @@ package by.itacademy.familywallet.core.others
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.itacademy.familywallet.core.api.DataRepository
-import by.itacademy.familywallet.core.firebase.FirebaseDataBase
-import by.itacademy.familywallet.core.firebase.FirebaseRepositoryImpl
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel(), KoinComponent {
     protected val mutableLiveData = MutableLiveData<List<Any>>()
-    protected val repo: DataRepository = FirebaseRepositoryImpl(FirebaseDataBase.instance)
+    val repo: DataRepository by inject()
     val liveData = mutableLiveData
-    abstract fun getData()
+
+    init {
+        getData()
+    }
+
+    abstract fun getData(forceLoad: Boolean = false)
 }

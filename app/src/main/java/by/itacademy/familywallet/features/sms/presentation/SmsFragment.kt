@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.wrappers.DeleteSmsWrapper
+import by.itacademy.familywallet.common.wrappers.SettingsChangeWrapper
 import by.itacademy.familywallet.core.others.CARD
 import by.itacademy.familywallet.core.others.EXPENSES
 import by.itacademy.familywallet.databinding.FragmentStatisticsBinding
@@ -74,7 +75,8 @@ class SmsFragment : BaseFragment<FragmentAdapter, SmsViewModel>(R.layout.fragmen
     override fun listenBus(wrapper: Any) {
         super.listenBus(wrapper)
         when(wrapper){
-            is DeleteSmsWrapper ->onResume()
+            is DeleteSmsWrapper -> viewModel.getData(true)
+            is SettingsChangeWrapper -> viewModel.getData()
         }
     }
 

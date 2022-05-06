@@ -18,7 +18,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            androidLogger()
             androidContext(this@App)
             modules(adapterModule, utilsModule, dataModule, viewModelModule, commonModule, retrofitModule)
         }

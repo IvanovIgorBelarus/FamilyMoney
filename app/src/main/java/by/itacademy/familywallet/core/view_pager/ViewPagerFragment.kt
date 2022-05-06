@@ -28,6 +28,7 @@ class ViewPagerFragment : Fragment() {
     private fun setViewPager() {
         val viewPager = binding.viewPager2
         viewPager.adapter = MyPagerAdapter(this)
+        viewPager.offscreenPageLimit = 4
         val tabs = binding.tabLayout
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             when (position) {

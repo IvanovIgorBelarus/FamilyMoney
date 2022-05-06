@@ -28,18 +28,13 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         super.onCreate(savedInstanceState)
         EventBus.getDefault().register(this)
         parentActivity = (activity as FragmentsActivity)
+        updateAdapter()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ) = inflater.inflate(layout, container, false)
-
-    override fun onResume() {
-        super.onResume()
-        viewModel?.getData()
-        updateAdapter()
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -67,7 +62,7 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    fun onBack() {
+    open fun onBack() {
         hideKeyBoard()
         parentActivity.onBackPressed()
     }

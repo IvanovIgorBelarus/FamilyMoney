@@ -7,10 +7,10 @@ import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
 import kotlinx.coroutines.launch
 
 class TypeTransactionViewModel(private val fragmentType: String) : BaseViewModel() {
-    override fun getData() {
+    override fun getData(forceLoad: Boolean) {
         isLoading.set(true)
         viewModelScope.launch {
-            val list = repo.getCategoriesList()
+            val list = repo.getCategoriesList(forceLoad)
             val partner = repo.getPartner()
             mutableLiveData.value = list.categoryPartnersFilter(partner).filter { item -> (item.type == fragmentType) }
             isLoading.set(false)

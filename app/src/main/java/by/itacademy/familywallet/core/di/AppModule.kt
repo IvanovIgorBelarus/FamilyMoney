@@ -6,12 +6,11 @@ import by.itacademy.familywallet.core.screen_manager.ScreenManagerImpl
 import by.itacademy.familywallet.core.others.BASE_CURRENCY_URL
 import by.itacademy.familywallet.core.api.CurrencyApi
 import by.itacademy.familywallet.core.api.DataRepository
-import by.itacademy.familywallet.core.firebase.FirebaseDataBase
-import by.itacademy.familywallet.core.firebase.FirebaseRepositoryImpl
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.core.adapter.FragmentAdapter
 import by.itacademy.familywallet.core.others.ItemClickListener
 import by.itacademy.familywallet.core.others.ItemOnLongClickListener
+import by.itacademy.familywallet.core.repository.DataInteractor
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.utils.ViewPreparation
 import by.itacademy.familywallet.features.operations.view_model.CategoryOperationViewModel
@@ -43,7 +42,7 @@ val commonModule = module {
     single<ScreenManager> { (container: Int, activity: AppCompatActivity) -> ScreenManagerImpl(container, activity) }
 }
 val dataModule = module {
-    single<DataRepository> { FirebaseRepositoryImpl(FirebaseDataBase.instance) }
+    single<DataRepository> { DataInteractor }
 }
 val retrofitModule = module {
     val retrofit = Retrofit.Builder()

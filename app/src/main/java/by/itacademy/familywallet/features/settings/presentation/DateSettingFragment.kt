@@ -8,6 +8,7 @@ import by.itacademy.familywallet.features.start.App.Companion.dateFilterType
 import by.itacademy.familywallet.features.start.App.Companion.endDate
 import by.itacademy.familywallet.features.start.App.Companion.startDate
 import by.itacademy.familywallet.R
+import by.itacademy.familywallet.common.wrappers.SettingsChangeWrapper
 import by.itacademy.familywallet.core.others.DAY_FILTER
 import by.itacademy.familywallet.core.others.FULL_DATE
 import by.itacademy.familywallet.core.others.INCOMES
@@ -22,6 +23,7 @@ import by.itacademy.familywallet.core.others.ItemClickListener
 import by.itacademy.familywallet.utils.formatDate
 import by.itacademy.familywallet.core.others.BaseFragment
 import by.itacademy.familywallet.features.settings.viewmodel.DateSettingsViewModel
+import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -138,6 +140,10 @@ class DateSettingFragment : BaseFragment<FragmentAdapter, DateSettingsViewModel>
         onBack()
     }
 
+    override fun onBack() {
+        EventBus.getDefault().post(SettingsChangeWrapper())
+        super.onBack()
+    }
     companion object {
         fun newInstance() = DateSettingFragment()
     }
