@@ -4,8 +4,7 @@ import by.itacademy.familywallet.core.repository.CacheRepository
 import by.itacademy.familywallet.model.UIModel
 import javax.inject.Singleton
 
-@Singleton
-class CategoriesCache : CacheRepository<List<UIModel.CategoryModel>> {
+object CategoriesCache : CacheRepository<List<UIModel.CategoryModel>> {
 
     private var categoriesList: List<UIModel.CategoryModel>? = null
 

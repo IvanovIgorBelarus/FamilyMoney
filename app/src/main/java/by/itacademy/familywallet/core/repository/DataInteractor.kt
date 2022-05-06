@@ -1,13 +1,15 @@
 package by.itacademy.familywallet.core.repository
 
-import android.util.Log
 import by.itacademy.familywallet.core.api.DataRepository
 import by.itacademy.familywallet.core.firebase.FirebaseDataBase
 import by.itacademy.familywallet.core.firebase.FirebaseRepositoryImpl
+import by.itacademy.familywallet.core.repository.domain.CategoriesCache
+import by.itacademy.familywallet.core.repository.domain.PartnerCache
+import by.itacademy.familywallet.core.repository.domain.SmsCache
+import by.itacademy.familywallet.core.repository.domain.TransactionsCache
 import by.itacademy.familywallet.model.UIModel
-import javax.inject.Singleton
 
-class DataInteractor(private val dataStoreStore: DataStore) : DataRepository {
+object DataInteractor : DataRepository {
 
     private val firebaseRepository = FirebaseRepositoryImpl(FirebaseDataBase.instance)
 
@@ -32,24 +34,20 @@ class DataInteractor(private val dataStoreStore: DataStore) : DataRepository {
     }
 
     override suspend fun getSmsList(forceLoad: Boolean): List<UIModel.SmsModel> {
-        Log.e("REQUEST", "======================== getSmsList ==========================")
-        return get(dataStoreStore.smsList, firebaseRepository.getSmsList(), forceLoad)
+        return get(SmsCache, firebaseRepository.getSmsList(), forceLoad)
     }
 
 
     override suspend fun getPartner(forceLoad: Boolean): UIModel.AccountModel {
-        Log.e("REQUEST", "======================== getPartner ==========================")
-        return get(dataStoreStore.partner, firebaseRepository.getPartner(), forceLoad)
+        return get(PartnerCache, firebaseRepository.getPartner(), forceLoad)
     }
 
     override suspend fun getTransactionsList(forceLoad: Boolean): List<UIModel.TransactionModel> {
-        Log.e("REQUEST", "======================== getTransactionsList ==========================")
-        return get(dataStoreStore.transactionsList, firebaseRepository.getTransactionsList(), forceLoad)
+        return get(TransactionsCache, firebaseRepository.getTransactionsList(), forceLoad)
     }
 
     override suspend fun getCategoriesList(forceLoad: Boolean): List<UIModel.CategoryModel> {
-        Log.e("REQUEST", "======================== getCategoriesList ==========================")
-        return get(dataStoreStore.categoriesList, firebaseRepository.getCategoriesList(), forceLoad)
+        return get(CategoriesCache, firebaseRepository.getCategoriesList(), forceLoad)
     }
 
     override suspend fun deleteItem(item: Any?) {
@@ -65,16 +63,14 @@ class DataInteractor(private val dataStoreStore: DataStore) : DataRepository {
     private fun <T> get(cache: CacheRepository<T>, request: T, forceLoad: Boolean): T {
         return if (cache.isEmpty() || forceLoad) {
             cache.put(request)
-            Log.e("REQUEST", "from request")
             cache.get()
         } else {
-            Log.e("REQUEST", "from cache")
             cache.get()
         }
     }
 
 
-    suspend fun update(item: Any?) {
+    private suspend fun update(item: Any?) {
         when (item) {
             is UIModel.CategoryModel -> getCategoriesList(forceLoad = true)
             is UIModel.AccountModel -> getPartner(forceLoad = true)

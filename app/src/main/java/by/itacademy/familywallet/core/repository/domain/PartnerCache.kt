@@ -4,8 +4,7 @@ import by.itacademy.familywallet.core.repository.CacheRepository
 import by.itacademy.familywallet.model.UIModel
 import javax.inject.Singleton
 
-@Singleton
-class PartnerCache: CacheRepository<UIModel.AccountModel> {
+object PartnerCache: CacheRepository<UIModel.AccountModel> {
 
     private  var partner: UIModel.AccountModel? = null
 
