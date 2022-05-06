@@ -17,6 +17,8 @@ import by.itacademy.familywallet.core.adapter.FragmentAdapter
 import by.itacademy.familywallet.utils.Icons
 import by.itacademy.familywallet.core.others.BaseFragment
 import by.itacademy.familywallet.features.new_category.view_model.NewCategoryViewModel
+import by.itacademy.familywallet.utils.ProgressBarUtils
+import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -87,6 +89,7 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, NewCategoryViewModel>(
         super.listenBus(wrapper)
         when (wrapper) {
             is IconWrapper -> {
+                isLoading.set(false)
                 item?.icon = wrapper.icon
                 Icons.valueOf(wrapper.icon)
                 binding.itemName.categoryImage = Icons.valueOf(wrapper.icon).imageRes
