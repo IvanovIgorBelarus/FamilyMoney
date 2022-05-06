@@ -39,7 +39,7 @@ class StartFragmentViewModel(private val currencyApi: CurrencyApi) : BaseViewMod
             val expensesList = list.currentDateFilter().typeFilter(EXPENSES)
             val categories = repo.getCategoriesList(forceLoad).categoryTypeFilter(EXPENSES)
 
-            val currencyList = currencyApi.getCurrencyList().execute().body()
+//            val currencyList = currencyApi.getCurrencyList()
             withContext(Dispatchers.Main) {
 
                 mutableLiveDataStart.value = StartModel(
@@ -48,7 +48,7 @@ class StartFragmentViewModel(private val currencyApi: CurrencyApi) : BaseViewMod
                     balance = list.balanceFilter(),
                     bankString = getBankString(list.typeFilter(BANK)),
                     pieData = PieModelMapper.map(categories, expensesList),
-                    currencyString = getCurrencyString(currencyList)
+                    currencyString = getCurrencyString(emptyList())
                 )
             }
 
