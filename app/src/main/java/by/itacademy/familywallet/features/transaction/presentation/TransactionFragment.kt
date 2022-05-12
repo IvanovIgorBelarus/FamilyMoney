@@ -32,6 +32,7 @@ import by.itacademy.familywallet.databinding.FragmentTransactionBinding
 import by.itacademy.familywallet.features.transaction.view_model.TransactionViewModel
 import by.itacademy.familywallet.features.transactions_list.presentation.TypeTransactionFragment
 import by.itacademy.familywallet.model.UIModel
+import by.itacademy.familywallet.utils.ProgressBarUtils.isLoading
 import by.itacademy.familywallet.utils.UserUtils
 import org.koin.android.ext.android.inject
 import java.util.*
@@ -182,6 +183,7 @@ class TransactionFragment : BaseFragment<FragmentAdapter, TransactionViewModel>(
             is CategoryChangeWrapper -> {
                 binding.transactionCategoryTitle.text = wrapper.category
                 item?.category = wrapper.category
+                isLoading.set(false)
             }
         }
     }

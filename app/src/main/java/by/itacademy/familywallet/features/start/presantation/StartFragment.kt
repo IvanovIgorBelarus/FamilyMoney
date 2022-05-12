@@ -73,6 +73,7 @@ class StartFragment : BaseFragment<FragmentAdapter, StartFragmentViewModel>(R.la
     }
 
     override fun listenBus(wrapper: Any) {
+        super.listenBus(wrapper)
         viewModel.getData(wrapper is TransactionWrapper)
     }
 

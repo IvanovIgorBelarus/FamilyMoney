@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.wrappers.AddOrDeleteCategoryWrapper
 import by.itacademy.familywallet.common.wrappers.CategoryChangeWrapper
+import by.itacademy.familywallet.common.wrappers.UpdateWrapper
 import by.itacademy.familywallet.core.adapter.FragmentAdapter
 import by.itacademy.familywallet.core.others.BaseFragment
 import by.itacademy.familywallet.core.others.ItemClickListener
@@ -65,12 +66,6 @@ class TypeTransactionFragment : BaseFragment<FragmentAdapter, TypeTransactionVie
             onBack()
         } else {
             addFragment(TransactionFragment.newInstance((item as UIModel.CategoryModel).type, item.category))
-        }
-    }
-
-    override fun listenBus(wrapper: Any) {
-        if (wrapper is AddOrDeleteCategoryWrapper){
-            viewModel.getData(true)
         }
     }
 

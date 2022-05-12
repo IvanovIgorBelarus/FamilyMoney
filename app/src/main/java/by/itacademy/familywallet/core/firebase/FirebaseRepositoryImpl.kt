@@ -1,6 +1,5 @@
 package by.itacademy.familywallet.core.firebase
 
-import by.itacademy.familywallet.common.wrappers.AddOrDeleteCategoryWrapper
 import by.itacademy.familywallet.common.wrappers.DeleteOperationWrapper
 import by.itacademy.familywallet.common.wrappers.DeleteSmsWrapper
 import by.itacademy.familywallet.common.wrappers.TransactionWrapper
@@ -18,6 +17,7 @@ import by.itacademy.familywallet.core.others.TRANSACTION_TYPE
 import by.itacademy.familywallet.core.others.UID
 import by.itacademy.familywallet.core.others.USERS
 import by.itacademy.familywallet.core.others.VALUE
+import by.itacademy.familywallet.core.repository.DataInteractor
 import by.itacademy.familywallet.model.UIModel
 import by.itacademy.familywallet.utils.Icons
 import by.itacademy.familywallet.utils.UserUtils
@@ -52,14 +52,10 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) {
                 DATE to transactionModel.date
             )
         ).addOnSuccessListener {
-            val wrapper = if (isSms) {
-                DeleteSmsWrapper()
-            } else {
-                TransactionWrapper()
-            }
             CoroutineScope(Dispatchers.IO).launch {
-                deleteItem(UIModel.SmsModel(id = transactionModel.id))
-                EventBus.getDefault().post(wrapper)
+                if (isSms) {
+                deleteItem(UIModel.SmsModel(id = transactionModel.id))}
+                DataInteractor.update(transactionModel)
             }
 
         }
@@ -81,7 +77,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) {
                 DATE to transactionModel.date
             )
         ).addOnSuccessListener {
-            EventBus.getDefault().post(TransactionWrapper())
+            CoroutineScope(Dispatchers.IO).launch { DataInteractor.update(transactionModel) }
         }
     }
 
@@ -93,7 +89,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) {
                 TRANSACTION_TYPE to categoryItem.type,
                 ICON to categoryItem.icon
             )
-        ).addOnSuccessListener { EventBus.getDefault().post(AddOrDeleteCategoryWrapper()) }
+        ).addOnSuccessListener { CoroutineScope(Dispatchers.IO).launch { DataInteractor.update(categoryItem) } }
     }
 
     suspend fun getSmsList(): List<UIModel.SmsModel> = suspendCoroutine { continuation ->
@@ -184,7 +180,7 @@ class FirebaseRepositoryImpl(private val db: FirebaseFirestore) {
         db.collection(category)
             .document("${(item as UIModel.BaseModel).itemId}")
             .delete()
-            .addOnSuccessListener { EventBus.getDefault().post(DeleteOperationWrapper()) }
+            .addOnSuccessListener { CoroutineScope(Dispatchers.IO).launch {DataInteractor.update(item)} }
     }
 
     fun upDateItem(item: Any?) {

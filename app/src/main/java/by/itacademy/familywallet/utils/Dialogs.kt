@@ -50,7 +50,6 @@ class Dialogs(private val repo: DataRepository) {
                     repo.deleteItem(item)
                     withContext(Dispatchers.Main) {
                         dialog.cancel()
-                        fragment.viewModel?.getData(true)
                     }
                 }
             }

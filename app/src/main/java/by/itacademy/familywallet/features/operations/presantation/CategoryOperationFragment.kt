@@ -43,6 +43,7 @@ class CategoryOperationFragment : BaseFragment<FragmentAdapter, CategoryOperatio
     }
 
     override fun listenBus(wrapper: Any) {
+        super.listenBus(wrapper)
         when (wrapper) {
             is TransactionWrapper -> viewModel.getData(true)
             is SettingsChangeWrapper -> viewModel.getData()

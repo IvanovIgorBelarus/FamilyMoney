@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import by.itacademy.familywallet.R
 import by.itacademy.familywallet.common.wrappers.SmsWrapper
+import by.itacademy.familywallet.common.wrappers.UpdateWrapper
 import by.itacademy.familywallet.core.adapter.FragmentAdapter
 import by.itacademy.familywallet.utils.Dialogs
 import by.itacademy.familywallet.features.start.presantation.FragmentsActivity
@@ -86,6 +87,7 @@ abstract class BaseFragment<AD : FragmentAdapter, VM : BaseViewModel>(private va
     open fun listenBus(wrapper: Any) {
         when (wrapper) {
             is SmsWrapper -> parentActivity.opMenu?.getItem(1)?.setIcon(R.drawable.ic_baseline_sms_failed)
+            is UpdateWrapper -> viewModel?.getData()
         }
     }
 }

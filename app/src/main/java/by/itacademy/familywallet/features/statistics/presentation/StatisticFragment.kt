@@ -49,6 +49,7 @@ class StatisticFragment : BaseFragment<FragmentAdapter, StatisticViewModel>(R.la
     }
 
     override fun listenBus(wrapper: Any) {
+        super.listenBus(wrapper)
         when (wrapper) {
             is TransactionWrapper,
             is DeleteOperationWrapper -> viewModel.getData(true)
