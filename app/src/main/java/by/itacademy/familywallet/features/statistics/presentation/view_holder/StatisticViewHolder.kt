@@ -21,7 +21,7 @@ class StatisticViewHolder(
         itemView.setOnClickListener { itemClickListener?.onClick(item) }
         val icon = item.icon ?: Icons.getIcons()[0].name
         with(binding.textView) {
-            setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(Icons.valueOf(icon).imageRes, context.theme), null, null, null)
+            setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(Icons.getIcon(icon).imageRes, context.theme), null, null, null)
             compoundDrawableTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(context, if (item!!.type == EXPENSES) R.color.expensesColor else R.color.incomesColor))
             text = String.format("%s : %.2f BYN", item?.category, item?.value)

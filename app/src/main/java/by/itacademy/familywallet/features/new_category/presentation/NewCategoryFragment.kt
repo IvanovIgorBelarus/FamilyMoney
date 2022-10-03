@@ -64,7 +64,7 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, NewCategoryViewModel>(
             }
             itemName.imageClickListener = { addFragment(IconChooseFragment.newInstance()) }
             val icon = item?.icon ?: Icons.getIcons()[0].name
-            itemName.categoryImage = Icons.valueOf(icon).imageRes
+            itemName.categoryImage = Icons.getIcon(icon).imageRes
             if (item?.id.isNullOrEmpty()) {
                 title.text = String.format(getString(R.string.new_category_tittle), if (item?.type!! == INCOMES) getString(R.string.income) else getString(R.string.expenses))
             } else {
@@ -91,8 +91,8 @@ class NewCategoryFragment : BaseFragment<FragmentAdapter, NewCategoryViewModel>(
             is IconWrapper -> {
                 isLoading.set(false)
                 item?.icon = wrapper.icon
-                Icons.valueOf(wrapper.icon)
-                binding.itemName.categoryImage = Icons.valueOf(wrapper.icon).imageRes
+                Icons.getIcon(wrapper.icon)
+                binding.itemName.categoryImage = Icons.getIcon(wrapper.icon).imageRes
             }
         }
     }

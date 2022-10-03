@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.provider.Telephony
+import by.itacademy.familywallet.common.wrappers.DeleteSmsWrapper
 import by.itacademy.familywallet.common.wrappers.SmsWrapper
 import by.itacademy.familywallet.core.others.CURRENCY
 import by.itacademy.familywallet.core.others.DATE
@@ -28,7 +29,7 @@ class SMSReceiver : BroadcastReceiver() {
                             CURRENCY to sms.currency,
                             VALUE to sms.value
                         )
-                    )
+                    ).addOnSuccessListener { EventBus.getDefault().post(DeleteSmsWrapper()) }
                 }
             }
         }

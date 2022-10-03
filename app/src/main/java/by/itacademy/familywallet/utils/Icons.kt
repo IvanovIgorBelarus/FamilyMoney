@@ -103,11 +103,13 @@ enum class Icons(val imageRes: Int) {
     MDI_WEIGHT_LIFTER(R.drawable.ic_mdi_weight_lifter),
     VPN_KEY(R.drawable.ic_baseline_vpn_key);
 
-    companion object{
+    companion object {
         fun getIcons(): List<IconModel> {
             val resultList = mutableListOf<IconModel>()
-            Icons.values().forEach { resultList.add(IconModel(it.name, it.imageRes)) }
+            values().forEach { resultList.add(IconModel(it.name, it.imageRes)) }
             return resultList
         }
+
+        fun getIcon(name: String) = values().firstOrNull { name == it.name } ?: INSERT_PHOTO
     }
 }

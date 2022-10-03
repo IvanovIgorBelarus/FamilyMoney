@@ -29,7 +29,7 @@ class CategoryViewHolder(
         App().viewPreparation.prepareView(itemView, item?.type!!)
         with(binding.textView) {
             text = "${item?.category}"
-            setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(Icons.valueOf(icon).imageRes, context.theme), null, null, null)
+            setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(Icons.getIcon(icon).imageRes, context.theme), null, null, null)
             compoundDrawableTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(context, if (item!!.type == EXPENSES) R.color.expensesColor else R.color.incomesColor))
             App().viewPreparation.prepareView(this, item?.type!!)
